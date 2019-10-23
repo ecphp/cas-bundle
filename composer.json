@@ -1,0 +1,39 @@
+{
+    "name": "drupol/cas-bundle",
+    "type": "symfony-bundle",
+    "description": "A CAS bundle for Symfony 4 & 5.",
+    "license": "MIT",
+    "require": {
+        "php": ">= 7.1.3",
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "drupol/psrcas": "dev-master",
+        "nyholm/psr7": "^1.2",
+        "symfony/cache": ">= 4.3.8",
+        "symfony/framework-bundle": ">= 4.3.8",
+        "symfony/http-client": ">= 4.3.8",
+        "symfony/monolog-bundle": ">= 3.5",
+        "symfony/psr-http-message-bridge": "^1.2",
+        "symfony/security-bundle": ">= 4.3.8"
+    },
+    "require-dev": {
+        "drupol/php-conventions": "^1"
+    },
+    "suggest": {
+        "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",
+        "nyholm/psr7-server": "For a PSR-7 implementation of Server Requests.",
+        "symfony/cache": "For a cache implementation (PSR-6).",
+        "symfony/http-client": "For an HTTP client implementation (PSR-18).",
+        "symfony/monolog-bundle": "For a logger implementation (PSR-3)."
+    },
+    "autoload": {
+        "psr-4": {
+            "drupol\\CasBundle\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "grumphp": "./vendor/bin/grumphp run"
+    }
+}

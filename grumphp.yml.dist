@@ -1,0 +1,5 @@
+imports:
+  - { resource: vendor/drupol/php-conventions/config/php71/grumphp.yml }
+
+parameters:
+    tasks.phpstan.configuration: phpstan.neon

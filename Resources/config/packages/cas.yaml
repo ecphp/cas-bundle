@@ -1,0 +1,42 @@
+cas:
+  base_url: https://heroku-cas-server.herokuapp.com/cas
+  protocol:
+    login:
+      path: /login
+      allowed_parameters:
+        - service
+        - renew
+        - gateway
+      default_parameters:
+        service: cas_bundle_homepage
+    serviceValidate:
+      path: /p3/serviceValidate
+      allowed_parameters:
+        - service
+        - pgtUrl
+        - renew
+        - format
+      default_parameters:
+        format: JSON
+        #pgtUrl: cas_bundle_proxy_callback
+    logout:
+      path: /logout
+      allowed_parameters:
+        - service
+      default_parameters:
+        service: cas_bundle_homepage
+    proxy:
+      path: /proxy
+      allowed_parameters:
+        - targetService
+        - pgt
+    proxyValidate:
+      path: /p3/proxyValidate
+      allowed_parameters:
+        - service
+        - ticket
+        - pgtUrl
+        - format
+      default_parameters:
+        format: JSON
+        #pgtUrl: cas_bundle_proxy_callback
