@@ -30,14 +30,14 @@ In order to get the CAS bundle working, you will require some dependencies.
 To give a maximum freedom to the users using, each required dependencies is a well
 defined standardized PHP class.
 
+See the `PHP-FIG framework group`_ for more information.
+
 +------------------+-----------+---------------------------------+------------------------+
 | Dependency       | PSR       | Implementations                 | Example package        |
 +==================+===========+=================================+========================+
 | Logger           | `PSR-3`_  | `log-implementation`_           | `monolog/monolog`_     |
 +------------------+-----------+---------------------------------+------------------------+
 | Cache            | `PSR-6`_  | `cache-implementation`_         | `symfony/cache`_       |
-+------------------+-----------+---------------------------------+------------------------+
-| Server request   | `PSR-7`_  | `http-message-implementations`_ | `nyholm/psr7-server`_  |
 +------------------+-----------+---------------------------------+------------------------+
 | HTTP factories   | `PSR-17`_ | `http-factory-implementations`_ | `nyholm/psr7`_         |
 +------------------+-----------+---------------------------------+------------------------+
@@ -61,3 +61,4 @@ You are free to use any package you want, as long as they are implementing the p
 .. _PSR-3: https://www.php-fig.org/psr/psr-3/
 .. _PSR-6: https://www.php-fig.org/psr/psr-6/
 .. _PSR-7: https://www.php-fig.org/psr/psr-7/
+.. _PHP-FIG framework group: https://www.php-fig.org/
