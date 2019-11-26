@@ -17,6 +17,8 @@ Hereunder an example of configuration for CAS Bundle.
          - service
          - renew
          - gateway
+       default_parameters:
+         service: https://my-app/homepage
      serviceValidate:
        path: /p3/serviceValidate
        allowed_parameters:

@@ -6,8 +6,17 @@ PHP
 
 PHP greater than 7.1 is required for this library.
 
-PHP Extensions
---------------
+Symfony
+-------
+
+The minimal required version of Symfony is 4.3.8.
+
+This bundle is also compatible with Symfony 5.
+
+Extensions
+----------
+
+These PHP extensions are required:
 
 - json
 - libxml

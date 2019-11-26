@@ -17,7 +17,7 @@ with interoperability in mind. It only uses `PHP Standards Recommendations`_ int
 -  `PSR-7`_ for HTTP messages (requests, responses),
 -  `PSR-12`_ for coding standards,
 -  `PSR-17`_ for HTTP messages factories,
--  `PSR-18`_ for HTTP client.
+-  `PSR-18`_ for the HTTP client.
 
 .. _CAS authentication: https://en.wikipedia.org/wiki/Central_Authentication_Service
 .. _PHP Standards Recommendations: https://www.php-fig.org/
