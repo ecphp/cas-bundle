@@ -20,7 +20,8 @@
         "drupol/php-conventions": "^1",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3",
         "infection/infection": "^0.13.6 || ^0.14.4",
-        "phpspec/phpspec": "^5.0 || ^6.0"
+        "phpspec/phpspec": "^5.0 || ^6.0",
+        "scrutinizer/ocular": "^1.6"
     },
     "suggest": {
         "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",
@@ -42,6 +43,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "grumphp": "./vendor/bin/grumphp run"
+        "grumphp": "./vendor/bin/grumphp run",
+        "scrutinizer": "./vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml"
     }
 }
