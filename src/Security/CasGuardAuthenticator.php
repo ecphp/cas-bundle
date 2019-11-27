@@ -114,8 +114,10 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
             throw new AuthenticationException('Unable to load the user through the given User Provider.');
         }
 
-        if (null === $user = $userProvider->loadUserByResponse($response)) {
-            throw new AuthenticationException('Unable to authenticate the user with such credentials.');
+        try {
+            $user = $userProvider->loadUserByResponse($response);
+        } catch (AuthenticationException $exception) {
+            throw $exception;
         }
 
         return $user;
