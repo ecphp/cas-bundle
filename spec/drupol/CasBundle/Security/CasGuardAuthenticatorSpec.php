@@ -13,7 +13,6 @@ use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
 use Symfony\Bridge\Monolog\Logger;
-use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -127,7 +126,7 @@ EOF;
 
         $this
             ->onLogoutSuccess($request)
-            ->shouldBeAnInstanceOf(\Symfony\Component\HttpFoundation\Response::class);
+            ->shouldBeAnInstanceOf(RedirectResponse::class);
 
         $this
             ->onLogoutSuccess($request)
@@ -142,7 +141,7 @@ EOF;
 
         $this
             ->start($request)
-            ->shouldBeAnInstanceOf(\Symfony\Component\HttpFoundation\Response::class);
+            ->shouldBeAnInstanceOf(RedirectResponse::class);
 
         $this
             ->start($request)
