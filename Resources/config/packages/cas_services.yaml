@@ -31,11 +31,7 @@ services:
             $uploadedFileFactory: '@nyholm.psr7.psr17_factory'
             $responseFactory: '@nyholm.psr7.psr17_factory'
 
-    cas.httpfoundationfactory:
-        class: Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory
-
     Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface: '@cas.psrhttpfactory'
-    Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface: '@cas.httpfoundationfactory'
 
     cas.guardauthenticator:
         class: drupol\CasBundle\Security\CasGuardAuthenticator
@@ -43,7 +39,6 @@ services:
             $cas: '@cas'
             $uriFactory: '@nyholm.psr7.psr17_factory'
             $serverRequestFactory: '@nyholm.psr7.psr17_factory'
-            $httpFoundationFactory: '@cas.httpfoundationfactory'
             $tokenStorage: '@security.token_storage'
 
     cas.request:

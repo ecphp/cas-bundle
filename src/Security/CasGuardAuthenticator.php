@@ -12,7 +12,6 @@ use drupol\psrcas\Utils\Uri;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -36,11 +35,6 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     private $cas;
 
     /**
-     * @var \Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface
-     */
-    private $httpFoundationFactory;
-
-    /**
      * @var \Psr\Http\Message\ServerRequestFactoryInterface
      */
     private $serverRequestFactory;
@@ -61,20 +55,17 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      * @param \drupol\psrcas\CasInterface $cas
      * @param \Psr\Http\Message\UriFactoryInterface $uriFactory
      * @param \Psr\Http\Message\ServerRequestFactoryInterface $serverRequestFactory
-     * @param \Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface $httpFoundationFactory
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      */
     public function __construct(
         CasInterface $cas,
         UriFactoryInterface $uriFactory,
         ServerRequestFactoryInterface $serverRequestFactory,
-        HttpFoundationFactoryInterface $httpFoundationFactory,
         TokenStorageInterface $tokenStorage
     ) {
         $this->cas = $cas;
         $this->uriFactory = $uriFactory;
         $this->serverRequestFactory = $serverRequestFactory;
-        $this->httpFoundationFactory = $httpFoundationFactory;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -135,7 +126,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        if ($request->query->has('ticket')) {
+        if (true === $request->query->has('ticket')) {
             return new RedirectResponse(
                 (string) Uri::removeParams(
                     $this->uriFactory->createUri(
@@ -167,13 +158,12 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function onLogoutSuccess(Request $request)
     {
-        return $this
-            ->httpFoundationFactory
-            ->createResponse(
-                $this
-                    ->cas
-                    ->logout()
-            );
+        return new RedirectResponse(
+            $this
+                ->cas
+                ->logout()
+                ->getHeaderLine('location')
+        );
     }
 
     /**
@@ -181,13 +171,12 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function start(Request $request, ?AuthenticationException $authException = null)
     {
-        return $this
-            ->httpFoundationFactory
-            ->createResponse(
-                $this
-                    ->cas
-                    ->login()
-            );
+        return new RedirectResponse(
+            $this
+                ->cas
+                ->login()
+                ->getHeaderLine('location')
+        );
     }
 
     /**
