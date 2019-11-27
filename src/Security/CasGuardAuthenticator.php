@@ -150,7 +150,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         return new RedirectResponse(
             (string) Uri::removeParams(
