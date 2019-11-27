@@ -1,6 +1,12 @@
 Tests, code quality and code style
 ==================================
 
+Every time changes are introduced into the library, `Travis CI`_ and `Github Actions`_
+run the tests written with `PHPSpec`_.
+
+`PHPInfection`_ is also triggered used to ensure that your code is properly
+tested.
+
 The code style is based on `PSR-12`_ plus a set of custom rules.
 Find more about the code style in use in the package `drupol/php-conventions`_.
 
@@ -26,16 +32,19 @@ will check your code
 
     ./vendor/bin/grumphp run
     GrumPHP is sniffing your code!
-    Running task  1/10: Composer... ✔
-    Running task  2/10: ComposerNormalize... ✔
-    Running task  3/10: YamlLint... ✔
-    Running task  4/10: JsonLint... ✔
-    Running task  5/10: PhpLint... ✔
-    Running task  6/10: TwigCs... ✔
-    Running task  7/10: PhpCsAutoFixerV2... ✔
-    Running task  8/10: PhpCsFixerV2... ✔
-    Running task  9/10: Phpcs... ✔
-    Running task 10/10: PhpStan... ✔
+    Running task  1/13: SecurityChecker... ✔
+    Running task  2/13: Composer... ✔
+    Running task  3/13: ComposerNormalize... ✔
+    Running task  4/13: YamlLint... ✔
+    Running task  5/13: JsonLint... ✔
+    Running task  6/13: PhpLint... ✔
+    Running task  7/13: TwigCs... ✔
+    Running task  8/13: PhpCsAutoFixerV2... ✔
+    Running task  9/13: PhpCsFixerV2... ✔
+    Running task 10/13: Phpcs... ✔
+    Running task 11/13: PhpStan... ✔
+    Running task 12/13: Phpspec... ✔
+    Running task 13/13: Infection... ✔
 
 .. _PSR-12: https://www.php-fig.org/psr/psr-12/
 .. _drupol/php-conventions: https://github.com/drupol/php-conventions
