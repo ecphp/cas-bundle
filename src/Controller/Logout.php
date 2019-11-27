@@ -18,19 +18,17 @@ final class Logout extends AbstractController
     /**
      * @param \drupol\psrcas\CasInterface $cas
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface $httpFoundationFactory
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(
         CasInterface $cas,
-        TokenStorageInterface $tokenStorage,
-        HttpFoundationFactoryInterface $httpFoundationFactory
+        TokenStorageInterface $tokenStorage
     ) {
         if (null !== $response = $cas->logout()) {
             $tokenStorage->setToken();
 
-            return $httpFoundationFactory->createResponse($response);
+            return new RedirectResponse($response->getHeaderLine('location'));
         }
 
         return new RedirectResponse('/');
