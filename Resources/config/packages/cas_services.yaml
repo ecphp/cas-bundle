@@ -42,6 +42,7 @@ services:
         arguments:
             $cas: '@cas'
             $uriFactory: '@nyholm.psr7.psr17_factory'
+            $serverRequestFactory: '@nyholm.psr7.psr17_factory'
             $httpFoundationFactory: '@cas.httpfoundationfactory'
             $tokenStorage: '@security.token_storage'
 
