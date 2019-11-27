@@ -37,13 +37,6 @@ Recursively copy the content of the `Resources/config` folder in `config/` folde
 Step 4
 ~~~~~~
 
-Edit the configuration file `cas.yaml` in `config/packages` and make sure it fits your needs.
-
-See more on the dedicated :ref:`configuration` page.
-
-Step 5
-~~~~~~
-
 Register new firewall for CAS authentication, e.g.
 
 .. code:: yaml
@@ -75,13 +68,33 @@ Example of configuration:
         access_control:
             - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
 
+Feel free to change these configuration to fits your need. Have a look at
+`the Symfony documentation about security and Guard authentication`_.
+
+This example configuration example will trigger the authentication on paths starting
+with `/api`, therefore make sure that at least such paths exists.
+
+Step 5
+~~~~~~
+
+The default configuration of this bundle comes with a configuration for authenticating with a real
+CAS server setup for testing and demo purposes at `https://heroku-cas-server.herokuapp.com/cas/`_.
+
+You should normally already be able to authenticate using the following credentials:
+
+- User: `casuser`
+- Password: `Mellon`
+
+Modifying the configuration file is key in this bundle and requires some understanding
+of the CAS protocol. See more on the dedicated :ref:`configuration` page for that.
+
 Step 6
 ~~~~~~
 
 The CAS protocol requires HTTPS on both side (client and server) in order
 to communicate.
 
-While it is not possible to configure the behavior of the CAS server, it is
+Whilst it is not possible to configure the behavior of the CAS server, it is
 possible to configure the HTTP client in use in this bundle in order to relax
 the requirement and to disable SSL checks when communicating from the client
 to the server.
@@ -100,5 +113,9 @@ E.g: If you're using the default `symfony/http-client`_, you might need to add i
                 verify_peer: false
                 verify_host: false
 
+This configuration is automatically added during the bundle installation in the `dev` environment.
+
 .. _Composer: https://getcomposer.org
 .. _symfony/http-client: https://packagist.org/packages/symfony/http-client
+.. _https://heroku-cas-server.herokuapp.com/cas/: https://heroku-cas-server.herokuapp.com/cas/
+.. _the Symfony documentation about security and Guard authentication: https://symfony.com/doc/current/security/guard_authentication.html
