@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace drupol\CasBundle\Controller;
 
 use drupol\psrcas\CasInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

@@ -20,8 +20,8 @@ parameters:
       threads: 10
       test_framework: phpspec
       configuration: infection.json.dist
-      min_msi: 0
-      min_covered_msi: 0
+      min_msi: 50
+      min_covered_msi: 50
       metadata:
         priority: 2000
     securitychecker:

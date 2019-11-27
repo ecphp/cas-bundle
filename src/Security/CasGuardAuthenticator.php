@@ -12,7 +12,6 @@ use drupol\psrcas\Utils\Uri;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -115,8 +114,10 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
             throw new AuthenticationException('Unable to load the user through the given User Provider.');
         }
 
-        if (null === $user = $userProvider->loadUserByResponse($response)) {
-            throw new AuthenticationException('Unable to authenticate the user with such credentials.');
+        try {
+            $user = $userProvider->loadUserByResponse($response);
+        } catch (AuthenticationException $exception) {
+            throw $exception;
         }
 
         return $user;
