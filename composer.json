@@ -19,7 +19,7 @@
     "require-dev": {
         "drupol/php-conventions": "^1",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3",
-        "infection/infection": "^0.14.4",
+        "infection/infection": "^0.13.6 || ^0.14.4",
         "phpspec/phpspec": "^5.0 || ^6.0"
     },
     "suggest": {
