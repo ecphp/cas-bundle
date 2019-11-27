@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\drupol\CasBundle\Security;
 
 use drupol\CasBundle\Security\CasGuardAuthenticator;
+use drupol\CasBundle\Security\Core\User\CasUser;
 use drupol\CasBundle\Security\Core\User\CasUserInterface;
 use drupol\CasBundle\Security\Core\User\CasUserProvider;
 use drupol\psrcas\Cas;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\User\InMemoryUserProvider;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class CasGuardAuthenticatorSpec extends ObjectBehavior
@@ -32,6 +34,44 @@ class CasGuardAuthenticatorSpec extends ObjectBehavior
 
         $this
             ->supports(Request::create('http://app'))
+            ->shouldReturn(false);
+    }
+
+    public function it_can_check_if_authentication_is_supported_when_a_user_is_logged_in(TokenStorageInterface $tokenStorage)
+    {
+        $serverRequest = new ServerRequest('GET', 'http://app');
+        $properties = \spec\drupol\CasBundle\Cas::getTestProperties();
+        $client = new Psr18Client(\spec\drupol\CasBundle\Cas::getHttpClientMock());
+        $cache = new ArrayAdapter();
+        $logger = new NullLogger();
+
+        $psr17Factory = new Psr17Factory();
+
+        $cas = new Cas(
+            $serverRequest,
+            $properties,
+            $client,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $cache,
+            $logger
+        );
+
+        $tokenStorage
+            ->getToken()
+            ->willReturn(new CasUser([]));
+
+        $this
+            ->beConstructedWith($cas, $psr17Factory, $psr17Factory, $tokenStorage);
+
+        $this
+            ->supports(Request::create('http://app'))
+            ->shouldReturn(false);
+
+        $this
+            ->supports(Request::create('http://app/?ticket=ticket'))
             ->shouldReturn(false);
     }
 
@@ -70,6 +110,16 @@ EOF;
         $this
             ->shouldThrow(AuthenticationException::class)
             ->during('checkCredentials', [$response, $user]);
+
+        $body = <<< 'EOF'
+Completely invalid XML.
+EOF;
+
+        $response = new Response(200, ['content-type' => 'application/xml'], $body);
+
+        $this
+            ->shouldThrow(AuthenticationException::class)
+            ->during('checkCredentials', [$response, $user]);
     }
 
     public function it_can_get_the_user_from_the_response()
@@ -88,6 +138,23 @@ EOF;
         $this
             ->getUser($response, $casUserProvider)
             ->shouldBeAnInstanceOf(CasUserInterface::class);
+
+        $body = <<< 'EOF'
+<cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+ <cas:authenticationFailure>
+ </cas:authenticationFailure>
+</cas:serviceResponse>
+EOF;
+
+        $response = new Response(200, ['content-type' => 'application/xml'], $body);
+        $this
+            ->shouldThrow(AuthenticationException::class)
+            ->during('getUser', [$response, $casUserProvider]);
+
+        $userProvider = new InMemoryUserProvider([]);
+        $this
+            ->shouldThrow(AuthenticationException::class)
+            ->during('getUser', [$response, $userProvider]);
     }
 
     public function it_can_redirect_on_failed_authentication(TokenInterface $token, AuthenticationException $authenticationException)
@@ -103,6 +170,12 @@ EOF;
             ->headers
             ->all()
             ->shouldHaveKeyWithValue('location', ['http://app/']);
+
+        $request = Request::create('http://app/');
+
+        $this
+            ->onAuthenticationFailure($request, $authenticationException)
+            ->shouldBeNull();
     }
 
     public function it_can_redirect_on_success_authentication(TokenInterface $token)
