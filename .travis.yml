@@ -17,7 +17,7 @@ install:
 - composer install
 
 script:
-- composer grumphp
+- ./vendor/bin/phpspec run
 
 after_success:
 - phpenv config-rm xdebug.ini
