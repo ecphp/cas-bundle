@@ -17,7 +17,10 @@
         "symfony/security-bundle": ">= 4.3.8"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1"
+        "drupol/php-conventions": "^1",
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
+        "infection/infection": "^0.14.4",
+        "phpspec/phpspec": "^6.0"
     },
     "suggest": {
         "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",
@@ -29,6 +32,11 @@
     "autoload": {
         "psr-4": {
             "drupol\\CasBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\drupol\\CasBundle\\": "./spec/drupol/CasBundle/"
         }
     },
     "minimum-stability": "dev",
