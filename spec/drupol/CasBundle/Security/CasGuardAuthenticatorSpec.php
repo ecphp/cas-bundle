@@ -164,7 +164,6 @@ EOF;
         $cache = new ArrayAdapter();
         $logger = new Logger('cas-bundle');
 
-        $httpFoundationFactory = new HttpFoundationFactory();
         $psr17Factory = new Psr17Factory();
 
         $cas = new Cas(
@@ -180,6 +179,6 @@ EOF;
         );
 
         $this
-            ->beConstructedWith($cas, $psr17Factory, $psr17Factory, $httpFoundationFactory, $tokenStorage);
+            ->beConstructedWith($cas, $psr17Factory, $psr17Factory, $tokenStorage);
     }
 }
