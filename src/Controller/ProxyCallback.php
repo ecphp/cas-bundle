@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Controller\CasBundle;
+namespace drupol\CasBundle\Controller;
 
 use drupol\psrcas\CasInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;

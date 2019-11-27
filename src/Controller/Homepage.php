@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Controller\CasBundle;
+namespace drupol\CasBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
