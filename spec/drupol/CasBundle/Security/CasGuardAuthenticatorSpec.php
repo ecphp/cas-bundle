@@ -12,7 +12,7 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
-use Symfony\Bridge\Monolog\Logger;
+use Psr\Log\NullLogger;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -161,7 +161,7 @@ EOF;
         $properties = \spec\drupol\CasBundle\Cas::getTestProperties();
         $client = new Psr18Client(\spec\drupol\CasBundle\Cas::getHttpClientMock());
         $cache = new ArrayAdapter();
-        $logger = new Logger('cas-bundle');
+        $logger = new NullLogger();
 
         $psr17Factory = new Psr17Factory();
 
