@@ -5,6 +5,9 @@ Installation
 
 This package does not yet have a Symfony Flex recipe. Installation steps must be done manually.
 
+Default configuration files will be copied in the `dev` environment except for the file defining
+the services.
+
 Step 1
 ~~~~~~
 
@@ -68,11 +71,11 @@ Example of configuration:
         access_control:
             - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
 
-Feel free to change these configuration to fits your need. Have a look at
-`the Symfony documentation about security and Guard authentication`_.
-
 This example configuration example will trigger the authentication on paths starting
 with `/api`, therefore make sure that at least such paths exists.
+
+Feel free to change these configuration to fits your need. Have a look at
+`the Symfony documentation about security and Guard authentication`_.
 
 Step 5
 ~~~~~~
