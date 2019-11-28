@@ -18,8 +18,7 @@
     },
     "require-dev": {
         "friends-of-phpspec/phpspec-code-coverage": "dev-master",
-        "phpspec/phpspec": "dev-master",
-        "scrutinizer/ocular": "dev-master"
+        "phpspec/phpspec": "dev-master"
     },
     "suggest": {
         "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",

@@ -23,3 +23,8 @@ install:
 
 script:
 - ./vendor/bin/phpspec run
+
+after_success:
+- phpenv config-rm xdebug.ini
+- wget https://scrutinizer-ci.com/ocular.phar
+- php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
