@@ -33,7 +33,6 @@ final class CasUser implements CasUserInterface
      */
     public function eraseCredentials(): void
     {
-        throw new LogicException('Not implemented.');
     }
 
     /**

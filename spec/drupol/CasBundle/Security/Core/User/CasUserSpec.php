@@ -57,13 +57,6 @@ class CasUserSpec extends ObjectBehavior
             ->shouldReturn('proxyGrantingTicket');
     }
 
-    public function it_does_not_allow_to_erase_credentials()
-    {
-        $this
-            ->shouldThrow(LogicException::class)
-            ->during('eraseCredentials');
-    }
-
     public function it_does_not_allow_to_get_password()
     {
         $this
