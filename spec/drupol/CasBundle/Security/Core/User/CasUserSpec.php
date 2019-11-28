@@ -57,13 +57,6 @@ class CasUserSpec extends ObjectBehavior
             ->shouldReturn('proxyGrantingTicket');
     }
 
-    public function it_does_not_allow_to_get_password()
-    {
-        $this
-            ->shouldThrow(LogicException::class)
-            ->during('getPassword');
-    }
-
     public function it_does_not_allow_to_get_salt()
     {
         $this

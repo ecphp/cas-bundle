@@ -64,7 +64,6 @@ final class CasUser implements CasUserInterface
      */
     public function getPassword()
     {
-        throw new LogicException('Not implemented.');
     }
 
     /**
