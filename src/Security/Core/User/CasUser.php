@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\CasBundle\Security\Core\User;
 
-use LogicException;
-
 /**
  * Class CasUser.
  */
@@ -87,7 +85,6 @@ final class CasUser implements CasUserInterface
      */
     public function getSalt()
     {
-        throw new LogicException('Not implemented.');
     }
 
     /**

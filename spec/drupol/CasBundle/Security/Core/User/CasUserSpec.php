@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace spec\drupol\CasBundle\Security\Core\User;
 
 use drupol\CasBundle\Security\Core\User\CasUser;
-use LogicException;
 use PhpSpec\ObjectBehavior;
 
 class CasUserSpec extends ObjectBehavior
@@ -55,13 +54,6 @@ class CasUserSpec extends ObjectBehavior
         $this
             ->getPgt()
             ->shouldReturn('proxyGrantingTicket');
-    }
-
-    public function it_does_not_allow_to_get_salt()
-    {
-        $this
-            ->shouldThrow(LogicException::class)
-            ->during('getSalt');
     }
 
     public function it_is_initializable()
