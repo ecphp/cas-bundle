@@ -23,7 +23,3 @@ install:
 
 script:
 - ./vendor/bin/phpspec run
-
-after_success:
-- phpenv config-rm xdebug.ini
-- composer scrutinizer

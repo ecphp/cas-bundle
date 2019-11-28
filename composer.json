@@ -21,12 +21,6 @@
         "phpspec/phpspec": "dev-master",
         "scrutinizer/ocular": "dev-master"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/scrutinizer-ci/ocular"
-        }
-    ],
     "suggest": {
         "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",
         "nyholm/psr7-server": "For a PSR-7 implementation of Server Requests.",
