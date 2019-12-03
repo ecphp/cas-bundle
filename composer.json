@@ -1,7 +1,14 @@
 {
     "name": "drupol/cas-bundle",
     "type": "symfony-bundle",
-    "description": "A CAS bundle for Symfony 4 & 5.",
+    "description": "A bundle for Symfony 4 & 5, providing authentication against a Central Authentication Service (CAS) server.",
+    "keywords": [
+        "authentication",
+        "cas",
+        "central authentication service",
+        "single sign-on",
+        "sso"
+    ],
     "license": "MIT",
     "require": {
         "php": ">= 7.2.5",
