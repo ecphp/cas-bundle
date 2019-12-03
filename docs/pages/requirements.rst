@@ -4,14 +4,12 @@ Requirements
 PHP
 ---
 
-PHP greater than 7.1 is required for this library.
+PHP greater or equal to 7.2.5 for Symfony 5.
 
 Symfony
 -------
 
-The minimal required version of Symfony is 4.3.8.
-
-This bundle is also compatible with Symfony 5.
+The minimal required version of Symfony is 5.0.0.
 
 Extensions
 ----------
