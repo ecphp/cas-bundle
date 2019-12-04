@@ -24,6 +24,7 @@
         "symfony/security-bundle": "^5"
     },
     "require-dev": {
+        "drupol/php-conventions": "^1.6.8",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3",
         "phpspec/phpspec": "^6.1"
     },
