@@ -186,10 +186,6 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function supports(Request $request)
     {
-        if (null !== $this->tokenStorage->getToken()) {
-            return false;
-        }
-
         return $this
             ->cas
             ->withServerRequest(
