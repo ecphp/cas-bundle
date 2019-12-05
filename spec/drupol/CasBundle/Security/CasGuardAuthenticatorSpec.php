@@ -16,7 +16,6 @@ use PhpSpec\ObjectBehavior;
 use Psr\Log\NullLogger;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -160,11 +159,23 @@ EOF;
 
     public function it_can_redirect_on_failed_authentication(TokenInterface $token, AuthenticationException $authenticationException)
     {
-        $request = Request::create('http://app/?ticket=ticket');
+        $request = Request::create('http://protected-resource/?ticket=ticket');
 
         $this
             ->onAuthenticationFailure($request, $authenticationException)
-            ->shouldBeAnInstanceOf(JsonResponse::class);
+            ->shouldBeAnInstanceOf(RedirectResponse::class);
+
+        $this
+            ->onAuthenticationFailure($request, $authenticationException)
+            ->headers
+            ->all()
+            ->shouldHaveKeyWithValue('location', ['http://protected-resource/?renew=true']);
+
+        $request = Request::create('http://protected-resource/');
+
+        $this
+            ->onAuthenticationFailure($request, $authenticationException)
+            ->shouldBeNull();
     }
 
     public function it_can_redirect_on_success_authentication(TokenInterface $token)
