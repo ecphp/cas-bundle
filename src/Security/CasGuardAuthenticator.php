@@ -129,11 +129,15 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new JsonResponse([
-            'error' => 'Authentication failed.',
-            'reason' => $exception->getMessage(),
-            'description' => 'You have been redirected here to prevent infinite redirection loops between the CAS server and your application.',
-        ]);
+        return new JsonResponse(
+            [
+                'error' => 'Authentication failed.',
+                'reason' => $exception->getMessage(),
+                'description' => 'You have been redirected here to prevent infinite redirection loops between the CAS server and your application.',
+            ]
+            ,
+            500
+        );
     }
 
     /**
