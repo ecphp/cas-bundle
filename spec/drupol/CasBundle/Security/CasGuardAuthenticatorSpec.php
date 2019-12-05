@@ -16,6 +16,7 @@ use PhpSpec\ObjectBehavior;
 use Psr\Log\NullLogger;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -163,19 +164,7 @@ EOF;
 
         $this
             ->onAuthenticationFailure($request, $authenticationException)
-            ->shouldBeAnInstanceOf(RedirectResponse::class);
-
-        $this
-            ->onAuthenticationFailure($request, $authenticationException)
-            ->headers
-            ->all()
-            ->shouldHaveKeyWithValue('location', ['http://app/']);
-
-        $request = Request::create('http://app/');
-
-        $this
-            ->onAuthenticationFailure($request, $authenticationException)
-            ->shouldBeNull();
+            ->shouldBeAnInstanceOf(JsonResponse::class);
     }
 
     public function it_can_redirect_on_success_authentication(TokenInterface $token)

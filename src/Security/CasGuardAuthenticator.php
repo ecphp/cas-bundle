@@ -12,6 +12,7 @@ use drupol\psrcas\Utils\Uri;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -128,16 +129,11 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        if (true === $request->query->has('ticket')) {
-            return new RedirectResponse(
-                (string) Uri::removeParams(
-                    $this->uriFactory->createUri(
-                        $request->getUri()
-                    ),
-                    'ticket'
-                )
-            );
-        }
+        return new JsonResponse([
+            'error' => 'Authentication failed.',
+            'reason' => $exception->getMessage(),
+            'description' => 'You have been redirected here to prevent infinite redirection loops between the CAS server and your application.',
+        ]);
     }
 
     /**
