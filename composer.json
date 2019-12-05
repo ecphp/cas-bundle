@@ -49,7 +49,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "grumphp": "./vendor/bin/grumphp run",
-        "scrutinizer": "./vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml"
+        "grumphp": "./vendor/bin/grumphp run"
     }
 }

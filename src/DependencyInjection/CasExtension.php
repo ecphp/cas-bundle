@@ -13,7 +13,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class CasExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @param array<string> $configs
+     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container): void
     {

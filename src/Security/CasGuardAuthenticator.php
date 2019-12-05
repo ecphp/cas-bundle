@@ -14,6 +14,7 @@ use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -72,10 +73,10 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function checkCredentials($response, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user)
     {
         try {
-            $introspect = Introspector::detect($response);
+            $introspect = Introspector::detect($credentials);
         } catch (InvalidArgumentException $exception) {
             throw new AuthenticationException($exception->getMessage());
         }
@@ -108,14 +109,14 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function getUser($response, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider)
     {
         if (false === ($userProvider instanceof CasUserProviderInterface)) {
             throw new AuthenticationException('Unable to load the user through the given User Provider.');
         }
 
         try {
-            $user = $userProvider->loadUserByResponse($response);
+            $user = $userProvider->loadUserByResponse($credentials);
         } catch (AuthenticationException $exception) {
             throw $exception;
         }
@@ -145,7 +146,11 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     }
 
     /**
-     * {@inheritdoc}
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $providerKey
+     *
+     * @return Response|null
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
@@ -191,10 +196,6 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function supports(Request $request)
     {
-        if (null !== $this->tokenStorage->getToken()) {
-            return false;
-        }
-
         return $this
             ->cas
             ->withServerRequest(

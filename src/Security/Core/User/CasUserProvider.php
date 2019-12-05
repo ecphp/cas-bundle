@@ -35,7 +35,9 @@ class CasUserProvider implements CasUserProviderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $username
+     *
+     * @return UserInterface
      */
     public function loadUserByUsername($username)
     {
@@ -55,7 +57,9 @@ class CasUserProvider implements CasUserProviderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $class
+     *
+     * @return bool
      */
     public function supportsClass($class)
     {

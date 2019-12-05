@@ -72,7 +72,7 @@ class CasGuardAuthenticatorSpec extends ObjectBehavior
 
         $this
             ->supports(Request::create('http://app/?ticket=ticket'))
-            ->shouldReturn(false);
+            ->shouldReturn(true);
     }
 
     public function it_can_check_if_rememberMe_is_enabled()
@@ -220,7 +220,7 @@ EOF;
             ->start($request)
             ->headers
             ->all()
-            ->shouldHaveKeyWithValue('location', ['http://local/cas/login']);
+            ->shouldHaveKeyWithValue('location', ['http://local/cas/login?service=http%3A%2F%2Fapp']);
     }
 
     public function it_is_initializable()
