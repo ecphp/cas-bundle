@@ -13,7 +13,7 @@ interface CasUserInterface extends UserInterface
 {
     /**
      * @param string $key
-     * @param null $default
+     * @param mixed $default
      *
      * @return string|null
      */
@@ -21,7 +21,7 @@ interface CasUserInterface extends UserInterface
 
     /**
      * @param string $key
-     * @param null $default
+     * @param mixed $default
      *
      * @return mixed
      */
