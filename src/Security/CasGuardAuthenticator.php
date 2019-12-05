@@ -14,7 +14,6 @@ use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -40,11 +39,6 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     private $serverRequestFactory;
 
     /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
      * @var \Psr\Http\Message\UriFactoryInterface
      */
     private $uriFactory;
@@ -55,30 +49,24 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      * @param \drupol\psrcas\CasInterface $cas
      * @param \Psr\Http\Message\UriFactoryInterface $uriFactory
      * @param \Psr\Http\Message\ServerRequestFactoryInterface $serverRequestFactory
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      */
     public function __construct(
         CasInterface $cas,
         UriFactoryInterface $uriFactory,
-        ServerRequestFactoryInterface $serverRequestFactory,
-        TokenStorageInterface $tokenStorage
+        ServerRequestFactoryInterface $serverRequestFactory
     ) {
         $this->cas = $cas;
         $this->uriFactory = $uriFactory;
         $this->serverRequestFactory = $serverRequestFactory;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param UserInterface $user
-     *
-     * @return bool
+     * {@inheritdoc}
      */
-    public function checkCredentials($response, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user)
     {
         try {
-            $introspect = Introspector::detect($response);
+            $introspect = Introspector::detect($credentials);
         } catch (InvalidArgumentException $exception) {
             throw new AuthenticationException($exception->getMessage());
         }
@@ -109,19 +97,16 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     }
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param UserProviderInterface $userProvider
-     *
-     * @return \drupol\CasBundle\Security\Core\User\CasUserInterface
+     * {@inheritdoc}
      */
-    public function getUser($response, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider)
     {
         if (false === ($userProvider instanceof CasUserProviderInterface)) {
             throw new AuthenticationException('Unable to load the user through the given User Provider.');
         }
 
         try {
-            $user = $userProvider->loadUserByResponse($response);
+            $user = $userProvider->loadUserByResponse($credentials);
         } catch (AuthenticationException $exception) {
             throw $exception;
         }
