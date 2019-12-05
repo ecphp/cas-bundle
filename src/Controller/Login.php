@@ -24,7 +24,7 @@ final class Login extends AbstractController
         Request $request,
         CasInterface $cas
     ) {
-        $parameters = [
+        $parameters = $request->query->all() + [
             'renew' => null !== $this->getUser(),
         ];
 
