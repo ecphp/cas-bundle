@@ -104,19 +104,15 @@ to the server.
 
 .. warning:: Keep in mind that the following is only for development setup, not for production.
 
-E.g: If you're using the default `symfony/http-client`_, you might need to add in
-`config/framework.yaml`:
+On step 3, while copying the configuration files, the file `config/packages/dev/cas_framework.yaml`
+is copied over. That file is useful when developing, it will disable some verifications
+required when using SSL protocol.
 
-.. code:: yaml
+Those particular settings are specific to the default HTTP client that is
+installed, which is `symfony/http-client`_.
 
-    framework:
-        # ... Default stuff here
-        http_client:
-            default_options:
-                verify_peer: false
-                verify_host: false
-
-This configuration is automatically added during the bundle installation in the `dev` environment.
+If you plan to change the HTTP client, those settings will most probably need
+to be updated accordingly.
 
 .. _Composer: https://getcomposer.org
 .. _symfony/http-client: https://packagist.org/packages/symfony/http-client
