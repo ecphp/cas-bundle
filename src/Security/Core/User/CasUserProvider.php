@@ -37,7 +37,7 @@ class CasUserProvider implements CasUserProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername(string $username)
     {
         throw new UnsupportedUserException(sprintf('Username "%s" does not exist.', $username));
     }
@@ -56,8 +56,10 @@ class CasUserProvider implements CasUserProviderInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
-    public function supportsClass($class)
+    public function supportsClass(string $class)
     {
         return CasUser::class === $class;
     }

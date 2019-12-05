@@ -70,7 +70,10 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param UserInterface $user
+     *
+     * @return bool
      */
     public function checkCredentials($response, UserInterface $user)
     {
@@ -106,7 +109,10 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param UserProviderInterface $userProvider
+     *
+     * @return \drupol\CasBundle\Security\Core\User\CasUserInterface
      */
     public function getUser($response, UserProviderInterface $userProvider)
     {

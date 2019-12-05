@@ -29,7 +29,7 @@ final class Symfony implements PropertiesInterface
     /**
      * Symfony constructor.
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      * @param \Symfony\Component\Routing\RouterInterface $router
      */
     public function __construct(array $properties, RouterInterface $router)
@@ -59,7 +59,7 @@ final class Symfony implements PropertiesInterface
     /**
      * @param mixed $offset
      *
-     * @return mixed
+     * @return array<string, mixed>|mixed
      */
     public function offsetGet($offset)
     {
@@ -70,7 +70,7 @@ final class Symfony implements PropertiesInterface
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->cas->offsetSet($offset, $value);
     }
@@ -78,7 +78,7 @@ final class Symfony implements PropertiesInterface
     /**
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->cas->offsetUnset($offset);
     }
@@ -86,10 +86,10 @@ final class Symfony implements PropertiesInterface
     /**
      * Transform Symfony routes into absolute URLs.
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *   The properties.
      *
-     * @return array
+     * @return array<string, mixed>
      *   The updated properties.
      */
     private function routeToUrl(array $properties): array
@@ -106,10 +106,10 @@ final class Symfony implements PropertiesInterface
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      * @param string $key
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function updateDefaultParameterRouteToUrl(array $properties, string $key): array
     {

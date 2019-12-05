@@ -12,14 +12,14 @@ final class CasUser implements CasUserInterface
     /**
      * The user storage.
      *
-     * @var array
+     * @var array<mixed>
      */
     private $storage;
 
     /**
      * CasUser constructor.
      *
-     * @param array $data
+     * @param array<mixed> $data
      */
     public function __construct(array $data)
     {
@@ -106,7 +106,7 @@ final class CasUser implements CasUserInterface
     /**
      * Get the storage.
      *
-     * @return array
+     * @return array<mixed>
      */
     private function getStorage()
     {

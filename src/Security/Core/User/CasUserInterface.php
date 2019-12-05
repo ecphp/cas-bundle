@@ -28,7 +28,7 @@ interface CasUserInterface extends UserInterface
     public function getAttribute(string $key, $default = null);
 
     /**
-     * @return array
+     * @return array<array|string>
      */
     public function getAttributes(): array;
 
