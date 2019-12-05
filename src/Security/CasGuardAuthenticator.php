@@ -154,7 +154,8 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
                 $this->uriFactory->createUri(
                     $request->getUri()
                 ),
-                'ticket'
+                'ticket',
+                'renew'
             )
         );
     }
