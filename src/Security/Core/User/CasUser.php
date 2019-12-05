@@ -73,7 +73,7 @@ final class CasUser implements CasUserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
     public function getRoles()
     {
