@@ -43,7 +43,6 @@ services:
             $cas: '@cas'
             $uriFactory: '@nyholm.psr7.psr17_factory'
             $serverRequestFactory: '@nyholm.psr7.psr17_factory'
-            $tokenStorage: '@security.token_storage'
 
     cas.request:
         class: Symfony\Component\HttpFoundation\RequestStack
