@@ -1,6 +1,7 @@
 services:
     cas:
         class: drupol\psrcas\Cas
+        public: true
         arguments:
             $serverRequest: '@cas.psrrequest'
             $properties: '@cas.configuration'
