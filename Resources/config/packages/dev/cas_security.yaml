@@ -2,3 +2,9 @@ security:
     providers:
         cas:
             id: cas.userprovider
+    firewalls:
+        default:
+            guard:
+                provider: cas
+                authenticators:
+                    - cas.guardauthenticator
