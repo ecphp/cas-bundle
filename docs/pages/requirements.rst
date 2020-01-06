@@ -4,14 +4,12 @@ Requirements
 PHP
 ---
 
-PHP greater than 7.1 is required for this library.
+PHP greater than 7.1.3 is required for this bundle.
 
 Symfony
 -------
 
-The minimal required version of Symfony is 4.3.8.
-
-This bundle is also compatible with Symfony 5.
+The minimal required version of Symfony is 4.4.
 
 Extensions
 ----------
@@ -27,8 +25,8 @@ Packages
 
 In order to get the CAS bundle working, you will require some dependencies.
 
-To give a maximum freedom to the users using, each required dependencies is a well
-defined standardized PHP class.
+To give a maximum freedom to the users using, each required dependencies is
+a well defined standardized PHP class.
 
 See the `PHP-FIG framework group`_ for more information.
 
