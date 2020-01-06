@@ -27,7 +27,7 @@
         "drupol/php-conventions": "^1.6.11",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.15.0",
-        "phpspec/phpspec": "^6.1.1"
+        "phpspec/phpspec": "^5.1.2"
     },
     "suggest": {
         "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",
