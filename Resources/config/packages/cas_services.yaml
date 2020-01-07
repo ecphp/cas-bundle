@@ -5,12 +5,15 @@ services:
             $serverRequest: '@cas.psrrequest'
             $properties: '@cas.configuration'
             $client: '@psr18.http_client'
-            $uriFactory: '@nyholm.psr7.psr17_factory'
-            $responseFactory: '@nyholm.psr7.psr17_factory'
-            $requestFactory: '@nyholm.psr7.psr17_factory'
-            $streamFactory: '@nyholm.psr7.psr17_factory'
+            $uriFactory: '@cas.psr17_factory'
+            $responseFactory: '@cas.psr17_factory'
+            $requestFactory: '@cas.psr17_factory'
+            $streamFactory: '@cas.psr17_factory'
             $cache: '@cache.app'
             $logger: '@logger'
+
+    cas.psr17_factory:
+        class: Nyholm\Psr7\Factory\Psr17Factory
 
     drupol\psrcas\CasInterface: '@cas'
 
@@ -26,10 +29,10 @@ services:
     cas.psrhttpfactory:
         class: Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory
         arguments:
-            $serverRequestFactory: '@nyholm.psr7.psr17_factory'
-            $streamFactory: '@nyholm.psr7.psr17_factory'
-            $uploadedFileFactory: '@nyholm.psr7.psr17_factory'
-            $responseFactory: '@nyholm.psr7.psr17_factory'
+            $serverRequestFactory: '@cas.psr17_factory'
+            $streamFactory: '@cas.psr17_factory'
+            $uploadedFileFactory: '@cas.psr17_factory'
+            $responseFactory: '@cas.psr17_factory'
 
     cas.httpfoundationfactory:
         class: Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory
@@ -41,8 +44,8 @@ services:
         class: drupol\CasBundle\Security\CasGuardAuthenticator
         arguments:
             $cas: '@cas'
-            $uriFactory: '@nyholm.psr7.psr17_factory'
-            $serverRequestFactory: '@nyholm.psr7.psr17_factory'
+            $uriFactory: '@cas.psr17_factory'
+            $serverRequestFactory: '@cas.psr17_factory'
 
     cas.request:
         class: Symfony\Component\HttpFoundation\RequestStack
