@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Controller;
+namespace EcPhp\CasBundle\Controller;
 
-use drupol\psrcas\CasInterface;
+use EcPhp\CasLib\CasInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 final class Logout extends AbstractController
 {
     /**
-     * @param \drupol\psrcas\CasInterface $cas
+     * @param \EcPhp\CasLib\CasInterface $cas
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\Security;
+namespace spec\EcPhp\CasBundle\Security;
 
-use drupol\CasBundle\Security\CasGuardAuthenticator;
-use drupol\CasBundle\Security\Core\User\CasUser;
-use drupol\CasBundle\Security\Core\User\CasUserInterface;
-use drupol\CasBundle\Security\Core\User\CasUserProvider;
-use drupol\psrcas\Cas;
+use EcPhp\CasBundle\Security\CasGuardAuthenticator;
+use EcPhp\CasBundle\Security\Core\User\CasUser;
+use EcPhp\CasBundle\Security\Core\User\CasUserInterface;
+use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
+use EcPhp\CasLib\Cas;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
@@ -40,8 +40,8 @@ class CasGuardAuthenticatorSpec extends ObjectBehavior
     public function it_can_check_if_authentication_is_supported_when_a_user_is_logged_in(TokenStorageInterface $tokenStorage)
     {
         $serverRequest = new ServerRequest('GET', 'http://app');
-        $properties = \spec\drupol\CasBundle\Cas::getTestProperties();
-        $client = new Psr18Client(\spec\drupol\CasBundle\Cas::getHttpClientMock());
+        $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
+        $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
         $cache = new ArrayAdapter();
         $logger = new NullLogger();
 
@@ -231,8 +231,8 @@ EOF;
     public function let(TokenStorageInterface $tokenStorage)
     {
         $serverRequest = new ServerRequest('GET', 'http://app');
-        $properties = \spec\drupol\CasBundle\Cas::getTestProperties();
-        $client = new Psr18Client(\spec\drupol\CasBundle\Cas::getHttpClientMock());
+        $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
+        $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
         $cache = new ArrayAdapter();
         $logger = new NullLogger();
 

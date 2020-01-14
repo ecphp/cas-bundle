@@ -5,18 +5,18 @@
         xsi:schemaLocation="http://symfony.com/schema/routing https://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="cas_bundle_homepage" path="/homepage">
-        <default key="_controller">drupol\CasBundle\Controller\Homepage::__invoke</default>
+        <default key="_controller">EcPhp\CasBundle\Controller\Homepage::__invoke</default>
     </route>
 
     <route id="cas_bundle_login" path="/login">
-        <default key="_controller">drupol\CasBundle\Controller\Login::__invoke</default>
+        <default key="_controller">EcPhp\CasBundle\Controller\Login::__invoke</default>
     </route>
 
     <route id="cas_bundle_logout" path="/logout">
-        <default key="_controller">drupol\CasBundle\Controller\Logout::__invoke</default>
+        <default key="_controller">EcPhp\CasBundle\Controller\Logout::__invoke</default>
     </route>
 
     <route id="cas_bundle_proxy_callback" path="/proxy/callback">
-        <default key="_controller">drupol\CasBundle\Controller\ProxyCallback::__invoke</default>
+        <default key="_controller">EcPhp\CasBundle\Controller\ProxyCallback::__invoke</default>
     </route>
 </routes>

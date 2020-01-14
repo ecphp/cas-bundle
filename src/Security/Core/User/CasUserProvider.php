@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Security\Core\User;
+namespace EcPhp\CasBundle\Security\Core\User;
 
-use drupol\psrcas\Introspection\Contract\ServiceValidate;
-use drupol\psrcas\Introspection\Introspector;
+use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
+use EcPhp\CasLib\Introspection\Introspector;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;

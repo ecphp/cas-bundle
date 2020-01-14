@@ -1,5 +1,5 @@
 {
-    "name": "drupol/cas-bundle",
+    "name": "ecphp/cas-bundle",
     "type": "symfony-bundle",
     "description": "A bundle for Symfony 4 & 5, providing authentication against a Central Authentication Service (CAS) server.",
     "keywords": [
@@ -9,12 +9,12 @@
         "single sign-on",
         "sso"
     ],
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "require": {
         "php": ">= 7.2.5",
         "ext-json": "*",
         "ext-simplexml": "*",
-        "drupol/psrcas": "dev-master",
+        "ecphp/cas-lib": "^1",
         "nyholm/psr7": "^1.2",
         "symfony/cache": "^5",
         "symfony/framework-bundle": "^5",
@@ -24,7 +24,7 @@
         "symfony/security-bundle": "^5"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.6.11",
+        "drupol/php-conventions": "^1.6.14",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.15.0",
         "phpspec/phpspec": "^6.1.1"
@@ -38,16 +38,14 @@
     },
     "autoload": {
         "psr-4": {
-            "drupol\\CasBundle\\": "src/"
+            "EcPhp\\CasBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "spec\\drupol\\CasBundle\\": "./spec/drupol/CasBundle/"
+            "spec\\EcPhp\\CasBundle\\": "./spec/EcPhp/CasBundle/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
         "grumphp": "./vendor/bin/grumphp run"
     }

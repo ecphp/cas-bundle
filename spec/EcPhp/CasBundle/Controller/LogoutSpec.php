@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\Controller;
+namespace spec\EcPhp\CasBundle\Controller;
 
-use drupol\CasBundle\Controller\Logout;
-use drupol\psrcas\Cas;
+use EcPhp\CasBundle\Controller\Logout;
+use EcPhp\CasLib\Cas;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
@@ -20,8 +20,8 @@ class LogoutSpec extends ObjectBehavior
     public function it_can_be_invoked(TokenStorageInterface $tokenStorage)
     {
         $serverRequest = new ServerRequest('GET', 'http://app');
-        $properties = \spec\drupol\CasBundle\Cas::getTestProperties();
-        $client = new Psr18Client(\spec\drupol\CasBundle\Cas::getHttpClientMock());
+        $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
+        $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
         $cache = new ArrayAdapter();
         $logger = new NullLogger();
 

@@ -15,7 +15,7 @@ The easiest way to install it is through Composer_
 
 .. code-block:: bash
 
-    composer require drupol/cas-bundle
+    composer require ecphp/cas-bundle
 
 Step 2
 ~~~~~~
@@ -26,7 +26,7 @@ You should see a line that looks like the following:
 
 .. code-block:: php
 
-    drupol\CasBundle\CasBundle::class => ['all' => true],
+    EcPhp\CasBundle\CasBundle::class => ['all' => true],
 
 Step 3
 ~~~~~~
@@ -35,7 +35,7 @@ Recursively copy the content of the `Resources/config` folder in `config/` folde
 
 .. code-block:: bash
 
-    cp -ar vendor/drupol/cas-bundle/Resources/config/* config/
+    cp -ar vendor/ecphp/cas-bundle/Resources/config/* config/
 
 Step 4
 ~~~~~~

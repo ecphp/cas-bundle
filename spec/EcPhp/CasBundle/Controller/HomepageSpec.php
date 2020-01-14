@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\Controller;
+namespace spec\EcPhp\CasBundle\Controller;
 
-use drupol\CasBundle\Controller\Homepage;
+use EcPhp\CasBundle\Controller\Homepage;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\HttpFoundation\Response;
 

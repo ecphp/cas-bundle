@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Controller;
+namespace EcPhp\CasBundle\Controller;
 
-use drupol\psrcas\CasInterface;
+use EcPhp\CasLib\CasInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ProxyCallback extends AbstractController
 {
     /**
-     * @param \drupol\psrcas\CasInterface $casProtocol
+     * @param \EcPhp\CasLib\CasInterface $casProtocol
      * @param \Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface $httpFoundationFactory
      *
      * @return \Symfony\Component\HttpFoundation\Response

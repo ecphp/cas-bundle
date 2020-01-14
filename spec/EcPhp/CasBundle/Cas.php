@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle;
+namespace spec\EcPhp\CasBundle;
 
-use drupol\psrcas\Configuration\Properties as CasProperties;
+use EcPhp\CasLib\Configuration\Properties as CasProperties;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
-use tests\drupol\psrcas\Exception\TestClientException;
+use tests\EcPhp\CasLib\Exception\TestClientException;
 
 class Cas extends ObjectBehavior
 {
@@ -104,7 +104,7 @@ EOF;
   <cas:proxyGrantingTicket>pgtIou</cas:proxyGrantingTicket>
   <cas:proxies>
     <cas:proxy>http://app/proxyCallback.php</cas:proxy>
-  </cas:proxies>  
+  </cas:proxies>
  </cas:authenticationSuccess>
 </cas:serviceResponse>
 EOF;
@@ -178,7 +178,7 @@ EOF;
     }
 
     /**
-     * @return \drupol\psrcas\Configuration\Properties
+     * @return \EcPhp\CasLib\Configuration\Properties
      */
     public static function getTestProperties(): CasProperties
     {
@@ -235,7 +235,7 @@ EOF;
     }
 
     /**
-     * @return \drupol\psrcas\Configuration\Properties
+     * @return \EcPhp\CasLib\Configuration\Properties
      */
     public static function getTestPropertiesWithPgtUrl(): CasProperties
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Configuration;
+namespace EcPhp\CasBundle\Configuration;
 
-use drupol\psrcas\Configuration\Properties as PsrCasConfiguration;
-use drupol\psrcas\Configuration\PropertiesInterface;
+use EcPhp\CasLib\Configuration\Properties as PsrCasConfiguration;
+use EcPhp\CasLib\Configuration\PropertiesInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -17,7 +17,7 @@ use const FILTER_VALIDATE_URL;
 final class Symfony implements PropertiesInterface
 {
     /**
-     * @var \drupol\psrcas\Configuration\Properties
+     * @var \EcPhp\CasLib\Configuration\Properties
      */
     private $cas;
 

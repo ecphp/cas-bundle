@@ -1,19 +1,5 @@
 # https://github.com/probot/settings
 
-branches:
-    - name: master
-      protection:
-          enforce_admins: false
-          required_pull_request_reviews:
-              dismiss_stale_reviews: true
-              require_code_owner_reviews: true
-              required_approving_review_count: 1
-          required_status_checks:
-              contexts:
-                  -  "Grumphp"
-              strict: false
-          restrictions: null
-
 labels:
     - name: bug
       color: ee0701
@@ -36,11 +22,11 @@ labels:
 repository:
     allow_merge_commit: true
     allow_rebase_merge: false
-    allow_squash_merge: false
+    allow_squash_merge: true
     default_branch: master
     description: "CAS Bundle, a standard Symfony bundle for authentication using CAS protocol."
-    homepage: https://cas-bundle.readthedocs.io/
-    topics: authentication,cas,psr,single-sign-on
+    homepage: https://ecphp-cas-bundle.readthedocs.io
+    topics: authentication,cas,single-sign-on
     has_downloads: true
     has_issues: true
     has_pages: false
@@ -48,3 +34,7 @@ repository:
     has_wiki: false
     name: cas-bundle
     private: false
+
+teams:
+    - name: core
+      permission: push

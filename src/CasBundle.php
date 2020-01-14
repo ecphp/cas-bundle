@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle;
+namespace EcPhp\CasBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
