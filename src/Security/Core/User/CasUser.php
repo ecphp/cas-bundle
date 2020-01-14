@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Security\Core\User;
+namespace EcPhp\CasBundle\Security\Core\User;
 
 /**
  * Class CasUser.

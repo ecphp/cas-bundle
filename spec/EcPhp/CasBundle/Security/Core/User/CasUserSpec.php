@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\Security\Core\User;
+namespace spec\EcPhp\CasBundle\Security\Core\User;
 
-use drupol\CasBundle\Security\Core\User\CasUser;
+use EcPhp\CasBundle\Security\Core\User\CasUser;
 use PhpSpec\ObjectBehavior;
 
 class CasUserSpec extends ObjectBehavior

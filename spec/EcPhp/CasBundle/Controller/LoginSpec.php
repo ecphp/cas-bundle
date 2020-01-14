@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\Controller;
+namespace spec\EcPhp\CasBundle\Controller;
 
-use drupol\CasBundle\Controller\Login;
+use EcPhp\CasBundle\Controller\Login;
 use PhpSpec\ObjectBehavior;
 
 class LoginSpec extends ObjectBehavior

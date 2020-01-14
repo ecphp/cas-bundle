@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\DependencyInjection;
+namespace spec\EcPhp\CasBundle\DependencyInjection;
 
-use drupol\CasBundle\DependencyInjection\Configuration;
+use EcPhp\CasBundle\DependencyInjection\Configuration;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

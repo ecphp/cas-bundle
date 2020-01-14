@@ -48,8 +48,8 @@ will check your code
 
 .. _PSR-12: https://www.php-fig.org/psr/psr-12/
 .. _drupol/php-conventions: https://github.com/drupol/php-conventions
-.. _Travis CI: https://travis-ci.org/drupol/cas-bundle/builds
-.. _Github Actions: https://github.com/drupol/cas-bundle/actions
+.. _Travis CI: https://travis-ci.org/ecphp/cas-bundle/builds
+.. _Github Actions: https://github.com/ecphp/cas-bundle/actions
 .. _PHPSpec: http://www.phpspec.net/
 .. _PHPInfection: https://github.com/infection/infection
 .. _Grumphp: https://github.com/phpro/grumphp

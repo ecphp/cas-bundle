@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Security\Core\User;
+namespace EcPhp\CasBundle\Security\Core\User;
 
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -15,7 +15,7 @@ interface CasUserProviderInterface extends UserProviderInterface
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
      *
-     * @return \drupol\CasBundle\Security\Core\User\CasUser
+     * @return \EcPhp\CasBundle\Security\Core\User\CasUser
      */
     public function loadUserByResponse(ResponseInterface $response): CasUserInterface;
 }

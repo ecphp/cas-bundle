@@ -1,5 +1,5 @@
 {
-    "name": "drupol/cas-bundle",
+    "name": "ecphp/cas-bundle",
     "type": "symfony-bundle",
     "description": "A bundle for Symfony 4 & 5, providing authentication against a Central Authentication Service (CAS) server.",
     "keywords": [
@@ -9,25 +9,25 @@
         "single sign-on",
         "sso"
     ],
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "require": {
         "php": ">= 7.1.3",
         "ext-json": "*",
         "ext-simplexml": "*",
-        "drupol/psrcas": "dev-master",
+        "ecphp/cas-lib": "^1",
         "nyholm/psr7": "^1.2",
-        "symfony/cache": "^4.4 || ^5",
-        "symfony/framework-bundle": "^4.4 || ^5",
-        "symfony/http-client": "^4.4 || ^5",
+        "symfony/cache": "^4.4",
+        "symfony/framework-bundle": "^4.4",
+        "symfony/http-client": "^4.4",
         "symfony/monolog-bundle": "^3.5",
         "symfony/psr-http-message-bridge": "^1.2",
-        "symfony/security-bundle": "^4.4 || ^5"
+        "symfony/security-bundle": "^4.4"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.6.11",
+        "drupol/php-conventions": "^1.6.14",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.13.6",
-        "phpspec/phpspec": "^5.1.2"
+        "phpspec/phpspec": "^5.1.2 || ^6.1.1"
     },
     "suggest": {
         "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",
@@ -38,16 +38,14 @@
     },
     "autoload": {
         "psr-4": {
-            "drupol\\CasBundle\\": "src/"
+            "EcPhp\\CasBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "spec\\drupol\\CasBundle\\": "./spec/drupol/CasBundle/"
+            "spec\\EcPhp\\CasBundle\\": "./spec/EcPhp/CasBundle/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
         "grumphp": "./vendor/bin/grumphp run"
     }

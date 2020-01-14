@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\Configuration;
+namespace spec\EcPhp\CasBundle\Configuration;
 
-use drupol\CasBundle\Configuration\Symfony;
+use EcPhp\CasBundle\Configuration\Symfony;
 use PhpSpec\ObjectBehavior;
-use spec\drupol\CasBundle\Cas;
+use spec\EcPhp\CasBundle\Cas;
 use Symfony\Component\Routing\RouterInterface;
 
 class SymfonySpec extends ObjectBehavior

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\DependencyInjection;
+namespace spec\EcPhp\CasBundle\DependencyInjection;
 
-use drupol\CasBundle\DependencyInjection\CasExtension;
+use EcPhp\CasBundle\DependencyInjection\CasExtension;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\CasBundle\Security\Core\User;
+namespace spec\EcPhp\CasBundle\Security\Core\User;
 
-use drupol\CasBundle\Security\Core\User\CasUser;
-use drupol\CasBundle\Security\Core\User\CasUserInterface;
-use drupol\CasBundle\Security\Core\User\CasUserProvider;
+use EcPhp\CasBundle\Security\Core\User\CasUser;
+use EcPhp\CasBundle\Security\Core\User\CasUserInterface;
+use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use Nyholm\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;

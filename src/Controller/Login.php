@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Controller;
+namespace EcPhp\CasBundle\Controller;
 
-use drupol\psrcas\CasInterface;
+use EcPhp\CasLib\CasInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ final class Login extends AbstractController
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \drupol\psrcas\CasInterface $cas
+     * @param \EcPhp\CasLib\CasInterface $cas
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */

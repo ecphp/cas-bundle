@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace drupol\CasBundle\Security;
+namespace EcPhp\CasBundle\Security;
 
-use drupol\CasBundle\Security\Core\User\CasUserProviderInterface;
-use drupol\psrcas\CasInterface;
-use drupol\psrcas\Introspection\Contract\ServiceValidate;
-use drupol\psrcas\Introspection\Introspector;
-use drupol\psrcas\Utils\Uri;
+use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
+use EcPhp\CasLib\CasInterface;
+use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
+use EcPhp\CasLib\Introspection\Introspector;
+use EcPhp\CasLib\Utils\Uri;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
@@ -30,7 +30,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * The PSR CAS library.
      *
-     * @var \drupol\psrcas\CasInterface
+     * @var \EcPhp\CasLib\CasInterface
      */
     private $cas;
 
@@ -47,7 +47,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * CasGuardAuthenticator constructor.
      *
-     * @param \drupol\psrcas\CasInterface $cas
+     * @param \EcPhp\CasLib\CasInterface $cas
      * @param \Psr\Http\Message\UriFactoryInterface $uriFactory
      * @param \Psr\Http\Message\ServerRequestFactoryInterface $serverRequestFactory
      */
