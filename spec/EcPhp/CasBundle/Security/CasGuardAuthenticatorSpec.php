@@ -14,8 +14,10 @@ use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
 use Psr\Log\NullLogger;
+use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -120,6 +122,19 @@ EOF;
         $this
             ->shouldThrow(AuthenticationException::class)
             ->during('checkCredentials', [$response, $user]);
+    }
+
+    public function it_can_detect_when_the_request_is_an_ajax_request_and_respond_accordingly()
+    {
+        $request = new ServerRequest(
+            'GET',
+            'http://app/?ticket=ticket',
+            ['X-Requested-With' => 'XMLHttpRequest']
+        );
+
+        $this
+            ->start((new HttpFoundationFactory())->createRequest($request))
+            ->shouldBeAnInstanceOf(JsonResponse::class);
     }
 
     public function it_can_get_the_user_from_the_response()
