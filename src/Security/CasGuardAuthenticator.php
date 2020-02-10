@@ -12,8 +12,10 @@ use EcPhp\CasLib\Utils\Uri;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -169,6 +171,13 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function start(Request $request, ?AuthenticationException $authException = null)
     {
+        if (true === $request->isXmlHttpRequest()) {
+            return new JsonResponse(
+                ['message' => 'Authentication required'],
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
+
         return new RedirectResponse(
             $this
                 ->cas
