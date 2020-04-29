@@ -98,7 +98,8 @@ The default configuration of this bundle comes with a configuration for authenti
 CAS server setup for testing and demo purposes at `https://casserver.herokuapp.com/cas/`_.
 
 .. warning:: It is important to note that this is the Apereo official public demo cas server, used by the project for
-basic showcases. They may go up and down as the project needs without notice, see `this page`_ for further information.
+             basic showcases. They may go up and down as the project needs without notice, see `this page`_ for further
+             information.
 
 The credentials to use for authentication are the following:
 
@@ -127,3 +128,4 @@ The quickest solution for a working CAS server on any platform is this `Docker p
 .. _source: https://github.com/drupol/heroku-cas-server
 .. _Docker project: https://github.com/crpeck/cas-overlay-docker
 .. _Apereo: https://www.apereo.org/
+.. _https://casserver.herokuapp.com/cas/: https://casserver.herokuapp.com/cas/
