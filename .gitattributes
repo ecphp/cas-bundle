@@ -7,3 +7,6 @@
 infection.json.dist export-ignore
 grumphp.yml.dist export-ignore
 phpspec.yml.dist export-ignore
+/docs export-ignore
+/docker export-ignore
+docker-compose.yaml

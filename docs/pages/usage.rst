@@ -14,10 +14,11 @@ Configure the configuration files accordingly and the security of your Symfony a
 Step 3
 ~~~~~~
 
-If you try to reach a path that is protected by the firewall, you should be automatically
+Once setup, if you try to reach a path that is protected by the firewall, you will be automatically
 redirected to the CAS server login page.
 
-Once you're authenticated, the CAS server will redirect you back to the Symfony application
-and continue the authentication process.
+If you try to reach a path using Ajax (`X-Requested-With: XMLHttpRequest`), there won't be any redirection but
+an error **401** (`Unauthorized`).
 
-If the credentials that you provided were valid, then you'll be authenticated.
+Once authenticated on the CAS server, you will be redirected back to the Symfony application and continue the
+authentication process.
