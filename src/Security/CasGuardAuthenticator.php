@@ -135,6 +135,8 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
 
             return new RedirectResponse((string) $uri);
         }
+
+        return null;
     }
 
     /**
@@ -158,10 +160,16 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function onLogoutSuccess(Request $request)
     {
+        $response = $this
+            ->cas
+            ->logout();
+
+        if (null === $response) {
+            throw new AuthenticationException('Unable to trigger the logout procedure');
+        }
+
         return new RedirectResponse(
-            $this
-                ->cas
-                ->logout()
+            $response
                 ->getHeaderLine('location')
         );
     }
@@ -178,10 +186,16 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
             );
         }
 
+        $response = $this
+            ->cas
+            ->login();
+
+        if (null === $response) {
+            throw new AuthenticationException('Unable to trigger the login procedure');
+        }
+
         return new RedirectResponse(
-            $this
-                ->cas
-                ->login()
+            $response
                 ->getHeaderLine('location')
         );
     }

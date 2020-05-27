@@ -62,6 +62,7 @@ final class CasUser implements CasUserInterface
      */
     public function getPassword()
     {
+        return null;
     }
 
     /**
@@ -85,6 +86,7 @@ final class CasUser implements CasUserInterface
      */
     public function getSalt()
     {
+        return null;
     }
 
     /**

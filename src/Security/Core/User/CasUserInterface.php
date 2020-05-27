@@ -15,7 +15,7 @@ interface CasUserInterface extends UserInterface
      * @param string $key
      * @param mixed $default
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function get(string $key, $default = null);
 
