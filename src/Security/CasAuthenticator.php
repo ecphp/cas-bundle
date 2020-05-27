@@ -19,8 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
-use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
 /**
@@ -84,7 +84,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
             );
         }
 
-        return new Passport(new CasUser($introspect->getCredentials()), new CasUserCredentials());
+        return new SelfValidatingPassport(new CasUser($introspect->getCredentials()));
     }
 
     public function onAuthenticationFailure(
