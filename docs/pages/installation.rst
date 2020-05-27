@@ -29,9 +29,9 @@ The recommended way to install it is with Composer_ :
 Step 2
 ~~~~~~
 
-This is the crucial part of your application's security configuration.
+This is the crucial part of your application's security.
 
-Edit the security settings of your application by edition the file `config/packages/security.yaml`.
+Edit the security settings of your application, usually in `config/packages/security.yaml`.
 
 .. code-block:: yaml
 
@@ -43,6 +43,20 @@ Edit the security settings of your application by edition the file `config/packa
                     provider: cas
                     authenticators:
                         - cas.guardauthenticator
+
+        access_control:
+            - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
+            - { path: ^/admin, role: ROLE_CAS_AUTHENTICATED }
+
+If you're using Symfony >= 5.1, it is already possible to use the new security system (`more information`_).
+
+.. code-block:: yaml
+
+    security:
+        enable_authenticator_manager: true
+        firewalls:
+            main:
+                custom_authenticator: cas.authenticator
 
         access_control:
             - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
@@ -119,5 +133,6 @@ The quickest solution for a working CAS server on any platform is this `Docker p
 .. _Docker project: https://github.com/crpeck/cas-overlay-docker
 .. _Apereo: https://www.apereo.org/
 .. _https://casserver.herokuapp.com/cas/: https://casserver.herokuapp.com/cas/
+.. _more information: https://symfony.com/blog/new-in-symfony-5-1-updated-security-system
 .. _loophp/unaltered-psr-http-message-bridge-bundle: https://github.com/loophp/unaltered-psr-http-message-bridge-bundle
 .. _API Platform: https://api-platform.com/

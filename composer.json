@@ -16,20 +16,19 @@
         "ext-simplexml": "*",
         "ecphp/cas-lib": "^1",
         "nyholm/psr7": "^1.2",
-        "symfony/cache": "^5.1",
-        "symfony/dependency-injection": "^5.1",
-        "symfony/http-client": "^5.1",
+        "symfony/cache": "^5.0 || ^5.1",
+        "symfony/dependency-injection": "^5.0|| ^5.1",
+        "symfony/http-client": "^5.0 || ^5.1",
         "symfony/monolog-bundle": "^3.5",
-        "symfony/psr-http-message-bridge": "^1 || ^2",
-        "symfony/routing": "^5.1",
-        "symfony/security-bundle": "^5.1"
+        "symfony/psr-http-message-bridge": "^1.2",
+        "symfony/routing": "^5.0 || ^5.1",
+        "symfony/security-bundle": "^5.0 || ^5.1"
     },
     "require-dev": {
         "drupol/php-conventions": "^1.7.1",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
-        "infection/infection": "^0.15.3",
-        "loophp/unaltered-psr-http-message-bridge-bundle": "^1.0",
-        "phpspec/phpspec": "^6.2"
+        "infection/infection": "^0.15.3 || ^0.16",
+        "phpspec/phpspec": "^6.2.1"
     },
     "suggest": {
         "loophp/unaltered-psr-http-message-bridge-bundle": "A drop-in replacement for symfony/psr-http-message-bridge, that does not alter query parameters.",
