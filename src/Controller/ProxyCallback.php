@@ -6,13 +6,12 @@ namespace EcPhp\CasBundle\Controller;
 
 use EcPhp\CasLib\CasInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ProxyCallback.
  */
-final class ProxyCallback extends AbstractController
+final class ProxyCallback
 {
     /**
      * @param \EcPhp\CasLib\CasInterface $casProtocol

@@ -5,27 +5,29 @@ declare(strict_types=1);
 namespace EcPhp\CasBundle\Controller;
 
 use EcPhp\CasLib\CasInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class Login.
  */
-final class Login extends AbstractController
+final class Login
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \EcPhp\CasLib\CasInterface $cas
+     * @param \Symfony\Component\Security\Core\Security $security
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(
         Request $request,
-        CasInterface $cas
+        CasInterface $cas,
+        Security $security
     ) {
         $parameters = $request->query->all() + [
-            'renew' => null !== $this->getUser(),
+            'renew' => null !== $security->getUser(),
         ];
 
         if (null !== $response = $cas->login($parameters)) {
