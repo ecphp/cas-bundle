@@ -2,7 +2,7 @@ FROM alpine:latest
 WORKDIR /etc/
 RUN mkdir -p /etc/Sphinx/build
 
-RUN apk add --no-cache python3 make git
+RUN apk add --no-cache python3 py3-pip make git
 
 RUN pip3 install git+https://github.com/sphinx-doc/sphinx
 RUN pip3 install sphinx-autobuild
