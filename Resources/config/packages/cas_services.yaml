@@ -2,18 +2,15 @@ services:
     cas:
         class: EcPhp\CasLib\Cas
         arguments:
-            $serverRequest: '@cas.psrrequest'
+            $serverRequest: '@psr.request'
             $properties: '@cas.configuration'
             $client: '@psr18.http_client'
-            $uriFactory: '@cas.psr17_factory'
-            $responseFactory: '@cas.psr17_factory'
-            $requestFactory: '@cas.psr17_factory'
-            $streamFactory: '@cas.psr17_factory'
+            $uriFactory: '@nyholm.psr7.psr17_factory'
+            $responseFactory: '@nyholm.psr7.psr17_factory'
+            $requestFactory: '@nyholm.psr7.psr17_factory'
+            $streamFactory: '@nyholm.psr7.psr17_factory'
             $cache: '@cache.app'
             $logger: '@logger'
-
-    cas.psr17_factory:
-        class: Nyholm\Psr7\Factory\Psr17Factory
 
     EcPhp\CasLib\CasInterface: '@cas'
 
@@ -26,38 +23,26 @@ services:
     cas.userprovider:
         class: EcPhp\CasBundle\Security\Core\User\CasUserProvider
 
-    cas.psrhttpfactory:
-        class: Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory
-        arguments:
-            $serverRequestFactory: '@cas.psr17_factory'
-            $streamFactory: '@cas.psr17_factory'
-            $uploadedFileFactory: '@cas.psr17_factory'
-            $responseFactory: '@cas.psr17_factory'
-
-    cas.httpfoundationfactory:
-        class: Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory
-
-    Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface: '@cas.psrhttpfactory'
-    Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface: '@cas.httpfoundationfactory'
-
     cas.guardauthenticator:
         class: EcPhp\CasBundle\Security\CasGuardAuthenticator
-        arguments:
-            $cas: '@cas'
-            $uriFactory: '@cas.psr17_factory'
-            $serverRequestFactory: '@cas.psr17_factory'
-
-    cas.request:
-        class: Symfony\Component\HttpFoundation\RequestStack
-        factory: [ '@request_stack', getCurrentRequest]
-
-    cas.psrrequest:
-        class: Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory
-        factory: [ '@cas.psrhttpfactory', createRequest ]
-        arguments: [ '@cas.request']
+        autoconfigure: true
+        autowire: true
 
     EcPhp\CasBundle\Controller\:
         resource: '@CasBundle/Controller/'
         autowire: true
         autoconfigure: true
         tags: ['controller.service_arguments']
+
+    symfony.request:
+        class: Symfony\Component\HttpFoundation\RequestStack
+        factory: [ '@request_stack', getCurrentRequest]
+        public: false
+
+    Psr\Http\Message\RequestInterface:
+        factory: ['@loophp\UnalteredPsrHttpMessageBridgeBundle\Factory\UnalteredPsrHttpFactory', 'createRequest']
+        arguments: ['@symfony.request']
+
+    psr.request:
+        alias: 'Psr\Http\Message\RequestInterface'
+        public: true
