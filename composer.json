@@ -19,17 +19,19 @@
         "symfony/cache": "^5",
         "symfony/http-client": "^5",
         "symfony/monolog-bundle": "^3.5",
-        "symfony/psr-http-message-bridge": "^2.0",
+        "symfony/psr-http-message-bridge": "^1 || ^2",
         "symfony/routing": "^5",
         "symfony/security-bundle": "^5"
     },
     "require-dev": {
         "drupol/php-conventions": "^1.7.1",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
-        "infection/infection": "^0.15.3 || ^0.16",
+        "infection/infection": "^0.15.3 || ^0.16.3",
+        "loophp/unaltered-psr-http-message-bridge-bundle": "^1.0",
         "phpspec/phpspec": "^6.1.1"
     },
     "suggest": {
+        "loophp/unaltered-psr-http-message-bridge-bundle": "A drop-in replacement for symfony/psr-http-message-bridge, that does not alter query parameters.",
         "nyholm/psr7": "For a super lightweight PSR-7/17 implementation",
         "nyholm/psr7-server": "For a PSR-7 implementation of Server Requests.",
         "symfony/cache": "For a cache implementation (PSR-6).",
