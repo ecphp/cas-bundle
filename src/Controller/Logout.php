@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace EcPhp\CasBundle\Controller;
 
 use EcPhp\CasLib\CasInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class Logout.
  */
-final class Logout extends AbstractController
+final class Logout
 {
     /**
      * @param \EcPhp\CasLib\CasInterface $cas

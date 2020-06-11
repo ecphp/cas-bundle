@@ -6,12 +6,12 @@ namespace EcPhp\CasBundle\Controller;
 
 use EcPhp\CasLib\CasInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ProxyCallback.
  */
-final class ProxyCallback extends AbstractController
+final class ProxyCallback
 {
     /**
      * @param \EcPhp\CasLib\CasInterface $casProtocol
@@ -21,6 +21,10 @@ final class ProxyCallback extends AbstractController
      */
     public function __invoke(CasInterface $casProtocol, HttpFoundationFactoryInterface $httpFoundationFactory)
     {
-        return $httpFoundationFactory->createResponse($casProtocol->handleProxyCallback());
+        if (null !== $response = $casProtocol->handleProxyCallback()) {
+            return $httpFoundationFactory->createResponse($response);
+        }
+
+        return new Response('', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }
