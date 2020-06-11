@@ -10,8 +10,8 @@ use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
 use EcPhp\CasLib\Introspection\Introspector;
 use EcPhp\CasLib\Utils\Uri;
 use InvalidArgumentException;
-use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\UriFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,43 +23,26 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
-/**
- * Class CasGuardAuthenticator.
- */
 class CasGuardAuthenticator extends AbstractGuardAuthenticator implements LogoutSuccessHandlerInterface
 {
     /**
-     * The PSR CAS library.
+     * The ecphp/cas-lib library.
      *
      * @var \EcPhp\CasLib\CasInterface
      */
     private $cas;
 
     /**
-     * @var \Psr\Http\Message\ServerRequestFactoryInterface
+     * @var \Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface
      */
-    private $serverRequestFactory;
+    private $httpMessageFactory;
 
-    /**
-     * @var \Psr\Http\Message\UriFactoryInterface
-     */
-    private $uriFactory;
-
-    /**
-     * CasGuardAuthenticator constructor.
-     *
-     * @param \EcPhp\CasLib\CasInterface $cas
-     * @param \Psr\Http\Message\UriFactoryInterface $uriFactory
-     * @param \Psr\Http\Message\ServerRequestFactoryInterface $serverRequestFactory
-     */
     public function __construct(
         CasInterface $cas,
-        UriFactoryInterface $uriFactory,
-        ServerRequestFactoryInterface $serverRequestFactory
+        HttpMessageFactoryInterface $httpMessageFactory
     ) {
         $this->cas = $cas;
-        $this->uriFactory = $uriFactory;
-        $this->serverRequestFactory = $serverRequestFactory;
+        $this->httpMessageFactory = $httpMessageFactory;
     }
 
     /**
@@ -121,12 +104,12 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        if (true === $request->query->has('ticket')) {
+        $uri = $this->toPsr($request)->getUri();
+
+        if (true === Uri::hasParams($uri, 'ticket')) {
             // Remove the ticket parameter.
             $uri = Uri::removeParams(
-                $this->uriFactory->createUri(
-                    $request->getUri()
-                ),
+                $uri,
                 'ticket'
             );
 
@@ -146,9 +129,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     {
         return new RedirectResponse(
             (string) Uri::removeParams(
-                $this->uriFactory->createUri(
-                    $request->getUri()
-                ),
+                $this->toPsr($request)->getUri(),
                 'ticket',
                 'renew'
             )
@@ -207,14 +188,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     {
         return $this
             ->cas
-            ->withServerRequest(
-                $this
-                    ->serverRequestFactory
-                    ->createServerRequest(
-                        $request->getMethod(),
-                        $request->getUri()
-                    )
-            )
+            ->withServerRequest($this->toPsr($request))
             ->supportAuthentication();
     }
 
@@ -224,5 +198,23 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     public function supportsRememberMe()
     {
         return false;
+    }
+
+    /**
+     * Convert a Symfony request into a PSR Request.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *   The Symfony request.
+     *
+     * @return \Psr\Http\Message\ServerRequestInterface
+     *   The PSR request.
+     */
+    private function toPsr(Request $request): ServerRequestInterface
+    {
+        // As we cannot decorate the Symfony Request object, we convert it into
+        // a PSR Request so we can override the PSR HTTP Message factory if
+        // needed.
+        // See the reasons at https://github.com/ecphp/cas-lib/issues/5
+        return $this->httpMessageFactory->createRequest($request);
     }
 }

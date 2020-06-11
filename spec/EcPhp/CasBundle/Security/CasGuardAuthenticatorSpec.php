@@ -5,21 +5,23 @@ declare(strict_types=1);
 namespace spec\EcPhp\CasBundle\Security;
 
 use EcPhp\CasBundle\Security\CasGuardAuthenticator;
-use EcPhp\CasBundle\Security\Core\User\CasUser;
 use EcPhp\CasBundle\Security\Core\User\CasUserInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasLib\Cas;
+use loophp\UnalteredPsrHttpMessageBridgeBundle\Factory\UnalteredPsrHttpFactory;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
 use Psr\Log\NullLogger;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -39,7 +41,7 @@ class CasGuardAuthenticatorSpec extends ObjectBehavior
             ->shouldReturn(false);
     }
 
-    public function it_can_check_if_authentication_is_supported_when_a_user_is_logged_in(TokenStorageInterface $tokenStorage)
+    public function it_can_check_if_authentication_is_supported_when_a_user_is_logged_in()
     {
         $serverRequest = new ServerRequest('GET', 'http://app');
         $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
@@ -61,12 +63,17 @@ class CasGuardAuthenticatorSpec extends ObjectBehavior
             $logger
         );
 
-        $tokenStorage
-            ->getToken()
-            ->willReturn(new CasUser([]));
+        $psrHttpMessageFactory = new PsrHttpFactory(
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory
+        );
+
+        $unalteredPsrHttpMessageFactory = new UnalteredPsrHttpFactory($psrHttpMessageFactory, $psr17Factory);
 
         $this
-            ->beConstructedWith($cas, $psr17Factory, $psr17Factory, $tokenStorage);
+            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory);
 
         $this
             ->supports(Request::create('http://app'))
@@ -195,17 +202,17 @@ EOF;
 
     public function it_can_redirect_on_success_authentication(TokenInterface $token)
     {
-        $request = Request::create('http://app/?ticket=ticket');
+        $request = Request::create('http://app/?param.key=value&ticket=ticket');
 
         $this
             ->onAuthenticationSuccess($request, $token, 'cas')
             ->shouldBeAnInstanceOf(RedirectResponse::class);
 
         $this
-            ->onAuthenticationSuccess($request, $token, 'cas')
+            ->onAuthenticationSuccess($request, new AnonymousToken('o', 'a'), 'cas')
             ->headers
             ->all()
-            ->shouldHaveKeyWithValue('location', ['http://app/']);
+            ->shouldHaveKeyWithValue('location', ['http://app/?param.key=value']);
     }
 
     public function it_can_redirect_on_success_logout()
@@ -265,7 +272,16 @@ EOF;
             $logger
         );
 
+        $psrHttpMessageFactory = new PsrHttpFactory(
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory
+        );
+
+        $unalteredPsrHttpMessageFactory = new UnalteredPsrHttpFactory($psrHttpMessageFactory, $psr17Factory);
+
         $this
-            ->beConstructedWith($cas, $psr17Factory, $psr17Factory, $tokenStorage);
+            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory);
     }
 }
