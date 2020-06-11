@@ -11,11 +11,21 @@ the services.
 Step 1
 ~~~~~~
 
-The easiest way to install it is through Composer_
+The recommended way to install it is with Composer_ :
 
 .. code-block:: bash
 
     composer require ecphp/cas-bundle
+
+.. warning:: If you use `API Platform`_, then it's possible that some url will contains parameters with
+   a dot inside. By default, Symfony mangles url parameters having dot with an underscore, which can lead in huge
+   inconsistencies if you heavily rely on query parameters like in API Platform.
+
+   In order to fix that issue, the optional package `loophp/unaltered-psr-http-message-bridge-bundle`_ can be installed.
+
+   .. code-block:: bash
+
+      composer require loophp/unaltered-psr-http-message-bridge-bundle
 
 Step 2
 ~~~~~~
@@ -129,3 +139,5 @@ The quickest solution for a working CAS server on any platform is this `Docker p
 .. _Docker project: https://github.com/crpeck/cas-overlay-docker
 .. _Apereo: https://www.apereo.org/
 .. _https://casserver.herokuapp.com/cas/: https://casserver.herokuapp.com/cas/
+.. _loophp/unaltered-psr-http-message-bridge-bundle: https://github.com/loophp/unaltered-psr-http-message-bridge-bundle
+.. _API Platform: https://api-platform.com/
