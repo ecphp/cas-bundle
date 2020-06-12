@@ -40,7 +40,7 @@ services:
         public: false
 
     Psr\Http\Message\RequestInterface:
-        factory: ['@loophp\UnalteredPsrHttpMessageBridgeBundle\Factory\UnalteredPsrHttpFactory', 'createRequest']
+        factory: ['@sensio_framework_extra.psr7.http_message_factory', 'createRequest']
         arguments: ['@symfony.request']
 
     psr.request:
