@@ -46,3 +46,5 @@ services:
     psr.request:
         alias: 'Psr\Http\Message\RequestInterface'
         public: true
+
+    Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface: '@sensio_framework_extra.psr7.http_message_factory'
