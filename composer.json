@@ -16,6 +16,7 @@
         "ext-simplexml": "*",
         "ecphp/cas-lib": "^1",
         "nyholm/psr7": "^1.2",
+        "sensio/framework-extra-bundle": "^5.5",
         "symfony/cache": "^4.4",
         "symfony/http-client": "^4.4",
         "symfony/monolog-bundle": "^3.5",
