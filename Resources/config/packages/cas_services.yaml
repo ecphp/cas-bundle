@@ -46,3 +46,7 @@ services:
     psr.request:
         alias: 'Psr\Http\Message\RequestInterface'
         public: true
+
+    # Fix for https://github.com/sensiolabs/SensioFrameworkExtraBundle/pull/688
+    Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface: '@sensio_framework_extra.psr7.http_message_factory'
+    Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface: '@sensio_framework_extra.psr7.http_foundation_factory'
