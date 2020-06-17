@@ -28,8 +28,22 @@ services:
         autoconfigure: true
         autowire: true
 
-    EcPhp\CasBundle\Controller\:
-        resource: '../Controller/'
+    EcPhp\CasBundle\Controller\Homepage:
+        autowire: true
+        autoconfigure: true
+        tags: ['controller.service_arguments']
+
+    EcPhp\CasBundle\Controller\Login:
+        autowire: true
+        autoconfigure: true
+        tags: ['controller.service_arguments']
+
+    EcPhp\CasBundle\Controller\Logout:
+        autowire: true
+        autoconfigure: true
+        tags: ['controller.service_arguments']
+
+    EcPhp\CasBundle\Controller\ProxyCallback:
         autowire: true
         autoconfigure: true
         tags: ['controller.service_arguments']
