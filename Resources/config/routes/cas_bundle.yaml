@@ -1,3 +1,0 @@
-cas_bundle:
-    resource: '@CasBundle/Resources/routing.xml'
-    prefix: /cas
