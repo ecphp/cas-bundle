@@ -29,7 +29,7 @@ services:
         autowire: true
 
     EcPhp\CasBundle\Controller\:
-        resource: '@CasBundle/Controller/'
+        resource: '../Controller/'
         autowire: true
         autoconfigure: true
         tags: ['controller.service_arguments']
