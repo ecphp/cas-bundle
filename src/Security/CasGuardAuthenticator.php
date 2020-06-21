@@ -71,7 +71,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     public function getCredentials(Request $request)
     {
         $response = $this
-            ->cas
+            ->cas->withServerRequest($this->toPsr($request))
             ->requestTicketValidation();
 
         if (null === $response) {
