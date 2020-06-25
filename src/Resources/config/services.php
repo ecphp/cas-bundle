@@ -23,15 +23,15 @@ return static function (ContainerConfigurator $container) {
         ->services()
         ->set('cas', Cas::class)
         ->args([
-            ref('psr.request'),
-            ref('cas.configuration'),
-            ref('psr18.http_client'),
-            ref('nyholm.psr7.psr17_factory'),
-            ref('nyholm.psr7.psr17_factory'),
-            ref('nyholm.psr7.psr17_factory'),
-            ref('nyholm.psr7.psr17_factory'),
-            ref('cache.app'),
-            ref('logger'),
+            service('psr.request'),
+            service('cas.configuration'),
+            service('psr18.http_client'),
+            service('nyholm.psr7.psr17_factory'),
+            service('nyholm.psr7.psr17_factory'),
+            service('nyholm.psr7.psr17_factory'),
+            service('nyholm.psr7.psr17_factory'),
+            service('cache.app'),
+            service('logger'),
         ]);
 
     $container
@@ -43,7 +43,7 @@ return static function (ContainerConfigurator $container) {
         ->set('cas.configuration', Symfony::class)
         ->args([
             '%cas%',
-            ref('router'),
+            service('router'),
         ]);
 
     $container
@@ -88,7 +88,7 @@ return static function (ContainerConfigurator $container) {
         ->services()
         ->set('symfony.request', RequestStack::class)
         ->factory([
-            ref('request_stack'),
+            service('request_stack'),
             'getCurrentRequest',
         ])
         ->private();
@@ -97,11 +97,11 @@ return static function (ContainerConfigurator $container) {
         ->services()
         ->set(RequestInterface::class)
         ->factory([
-            ref('sensio_framework_extra.psr7.http_message_factory'),
+            service('sensio_framework_extra.psr7.http_message_factory'),
             'createRequest',
         ])
         ->args([
-            ref('symfony.request'),
+            service('symfony.request'),
         ]);
 
     $container
