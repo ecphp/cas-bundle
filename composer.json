@@ -27,8 +27,7 @@
     "require-dev": {
         "drupol/php-conventions": "^1.7.1",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
-        "infection/infection": "^0.15.3 || ^0.16.3",
-        "infection/phpspec-adapter": "^0.1.1",
+        "infection/infection": "^0.15.3",
         "loophp/unaltered-psr-http-message-bridge-bundle": "^1.0",
         "phpspec/phpspec": "^6.2"
     },
