@@ -3,10 +3,9 @@
 Installation
 ============
 
-This package does not yet have a Symfony Flex recipe. Installation steps must be done manually.
+This package has `a Symfony Flex recipe`_ that will install configuration files for you.
 
-Default configuration files will be copied in the `dev` environment except for the file defining
-the services.
+Default configuration files will be copied in the `dev` environment.
 
 Step 1
 ~~~~~~
@@ -17,7 +16,7 @@ The recommended way to install it is with Composer_ :
 
     composer require ecphp/cas-bundle:^1
 
-.. warning:: If you use `API Platform`_, then it's possible that some url will contains parameters with
+.. warning:: If you use `API Platform`_ and Symfony < 5.2, then it's possible that some URLs contains parameters with
    a dot inside. By default, Symfony mangles url parameters having dot with an underscore, which can lead in huge
    inconsistencies if you heavily rely on query parameters like in API Platform.
 
@@ -28,26 +27,6 @@ The recommended way to install it is with Composer_ :
       composer require loophp/unaltered-psr-http-message-bridge-bundle
 
 Step 2
-~~~~~~
-
-Make sure that the bundle is enabled in `config/bundles.php`.
-
-You should see a line that looks like the following:
-
-.. code-block:: php
-
-    EcPhp\CasBundle\CasBundle::class => ['all' => true],
-
-Step 3
-~~~~~~
-
-Recursively copy the content of the `Resources/config` folder in `config/` folder.
-
-.. code-block:: bash
-
-    cp -ar vendor/ecphp/cas-bundle/Resources/config/* config/
-
-Step 4
 ~~~~~~
 
 This is the crucial part of your application's security configuration.
@@ -75,7 +54,7 @@ with `/api` or `/admin`, therefore make sure that at least such paths exists.
 Feel free to change these configuration to fits your need. Have a look at
 `the Symfony documentation about security and Guard authentication`_.
 
-Step 5
+Step 3
 ~~~~~~
 
 The CAS protocol requires HTTPS on both side (client and server) in order
@@ -101,7 +80,7 @@ Feel free to customize it or remove it when switching to another environment.
 If you plan to change the HTTP client, those settings will most probably need
 to be updated accordingly.
 
-Step 6
+Step 4
 ~~~~~~
 
 The default configuration of this bundle comes with a configuration for authenticating with a real
@@ -129,6 +108,7 @@ The `source`_ of that server are hosted on Github.
 If you prefer using a local CAS server, you can choose to build your own using the tool you prefer.
 The quickest solution for a working CAS server on any platform is this `Docker project`_.
 
+.. _a Symfony Flex recipe: https://github.com/symfony/recipes-contrib/blob/master/ecphp/cas-bundle/1.0/manifest.json
 .. _Composer: https://getcomposer.org
 .. _symfony/http-client: https://packagist.org/packages/symfony/http-client
 .. _https://heroku-cas-server.herokuapp.com/cas/: https://heroku-cas-server.herokuapp.com/cas/
