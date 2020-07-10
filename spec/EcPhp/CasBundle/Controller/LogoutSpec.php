@@ -6,6 +6,7 @@ namespace spec\EcPhp\CasBundle\Controller;
 
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasLib\Cas;
+use EcPhp\CasLib\CasInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
@@ -53,5 +54,12 @@ class LogoutSpec extends ObjectBehavior
     public function it_is_initializable()
     {
         $this->shouldHaveType(Logout::class);
+    }
+
+    public function it_redirects_to_index(CasInterface $cas, TokenStorageInterface $tokenStorage)
+    {
+        $response = $this->__invoke($cas, $tokenStorage);
+        $response->shouldBeAnInstanceOf(RedirectResponse::class);
+        $response->headers->get('location')->shouldReturn('/');
     }
 }

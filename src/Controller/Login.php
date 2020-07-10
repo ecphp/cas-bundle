@@ -19,13 +19,13 @@ final class Login
      * @param \EcPhp\CasLib\CasInterface $cas
      * @param \Symfony\Component\Security\Core\Security $security
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function __invoke(
         Request $request,
         CasInterface $cas,
         Security $security
-    ) {
+    ): RedirectResponse {
         $parameters = $request->query->all() + [
             'renew' => null !== $security->getUser(),
         ];

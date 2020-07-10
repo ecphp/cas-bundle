@@ -19,7 +19,7 @@ final class ProxyCallback
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(CasInterface $casProtocol, HttpFoundationFactoryInterface $httpFoundationFactory)
+    public function __invoke(CasInterface $casProtocol, HttpFoundationFactoryInterface $httpFoundationFactory): Response
     {
         if (null !== $response = $casProtocol->handleProxyCallback()) {
             return $httpFoundationFactory->createResponse($response);
