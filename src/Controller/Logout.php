@@ -17,12 +17,12 @@ final class Logout
      * @param \EcPhp\CasLib\CasInterface $cas
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function __invoke(
         CasInterface $cas,
         TokenStorageInterface $tokenStorage
-    ) {
+    ): RedirectResponse {
         if (null !== $response = $cas->logout()) {
             $tokenStorage->setToken();
 

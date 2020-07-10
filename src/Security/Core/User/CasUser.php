@@ -60,7 +60,7 @@ final class CasUser implements CasUserInterface
     /**
      * {@inheritdoc}
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
     }
 
@@ -75,7 +75,7 @@ final class CasUser implements CasUserInterface
     /**
      * @return string[]
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return ['ROLE_CAS_AUTHENTICATED'];
     }
@@ -83,7 +83,7 @@ final class CasUser implements CasUserInterface
     /**
      * {@inheritdoc}
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
     }
 
@@ -98,7 +98,7 @@ final class CasUser implements CasUserInterface
     /**
      * {@inheritdoc}
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->getUser();
     }
@@ -108,7 +108,7 @@ final class CasUser implements CasUserInterface
      *
      * @return array<mixed>
      */
-    private function getStorage()
+    private function getStorage(): array
     {
         return $this->storage;
     }
