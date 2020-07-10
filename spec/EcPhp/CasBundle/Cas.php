@@ -177,9 +177,6 @@ EOF;
         return new MockHttpClient($callback);
     }
 
-    /**
-     * @return \EcPhp\CasLib\Configuration\Properties
-     */
     public static function getTestProperties(): CasProperties
     {
         return new CasProperties([
@@ -234,9 +231,6 @@ EOF;
         ]);
     }
 
-    /**
-     * @return \EcPhp\CasLib\Configuration\Properties
-     */
     public static function getTestPropertiesWithPgtUrl(): CasProperties
     {
         $properties = self::getTestProperties()->all();

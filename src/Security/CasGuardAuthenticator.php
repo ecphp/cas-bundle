@@ -10,6 +10,7 @@ use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
 use EcPhp\CasLib\Introspection\Introspector;
 use EcPhp\CasLib\Utils\Uri;
 use InvalidArgumentException;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -48,7 +49,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         try {
             $introspect = Introspector::detect($credentials);
@@ -68,7 +69,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): ?ResponseInterface
     {
         $response = $this
             ->cas->withServerRequest($this->toPsr($request))
@@ -84,7 +85,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         if (false === ($userProvider instanceof CasUserProviderInterface)) {
             throw new AuthenticationException('Unable to load the user through the given User Provider.');
@@ -102,7 +103,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         $uri = $this->toPsr($request)->getUri();
 
@@ -125,7 +126,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): Response
     {
         return new RedirectResponse(
             (string) Uri::removeParams(
@@ -139,7 +140,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function onLogoutSuccess(Request $request)
+    public function onLogoutSuccess(Request $request): Response
     {
         $response = $this
             ->cas
@@ -158,7 +159,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function start(Request $request, ?AuthenticationException $authException = null)
+    public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         if (true === $request->isXmlHttpRequest()) {
             return new JsonResponse(
@@ -184,7 +185,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return $this
             ->cas
@@ -195,7 +196,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     /**
      * {@inheritdoc}
      */
-    public function supportsRememberMe()
+    public function supportsRememberMe(): bool
     {
         return false;
     }

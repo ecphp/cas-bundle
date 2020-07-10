@@ -5,7 +5,12 @@ extensions:
       - clover
       - php
       - text
+      - html
     output:
       html: build/coverage
       clover: build/logs/clover.xml
       php: build/coverage.php
+    whitelist:
+      - src
+    blacklist:
+      - src/Resources

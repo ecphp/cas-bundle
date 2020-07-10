@@ -14,7 +14,7 @@ final class Homepage
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         $body = <<< 'EOF'
 <p>You have been redirected here by default. You are most probably using the default CAS configuration.</p>

@@ -1,10 +1,12 @@
 <?php
 
-use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+declare(strict_types=1);
+
 use EcPhp\CasBundle\Controller\Homepage;
 use EcPhp\CasBundle\Controller\Login;
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasBundle\Controller\ProxyCallback;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes) {
     $routes
