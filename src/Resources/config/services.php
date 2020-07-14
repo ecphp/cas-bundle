@@ -13,6 +13,8 @@ use EcPhp\CasBundle\Security\CasGuardAuthenticator;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasLib\Cas;
 use EcPhp\CasLib\CasInterface;
+use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
+use EcPhp\CasLib\Introspection\Introspector;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
@@ -32,6 +34,7 @@ return static function (ContainerConfigurator $container) {
             ref('nyholm.psr7.psr17_factory'),
             ref('cache.app'),
             ref('logger'),
+            ref('cas.introspector'),
         ]);
 
     $container
@@ -48,7 +51,16 @@ return static function (ContainerConfigurator $container) {
 
     $container
         ->services()
-        ->set('cas.userprovider', CasUserProvider::class);
+        ->set('cas.introspector', Introspector::class);
+
+    $container
+        ->services()
+        ->alias(IntrospectorInterface::class, 'cas.introspector');
+
+    $container
+        ->services()
+        ->set('cas.userprovider', CasUserProvider::class)
+        ->autowire();
 
     $container
         ->services()
@@ -109,6 +121,8 @@ return static function (ContainerConfigurator $container) {
         ->alias('psr.request', RequestInterface::class)
         ->public();
 
+    // This could be removed once https://github.com/sensiolabs/SensioFrameworkExtraBundle/pull/688
+    // is merged.
     $container
         ->services()
         ->alias(HttpMessageFactoryInterface::class, 'sensio_framework_extra.psr7.http_message_factory');

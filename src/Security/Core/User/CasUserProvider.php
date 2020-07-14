@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
 
+use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
 use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
-use EcPhp\CasLib\Introspection\Introspector;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -17,12 +17,22 @@ use function get_class;
 class CasUserProvider implements CasUserProviderInterface
 {
     /**
+     * @var IntrospectorInterface
+     */
+    private $introspector;
+
+    public function __construct(IntrospectorInterface $introspector)
+    {
+        $this->introspector = $introspector;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function loadUserByResponse(ResponseInterface $response): CasUserInterface
     {
         try {
-            $introspect = Introspector::detect($response);
+            $introspect = $this->introspector->detect($response);
         } catch (InvalidArgumentException $exception) {
             throw new AuthenticationException($exception->getMessage());
         }
