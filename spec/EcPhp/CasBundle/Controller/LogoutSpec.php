@@ -6,8 +6,8 @@ namespace spec\EcPhp\CasBundle\Controller;
 
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasLib\Cas;
-use EcPhp\CasLib\Introspection\Introspector;
 use EcPhp\CasLib\CasInterface;
+use EcPhp\CasLib\Introspection\Introspector;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
