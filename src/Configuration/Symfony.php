@@ -30,7 +30,6 @@ final class Symfony implements PropertiesInterface
      * Symfony constructor.
      *
      * @param array<string, mixed> $properties
-     * @param \Symfony\Component\Routing\RouterInterface $router
      */
     public function __construct(array $properties, RouterInterface $router)
     {
@@ -107,7 +106,6 @@ final class Symfony implements PropertiesInterface
 
     /**
      * @param array<string, mixed> $properties
-     * @param string $key
      *
      * @return array<string, mixed>
      */

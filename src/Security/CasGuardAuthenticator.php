@@ -118,6 +118,8 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
 
             return new RedirectResponse((string) $uri);
         }
+
+        return null;
     }
 
     /**

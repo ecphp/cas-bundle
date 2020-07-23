@@ -14,13 +14,6 @@ use Symfony\Component\Security\Core\Security;
  */
 final class Login
 {
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \EcPhp\CasLib\CasInterface $cas
-     * @param \Symfony\Component\Security\Core\Security $security
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
     public function __invoke(
         Request $request,
         CasInterface $cas,

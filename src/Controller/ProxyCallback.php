@@ -13,12 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ProxyCallback
 {
-    /**
-     * @param \EcPhp\CasLib\CasInterface $casProtocol
-     * @param \Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface $httpFoundationFactory
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function __invoke(CasInterface $casProtocol, HttpFoundationFactoryInterface $httpFoundationFactory): Response
     {
         if (null !== $response = $casProtocol->handleProxyCallback()) {

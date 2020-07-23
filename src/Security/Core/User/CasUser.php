@@ -54,14 +54,12 @@ final class CasUser implements CasUserInterface
      */
     public function getAttributes(): array
     {
-        return $this->get('attributes', []);
+        return (array) $this->get('attributes', []);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPassword(): ?string
     {
+        return null;
     }
 
     /**
@@ -85,6 +83,7 @@ final class CasUser implements CasUserInterface
      */
     public function getSalt(): ?string
     {
+        return null;
     }
 
     /**

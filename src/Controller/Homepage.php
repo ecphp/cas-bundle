@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class Homepage
 {
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function __invoke(): Response
     {
         $body = <<< 'EOF'
