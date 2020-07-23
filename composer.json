@@ -14,7 +14,7 @@
         "php": ">= 7.2.5",
         "ext-json": "*",
         "ext-simplexml": "*",
-        "ecphp/cas-lib": "^1",
+        "ecphp/cas-lib": "1.0.*",
         "nyholm/psr7": "^1.2",
         "symfony/cache": "^5.1",
         "symfony/dependency-injection": "^5.1",
@@ -25,11 +25,11 @@
         "symfony/security-bundle": "^5.1"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.7.1",
+        "drupol/php-conventions": "^1.8.6",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.15.3",
         "loophp/unaltered-psr-http-message-bridge-bundle": "^1.0",
-        "phpspec/phpspec": "^6.2"
+        "phpspec/phpspec": "^6.2.1"
     },
     "suggest": {
         "loophp/unaltered-psr-http-message-bridge-bundle": "A drop-in replacement for symfony/psr-http-message-bridge, that does not alter query parameters.",
