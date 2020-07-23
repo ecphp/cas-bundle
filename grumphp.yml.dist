@@ -6,18 +6,12 @@ parameters:
   extra_tasks:
     phpspec:
       verbose: true
-      metadata:
-        priority: 3000
     clover_coverage:
       clover_file: build/logs/clover.xml
       level: 80
-      metadata:
-        priority: 2000
     infection:
       threads: 10
       test_framework: phpspec
       configuration: infection.json.dist
       min_msi: 70
       min_covered_msi: 90
-      metadata:
-        priority: 2000
