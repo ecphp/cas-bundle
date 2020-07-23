@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 interface CasUserInterface extends UserInterface
 {
     /**
-     * @param string $key
      * @param mixed $default
      *
      * @return mixed|null
@@ -20,7 +19,6 @@ interface CasUserInterface extends UserInterface
     public function get(string $key, $default = null);
 
     /**
-     * @param string $key
      * @param mixed $default
      *
      * @return mixed
@@ -32,13 +30,7 @@ interface CasUserInterface extends UserInterface
      */
     public function getAttributes(): array;
 
-    /**
-     * @return string|null
-     */
     public function getPgt(): ?string;
 
-    /**
-     * @return string
-     */
     public function getUser(): string;
 }

@@ -9,18 +9,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 
-/**
- * Class Login.
- */
 final class Login
 {
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \EcPhp\CasLib\CasInterface $cas
-     * @param \Symfony\Component\Security\Core\Security $security
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
     public function __invoke(
         Request $request,
         CasInterface $cas,

@@ -16,7 +16,6 @@ class CasExtension extends Extension
 {
     /**
      * @param array<string> $configs
-     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container): void
     {

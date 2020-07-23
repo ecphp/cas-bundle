@@ -6,14 +6,8 @@ namespace EcPhp\CasBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class Homepage.
- */
 final class Homepage
 {
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function __invoke(): Response
     {
         $body = <<< 'EOF'

@@ -8,19 +8,12 @@ use EcPhp\CasLib\CasInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class ProxyCallback.
- */
 final class ProxyCallback
 {
-    /**
-     * @param \EcPhp\CasLib\CasInterface $casProtocol
-     * @param \Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface $httpFoundationFactory
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function __invoke(CasInterface $casProtocol, HttpFoundationFactoryInterface $httpFoundationFactory): Response
-    {
+    public function __invoke(
+        CasInterface $casProtocol,
+        HttpFoundationFactoryInterface $httpFoundationFactory
+    ): Response {
         if (null !== $response = $casProtocol->handleProxyCallback()) {
             return $httpFoundationFactory->createResponse($response);
         }

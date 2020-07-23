@@ -13,8 +13,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 interface CasUserProviderInterface extends UserProviderInterface
 {
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     *
      * @return \EcPhp\CasBundle\Security\Core\User\CasUser
      */
     public function loadUserByResponse(ResponseInterface $response): CasUserInterface;
