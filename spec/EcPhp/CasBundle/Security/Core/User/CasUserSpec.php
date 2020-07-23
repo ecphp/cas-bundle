@@ -12,11 +12,11 @@ class CasUserSpec extends ObjectBehavior
     public function it_can_get_its_username()
     {
         $this
-            ->getUser()
+            ->getUsername()
             ->shouldBeString();
 
         $this
-            ->getUser()
+            ->getUsername()
             ->shouldBeEqualTo($this->getUsername());
     }
 
