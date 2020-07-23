@@ -32,5 +32,8 @@ interface CasUserInterface extends UserInterface
 
     public function getPgt(): ?string;
 
+    /**
+     * @deprecated use CasUserInterface::getUsername();
+     */
     public function getUser(): string;
 }

@@ -91,7 +91,14 @@ final class CasUser implements CasUserInterface
      */
     public function getUser(): string
     {
-        return $this->get('user');
+        trigger_deprecation(
+            'ecphp/cas-bundle',
+            '2.1.2',
+            'The method "%s::getUser()" is deprecated, use %s::getUsername() instead.',
+            CasUserInterface::class
+        );
+
+        return $this->getUsername();
     }
 
     /**
@@ -99,7 +106,7 @@ final class CasUser implements CasUserInterface
      */
     public function getUsername(): string
     {
-        return $this->getUser();
+        return $this->get('user');
     }
 
     /**
