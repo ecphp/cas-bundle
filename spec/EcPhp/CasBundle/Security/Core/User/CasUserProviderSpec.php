@@ -7,6 +7,7 @@ namespace spec\EcPhp\CasBundle\Security\Core\User;
 use EcPhp\CasBundle\Security\Core\User\CasUser;
 use EcPhp\CasBundle\Security\Core\User\CasUserInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
+use EcPhp\CasLib\Introspection\Introspector;
 use Nyholm\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -81,5 +82,11 @@ EOF;
     public function it_is_initializable()
     {
         $this->shouldHaveType(CasUserProvider::class);
+    }
+
+    public function let()
+    {
+        $this
+            ->beConstructedWith(new Introspector());
     }
 }

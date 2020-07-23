@@ -7,6 +7,7 @@ namespace spec\EcPhp\CasBundle\Controller;
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasLib\Cas;
 use EcPhp\CasLib\CasInterface;
+use EcPhp\CasLib\Introspection\Introspector;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
@@ -25,6 +26,7 @@ class LogoutSpec extends ObjectBehavior
         $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
         $cache = new ArrayAdapter();
         $logger = new NullLogger();
+        $introspector = new Introspector();
 
         $psr17Factory = new Psr17Factory();
 
@@ -37,7 +39,8 @@ class LogoutSpec extends ObjectBehavior
             $psr17Factory,
             $psr17Factory,
             $cache,
-            $logger
+            $logger,
+            $introspector
         );
 
         $this

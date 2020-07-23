@@ -7,7 +7,6 @@ namespace EcPhp\CasBundle\Security;
 use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
 use EcPhp\CasLib\CasInterface;
 use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
-use EcPhp\CasLib\Introspection\Introspector;
 use EcPhp\CasLib\Utils\Uri;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
@@ -52,7 +51,7 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
     public function checkCredentials($credentials, UserInterface $user): bool
     {
         try {
-            $introspect = Introspector::detect($credentials);
+            $introspect = $this->cas->detect($credentials);
         } catch (InvalidArgumentException $exception) {
             throw new AuthenticationException($exception->getMessage());
         }

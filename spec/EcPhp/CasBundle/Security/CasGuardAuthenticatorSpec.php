@@ -8,6 +8,8 @@ use EcPhp\CasBundle\Security\CasGuardAuthenticator;
 use EcPhp\CasBundle\Security\Core\User\CasUserInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasLib\Cas;
+use EcPhp\CasLib\CasInterface;
+use EcPhp\CasLib\Introspection\Introspector;
 use loophp\UnalteredPsrHttpMessageBridgeBundle\Factory\UnalteredPsrHttpFactory;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
@@ -43,25 +45,9 @@ class CasGuardAuthenticatorSpec extends ObjectBehavior
 
     public function it_can_check_if_authentication_is_supported_when_a_user_is_logged_in()
     {
-        $serverRequest = new ServerRequest('GET', 'http://app');
-        $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
-        $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
-        $cache = new ArrayAdapter();
-        $logger = new NullLogger();
+        $cas = $this->getCas();
 
         $psr17Factory = new Psr17Factory();
-
-        $cas = new Cas(
-            $serverRequest,
-            $properties,
-            $client,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $cache,
-            $logger
-        );
 
         $psrHttpMessageFactory = new PsrHttpFactory(
             $psr17Factory,
@@ -155,7 +141,7 @@ EOF;
 EOF;
 
         $response = new Response(200, ['content-type' => 'application/xml'], $body);
-        $casUserProvider = new CasUserProvider();
+        $casUserProvider = new CasUserProvider(new Introspector());
 
         $this
             ->getUser($response, $casUserProvider)
@@ -252,25 +238,9 @@ EOF;
 
     public function let(TokenStorageInterface $tokenStorage)
     {
-        $serverRequest = new ServerRequest('GET', 'http://app');
-        $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
-        $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
-        $cache = new ArrayAdapter();
-        $logger = new NullLogger();
+        $cas = $this->getCas();
 
         $psr17Factory = new Psr17Factory();
-
-        $cas = new Cas(
-            $serverRequest,
-            $properties,
-            $client,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $cache,
-            $logger
-        );
 
         $psrHttpMessageFactory = new PsrHttpFactory(
             $psr17Factory,
@@ -283,5 +253,30 @@ EOF;
 
         $this
             ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory);
+    }
+
+    private function getCas(): CasInterface
+    {
+        $serverRequest = new ServerRequest('GET', 'http://app');
+        $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
+        $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
+        $cache = new ArrayAdapter();
+        $logger = new NullLogger();
+        $introspector = new Introspector();
+
+        $psr17Factory = new Psr17Factory();
+
+        return new Cas(
+            $serverRequest,
+            $properties,
+            $client,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $cache,
+            $logger,
+            $introspector
+        );
     }
 }
