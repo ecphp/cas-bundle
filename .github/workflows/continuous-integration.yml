@@ -17,6 +17,11 @@ jobs:
                 php-versions: ['7.2', '7.3', '7.4']
 
         steps:
+            - name: Set git to use LF
+              run: |
+                  git config --global core.autocrlf false
+                  git config --global core.eol lf
+
             - name: Checkout
               uses: actions/checkout@master
               with:
@@ -47,8 +52,24 @@ jobs:
               env:
                   STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
-            - name: Scrutinizer
+            - name: Send PSALM data
+              run: vendor/bin/psalm --shepherd --stats
+              continue-on-error: true
+
+            - name: Send Scrutinizer data
               run: |
                   wget https://scrutinizer-ci.com/ocular.phar
                   php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+              continue-on-error: true
+
+            - name: Infection score report
+              run: |
+                  vendor/bin/infection run -j 2
+              continue-on-error: true
+
+            - name: PHP Insights report
+              run: |
+                  rm -rf composer.lock vendor
+                  composer require nunomaduro/phpinsights --dev
+                  vendor/bin/phpinsights analyse src/ -n
               continue-on-error: true
