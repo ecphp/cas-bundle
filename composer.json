@@ -29,7 +29,8 @@
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.15.3",
         "loophp/unaltered-psr-http-message-bridge-bundle": "^1.0",
-        "phpspec/phpspec": "^6.2.1"
+        "phpspec/phpspec": "^6.2.1",
+        "vimeo/psalm": "^3.12"
     },
     "suggest": {
         "loophp/unaltered-psr-http-message-bridge-bundle": "A drop-in replacement for symfony/psr-http-message-bridge, that does not alter query parameters.",
