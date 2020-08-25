@@ -16,8 +16,6 @@ use EcPhp\CasLib\CasInterface;
 use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
 use EcPhp\CasLib\Introspection\Introspector;
 use Psr\Http\Message\RequestInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 return static function (ContainerConfigurator $container) {
@@ -120,14 +118,4 @@ return static function (ContainerConfigurator $container) {
         ->services()
         ->alias('psr.request', RequestInterface::class)
         ->public();
-
-    // This could be removed once https://github.com/sensiolabs/SensioFrameworkExtraBundle/pull/688
-    // is merged.
-    $container
-        ->services()
-        ->alias(HttpMessageFactoryInterface::class, 'sensio_framework_extra.psr7.http_message_factory');
-
-    $container
-        ->services()
-        ->alias(HttpFoundationFactoryInterface::class, 'sensio_framework_extra.psr7.http_foundation_factory');
 };
