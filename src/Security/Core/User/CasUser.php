@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
 
-/**
- * Class CasUser.
- */
 final class CasUser implements CasUserInterface
 {
     /**
@@ -14,7 +11,7 @@ final class CasUser implements CasUserInterface
      *
      * @var array<mixed>
      */
-    private $storage;
+    private array $storage;
 
     /**
      * CasUser constructor.
@@ -87,21 +84,6 @@ final class CasUser implements CasUserInterface
     public function getSalt(): ?string
     {
         return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUser(): string
-    {
-        trigger_deprecation(
-            'ecphp/cas-bundle',
-            '2.1.2',
-            'The method "%s::getUser()" is deprecated, use %s::getUsername() instead.',
-            CasUserInterface::class
-        );
-
-        return $this->getUsername();
     }
 
     /**

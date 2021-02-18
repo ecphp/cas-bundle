@@ -16,10 +16,7 @@ use function get_class;
 
 class CasUserProvider implements CasUserProviderInterface
 {
-    /**
-     * @var IntrospectorInterface
-     */
-    private $introspector;
+    private IntrospectorInterface $introspector;
 
     public function __construct(IntrospectorInterface $introspector)
     {

@@ -6,9 +6,6 @@ namespace EcPhp\CasBundle\Security\Core\User;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * Interface CasUserInterface.
- */
 interface CasUserInterface extends UserInterface
 {
     /**
@@ -31,9 +28,4 @@ interface CasUserInterface extends UserInterface
     public function getAttributes(): array;
 
     public function getPgt(): ?string;
-
-    /**
-     * @deprecated use CasUserInterface::getUsername();
-     */
-    public function getUser(): string;
 }

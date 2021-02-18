@@ -21,21 +21,12 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
-use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
-class CasGuardAuthenticator extends AbstractGuardAuthenticator implements LogoutSuccessHandlerInterface
+final class CasGuardAuthenticator extends AbstractGuardAuthenticator
 {
-    /**
-     * The ecphp/cas-lib library.
-     *
-     * @var \EcPhp\CasLib\CasInterface
-     */
-    private $cas;
+    private CasInterface $cas;
 
-    /**
-     * @var \Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface
-     */
-    private $httpMessageFactory;
+    private HttpMessageFactoryInterface $httpMessageFactory;
 
     public function __construct(
         CasInterface $cas,
@@ -133,25 +124,6 @@ class CasGuardAuthenticator extends AbstractGuardAuthenticator implements Logout
                 'ticket',
                 'renew'
             )
-        );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onLogoutSuccess(Request $request): Response
-    {
-        $response = $this
-            ->cas
-            ->logout();
-
-        if (null === $response) {
-            throw new AuthenticationException('Unable to trigger the logout procedure');
-        }
-
-        return new RedirectResponse(
-            $response
-                ->getHeaderLine('location')
         );
     }
 
