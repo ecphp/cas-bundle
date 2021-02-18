@@ -201,21 +201,6 @@ EOF;
             ->shouldHaveKeyWithValue('location', ['http://app/?param.key=value']);
     }
 
-    public function it_can_redirect_on_success_logout()
-    {
-        $request = Request::create('http://app/?ticket=ticket');
-
-        $this
-            ->onLogoutSuccess($request)
-            ->shouldBeAnInstanceOf(RedirectResponse::class);
-
-        $this
-            ->onLogoutSuccess($request)
-            ->headers
-            ->all()
-            ->shouldHaveKeyWithValue('location', ['http://local/cas/logout']);
-    }
-
     public function it_can_redirect_to_the_login_url()
     {
         $request = Request::create('http://app/?ticket=ticket');
