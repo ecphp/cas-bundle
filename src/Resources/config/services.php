@@ -13,27 +13,19 @@ use EcPhp\CasBundle\Security\CasGuardAuthenticator;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasLib\Cas;
 use EcPhp\CasLib\CasInterface;
+use EcPhp\CasLib\Configuration\PropertiesInterface;
 use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
 use EcPhp\CasLib\Introspection\Introspector;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 return static function (ContainerConfigurator $container) {
     $container
         ->services()
         ->set('cas', Cas::class)
-        ->args([
-            service('psr.request'),
-            service('cas.configuration'),
-            service('psr18.http_client'),
-            service('nyholm.psr7.psr17_factory'),
-            service('nyholm.psr7.psr17_factory'),
-            service('nyholm.psr7.psr17_factory'),
-            service('nyholm.psr7.psr17_factory'),
-            service('cache.app'),
-            service('logger'),
-            service('cas.introspector'),
-        ]);
+        ->autowire()
+        ->autoconfigure();
 
     $container
         ->services()
@@ -105,9 +97,9 @@ return static function (ContainerConfigurator $container) {
 
     $container
         ->services()
-        ->set(RequestInterface::class)
+        ->set(ServerRequestInterface::class)
         ->factory([
-            service('sensio_framework_extra.psr7.http_message_factory'),
+            service('Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface'),
             'createRequest',
         ])
         ->args([
@@ -116,6 +108,13 @@ return static function (ContainerConfigurator $container) {
 
     $container
         ->services()
-        ->alias('psr.request', RequestInterface::class)
-        ->public();
+        ->alias('psr.request', RequestInterface::class);
+
+    $container
+        ->services()
+        ->alias('psr.request', ServerRequestInterface::class);
+
+    $container
+        ->services()
+        ->alias(PropertiesInterface::class, 'cas.configuration');
 };
