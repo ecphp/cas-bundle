@@ -165,7 +165,7 @@ EOF;
             ->during('getUser', [$response, $userProvider]);
     }
 
-    public function it_can_redirect_on_failed_authentication(TokenInterface $token, AuthenticationException $authenticationException)
+    public function it_can_redirect_on_failed_authentication(AuthenticationException $authenticationException)
     {
         $request = Request::create('http://protected-resource/?ticket=ticket');
 
@@ -221,7 +221,7 @@ EOF;
         $this->shouldHaveType(CasGuardAuthenticator::class);
     }
 
-    public function let(TokenStorageInterface $tokenStorage)
+    public function let()
     {
         $cas = $this->getCas();
 
