@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
 
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-interface CasUserInterface extends UserInterface
+interface CasUserInterface extends EquatableInterface, UserInterface
 {
     /**
      * @param mixed $default

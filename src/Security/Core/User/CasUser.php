@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 final class CasUser implements CasUserInterface
 {
     /**
@@ -92,6 +94,11 @@ final class CasUser implements CasUserInterface
     public function getUsername(): string
     {
         return $this->get('user');
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return $user->getUsername() === $this->getUsername();
     }
 
     /**
