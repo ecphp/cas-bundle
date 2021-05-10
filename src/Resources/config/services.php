@@ -18,6 +18,10 @@ use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
 use EcPhp\CasLib\Introspection\Introspector;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
+use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 return static function (ContainerConfigurator $container) {
@@ -94,6 +98,24 @@ return static function (ContainerConfigurator $container) {
             'getCurrentRequest',
         ])
         ->private();
+
+    $container
+        ->services()
+        ->set(HttpFoundationFactory::class);
+
+    $container
+        ->services()
+        ->alias(HttpFoundationFactoryInterface::class, HttpFoundationFactory::class);
+
+    $container
+        ->services()
+        ->set(PsrHttpFactory::class)
+        ->autoconfigure(true)
+        ->autowire(true);
+
+    $container
+        ->services()
+        ->alias(HttpMessageFactoryInterface::class, PsrHttpFactory::class);
 
     $container
         ->services()
