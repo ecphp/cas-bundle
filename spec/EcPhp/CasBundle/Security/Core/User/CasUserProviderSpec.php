@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\EcPhp\CasBundle\Security\Core\User;
@@ -37,12 +42,12 @@ class CasUserProviderSpec extends ObjectBehavior
     public function it_can_load_a_user_with_a_response()
     {
         $body = <<< 'EOF'
-<cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
- <cas:authenticationSuccess>
-  <cas:user>username</cas:user>
- </cas:authenticationSuccess>
-</cas:serviceResponse>
-EOF;
+            <cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+             <cas:authenticationSuccess>
+              <cas:user>username</cas:user>
+             </cas:authenticationSuccess>
+            </cas:serviceResponse>
+            EOF;
 
         $response = new Response(200, ['content-type' => 'application/xml'], $body);
 
@@ -51,11 +56,11 @@ EOF;
             ->shouldBeAnInstanceOf(CasUserInterface::class);
 
         $body = <<< 'EOF'
-<cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
- <cas:authenticationFailure>
- </cas:authenticationFailure>
-</cas:serviceResponse>
-EOF;
+            <cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
+             <cas:authenticationFailure>
+             </cas:authenticationFailure>
+            </cas:serviceResponse>
+            EOF;
 
         $response = new Response(200, ['content-type' => 'application/xml'], $body);
 

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
@@ -25,72 +30,45 @@ final class CasUser implements CasUserInterface
         $this->storage = $data;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function eraseCredentials(): void
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get(string $key, $default = null)
     {
         return $this->getStorage()[$key] ?? $default;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAttribute(string $key, $default = null)
     {
         return $this->getStorage()['attributes'][$key] ?? $default;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAttributes(): array
     {
         return $this->get('attributes', []);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPassword(): ?string
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPgt(): ?string
     {
         return $this->get('proxyGrantingTicket');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRoles(): array
     {
         return ['ROLE_CAS_AUTHENTICATED'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSalt(): ?string
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUsername(): string
     {
         return $this->get('user');

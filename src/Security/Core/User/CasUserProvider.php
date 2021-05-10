@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
@@ -23,9 +28,6 @@ class CasUserProvider implements CasUserProviderInterface
         $this->introspector = $introspector;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function loadUserByResponse(ResponseInterface $response): CasUserInterface
     {
         try {
@@ -41,17 +43,11 @@ class CasUserProvider implements CasUserProviderInterface
         throw new AuthenticationException('Unable to load user from response.');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function loadUserByUsername(string $username): UserInterface
     {
         throw new UnsupportedUserException(sprintf('Username "%s" does not exist.', $username));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof CasUserInterface) {
@@ -61,9 +57,6 @@ class CasUserProvider implements CasUserProviderInterface
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsClass(string $class): bool
     {
         return CasUser::class === $class;

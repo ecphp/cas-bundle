@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security;
@@ -36,9 +41,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
         $this->httpMessageFactory = $httpMessageFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
         try {
@@ -56,9 +58,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCredentials(Request $request): ?ResponseInterface
     {
         $response = $this
@@ -72,9 +71,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
         return $response;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         if (false === ($userProvider instanceof CasUserProviderInterface)) {
@@ -90,9 +86,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         $uri = $this->toPsr($request)->getUri();
@@ -113,9 +106,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): Response
     {
         return new RedirectResponse(
@@ -127,9 +117,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         if (true === $request->isXmlHttpRequest()) {
@@ -153,9 +140,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supports(Request $request): bool
     {
         return $this
@@ -164,9 +148,6 @@ final class CasGuardAuthenticator extends AbstractGuardAuthenticator
             ->supportAuthentication();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsRememberMe(): bool
     {
         return false;
