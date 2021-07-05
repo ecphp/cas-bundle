@@ -20,7 +20,6 @@ class SymfonySpec extends ObjectBehavior
 {
     public function it_implements_array_access()
     {
-
         $this
             ->offsetExists('protocol')
             ->shouldReturn(true);
