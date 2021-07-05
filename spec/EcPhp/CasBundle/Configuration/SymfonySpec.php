@@ -3,6 +3,8 @@
 /**
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
+ *
+ * @see https://github.com/ecphp
  */
 
 declare(strict_types=1);
@@ -18,10 +20,10 @@ class SymfonySpec extends ObjectBehavior
 {
     public function it_implements_array_access()
     {
+
         $this
             ->offsetExists('protocol')
             ->shouldReturn(true);
-
         $this
             ->offsetGet('base_url')
             ->shouldReturn('http://local/cas');
