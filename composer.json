@@ -26,7 +26,7 @@
         "friends-of-phpspec/phpspec-code-coverage": "^6.0.0",
         "infection/infection": "^0.23",
         "infection/phpspec-adapter": "^0.1.2",
-        "loophp/unaltered-psr-http-message-bridge-bundle": "^1.0",
+        "loophp/unaltered-psr-http-message-bridge-bundle": "^2.0",
         "nyholm/psr7": "^1.2",
         "phpspec/phpspec": "7.0.1",
         "symfony/cache": "^5.2",
