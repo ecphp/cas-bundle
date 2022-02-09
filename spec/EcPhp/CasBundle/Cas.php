@@ -26,6 +26,13 @@ class Cas extends ObjectBehavior
             $info = [];
 
             switch ($url) {
+                case 'http://local/cas/serviceValidate?service=invalid-xml&ticket=ticket':
+                    $body = <<< 'EOF'
+                        INVALID XML
+                        EOF;
+
+                    break;
+
                 case 'http://local/cas/serviceValidate?service=service&ticket=ticket':
                 case 'http://local/cas/serviceValidate?ticket=ST-ticket&service=http%3A%2F%2Ffrom':
                 case 'http://local/cas/serviceValidate?ticket=ST-ticket&service=http%3A%2F%2Flocal%2Fcas%2FserviceValidate%3Fservice%3Dservice':
@@ -202,47 +209,25 @@ class Cas extends ObjectBehavior
             'protocol' => [
                 'login' => [
                     'path' => '/login',
-                    'allowed_parameters' => [
-                        'service',
-                        'custom',
-                        'renew',
-                        'gateway',
-                    ],
                 ],
                 'logout' => [
                     'path' => '/logout',
-                    'allowed_parameters' => [
-                        'service',
-                        'custom',
-                    ],
                 ],
                 'serviceValidate' => [
                     'path' => '/serviceValidate',
-                    'allowed_parameters' => [
-                        'ticket',
-                        'service',
-                        'custom',
-                    ],
                     'default_parameters' => [
                         'format' => 'XML',
                     ],
                 ],
                 'proxyValidate' => [
                     'path' => '/proxyValidate',
-                    'allowed_parameters' => [
-                        'ticket',
-                        'service',
-                        'custom',
-                    ],
                     'default_parameters' => [
                         'format' => 'XML',
                     ],
                 ],
                 'proxy' => [
                     'path' => '/proxy',
-                    'allowed_parameters' => [
-                        'targetService',
-                        'pgt',
+                    'default_parameters' => [
                     ],
                 ],
             ],

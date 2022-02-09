@@ -30,6 +30,11 @@ class CasUserProvider implements CasUserProviderInterface
         $this->introspector = $introspector;
     }
 
+    public function loadUserByIdentifier($identifier): UserInterface
+    {
+        throw new UnsupportedUserException('Unsupported operation.');
+    }
+
     public function loadUserByResponse(ResponseInterface $response): CasUserInterface
     {
         try {

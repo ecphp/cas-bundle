@@ -12,19 +12,21 @@ declare(strict_types=1);
 namespace EcPhp\CasBundle\Controller;
 
 use EcPhp\CasLib\CasInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ProxyCallback
 {
+    /**
+     * @return ResponseInterface|Response
+     */
     public function __invoke(
-        CasInterface $casProtocol,
-        HttpFoundationFactoryInterface $httpFoundationFactory
-    ): Response {
-        if (null !== $response = $casProtocol->handleProxyCallback()) {
-            return $httpFoundationFactory->createResponse($response);
-        }
-
-        return new Response('', Response::HTTP_INTERNAL_SERVER_ERROR);
+        Request $request,
+        CasInterface $cas
+    ) {
+        return (null === $response = $cas->handleProxyCallback($request->query->all()))
+            ? (new Response('', 500))
+            : $response;
     }
 }

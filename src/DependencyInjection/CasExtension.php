@@ -16,10 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-/**
- * Class CasExtension.
- */
-class CasExtension extends Extension
+final class CasExtension extends Extension
 {
     /**
      * @param array<string> $configs

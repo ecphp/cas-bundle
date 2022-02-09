@@ -18,10 +18,12 @@ use EcPhp\CasLib\Introspection\Introspector;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class LogoutSpec extends ObjectBehavior
@@ -50,14 +52,15 @@ class LogoutSpec extends ObjectBehavior
             $introspector
         );
 
-        $this
-            ->__invoke($cas, $tokenStorage)
-            ->shouldBeAnInstanceOf(RedirectResponse::class);
+        $request = Request::create('');
 
         $this
-            ->__invoke($cas, $tokenStorage)
-            ->headers
-            ->get('location')
+            ->__invoke($request, $cas, $tokenStorage)
+            ->shouldBeAnInstanceOf(ResponseInterface::class);
+
+        $this
+            ->__invoke($request, $cas, $tokenStorage)
+            ->getHeaderLine('location')
             ->shouldReturn('http://local/cas/logout');
     }
 
@@ -68,7 +71,9 @@ class LogoutSpec extends ObjectBehavior
 
     public function it_redirects_to_index(CasInterface $cas, TokenStorageInterface $tokenStorage)
     {
-        $response = $this->__invoke($cas, $tokenStorage);
+        $request = Request::create('');
+
+        $response = $this->__invoke($request, $cas, $tokenStorage);
         $response->shouldBeAnInstanceOf(RedirectResponse::class);
         $response->headers->get('location')->shouldReturn('/');
     }

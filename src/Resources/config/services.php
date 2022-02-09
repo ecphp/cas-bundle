@@ -16,7 +16,7 @@ use EcPhp\CasBundle\Controller\Homepage;
 use EcPhp\CasBundle\Controller\Login;
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasBundle\Controller\ProxyCallback;
-use EcPhp\CasBundle\Security\CasGuardAuthenticator;
+use EcPhp\CasBundle\Security\CasAuthenticator;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasLib\Cas;
 use EcPhp\CasLib\CasInterface;
@@ -25,125 +25,76 @@ use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
 use EcPhp\CasLib\Introspection\Introspector;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
-use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
-use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
-return static function (ContainerConfigurator $container) {
-    $container
+return static function (ContainerConfigurator $container): void {
+    $services = $container
         ->services()
-        ->set('cas', Cas::class)
-        ->autowire()
-        ->autoconfigure();
+        ->defaults()
+        ->autoconfigure(true)
+        ->autowire(true);
 
-    $container
-        ->services()
+    $services
+        ->set('cas', Cas::class);
+
+    $services
         ->alias(CasInterface::class, 'cas');
 
-    $container
-        ->services()
-        ->set('cas.configuration', Symfony::class)
-        ->args([
-            '%cas%',
-            service('router'),
-        ]);
+    $services
+        ->set('cas.configuration', Symfony::class);
 
-    $container
-        ->services()
+    $services
         ->set('cas.introspector', Introspector::class);
 
-    $container
-        ->services()
+    $services
+        ->set('cas.userprovider', CasUserProvider::class);
+
+    $services
         ->alias(IntrospectorInterface::class, 'cas.introspector');
 
-    $container
-        ->services()
-        ->set('cas.userprovider', CasUserProvider::class)
-        ->autowire();
+    $services
+        ->set('cas.authenticator', CasAuthenticator::class);
 
-    $container
-        ->services()
-        ->set('cas.guardauthenticator', CasGuardAuthenticator::class)
-        ->autowire(true)
-        ->autoconfigure(true);
-
-    $container
-        ->services()
+    $services
         ->set(Homepage::class)
-        ->autowire(true)
-        ->autoconfigure(true)
         ->tag('controller.service_arguments');
 
-    $container
-        ->services()
+    $services
         ->set(Login::class)
-        ->autowire(true)
-        ->autoconfigure(true)
         ->tag('controller.service_arguments');
 
-    $container
-        ->services()
+    $services
         ->set(Logout::class)
-        ->autowire(true)
-        ->autoconfigure(true)
         ->tag('controller.service_arguments');
 
-    $container
-        ->services()
+    $services
         ->set(ProxyCallback::class)
-        ->autowire(true)
-        ->autoconfigure(true)
         ->tag('controller.service_arguments');
 
-    $container
-        ->services()
-        ->set('symfony.request', RequestStack::class)
+    $services
+        ->alias(PropertiesInterface::class, 'cas.configuration');
+
+    /**
+     * All of this needs to be removed for the next major
+     * version of ecphp/cas-lib
+     * A request or server request is not a service, it is
+     * stateful and should not live in the container.
+     */
+    $services
+        ->set(RequestInterface::class)
         ->factory([
             service('request_stack'),
             'getCurrentRequest',
         ])
         ->private();
 
-    $container
-        ->services()
-        ->set(HttpFoundationFactory::class);
-
-    $container
-        ->services()
-        ->alias(HttpFoundationFactoryInterface::class, HttpFoundationFactory::class);
-
-    $container
-        ->services()
-        ->set(PsrHttpFactory::class)
-        ->autoconfigure(true)
-        ->autowire(true);
-
-    $container
-        ->services()
-        ->alias(HttpMessageFactoryInterface::class, PsrHttpFactory::class);
-
-    $container
-        ->services()
+    $services
         ->set(ServerRequestInterface::class)
         ->factory([
-            service('Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface'),
+            service(HttpMessageFactoryInterface::class),
             'createRequest',
         ])
         ->args([
-            service('symfony.request'),
+            service(RequestInterface::class),
         ]);
-
-    $container
-        ->services()
-        ->alias('psr.request', RequestInterface::class);
-
-    $container
-        ->services()
-        ->alias('psr.request', ServerRequestInterface::class);
-
-    $container
-        ->services()
-        ->alias(PropertiesInterface::class, 'cas.configuration');
 };

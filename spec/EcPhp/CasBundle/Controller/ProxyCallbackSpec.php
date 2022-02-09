@@ -17,11 +17,12 @@ use EcPhp\CasLib\Introspection\Introspector;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\NullLogger;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProxyCallbackSpec extends ObjectBehavior
 {
@@ -51,39 +52,41 @@ class ProxyCallbackSpec extends ObjectBehavior
 
         $httpFoundationFactory = new HttpFoundationFactory();
 
-        $this
-            ->__invoke($cas, $httpFoundationFactory)
-            ->shouldBeAnInstanceOf(Response::class);
+        $request = Request::create('');
 
         $this
-            ->__invoke($cas, $httpFoundationFactory)
+            ->__invoke($request, $cas, $httpFoundationFactory)
+            ->shouldBeAnInstanceOf(ResponseInterface::class);
+
+        $this
+            ->__invoke($request, $cas, $httpFoundationFactory)
             ->getStatusCode()
             ->shouldReturn(200);
 
         $serverRequest = new ServerRequest('GET', 'http://local/cas/proxy?pgtIou=pgtIou&pgtId=pgtId');
         $this
-            ->__invoke($cas, $httpFoundationFactory)
-            ->shouldBeAnInstanceOf(Response::class);
+            ->__invoke($request, $cas, $httpFoundationFactory)
+            ->shouldBeAnInstanceOf(ResponseInterface::class);
         $this
-            ->__invoke($cas->withServerRequest($serverRequest), $httpFoundationFactory)
+            ->__invoke($request, $cas->withServerRequest($serverRequest), $httpFoundationFactory)
             ->getStatusCode()
             ->shouldReturn(200);
 
         $serverRequest = new ServerRequest('GET', 'http://local/cas/proxy?pgtIou=pgtIou');
         $this
-            ->__invoke($cas, $httpFoundationFactory)
-            ->shouldBeAnInstanceOf(Response::class);
+            ->__invoke($request, $cas, $httpFoundationFactory)
+            ->shouldBeAnInstanceOf(ResponseInterface::class);
         $this
-            ->__invoke($cas->withServerRequest($serverRequest), $httpFoundationFactory)
+            ->__invoke($request, $cas->withServerRequest($serverRequest), $httpFoundationFactory)
             ->getStatusCode()
             ->shouldReturn(500);
 
         $serverRequest = new ServerRequest('GET', 'http://local/cas/proxy?pgtId=pgtId');
         $this
-            ->__invoke($cas, $httpFoundationFactory)
-            ->shouldBeAnInstanceOf(Response::class);
+            ->__invoke($request, $cas, $httpFoundationFactory)
+            ->shouldBeAnInstanceOf(ResponseInterface::class);
         $this
-            ->__invoke($cas->withServerRequest($serverRequest), $httpFoundationFactory)
+            ->__invoke($request, $cas->withServerRequest($serverRequest), $httpFoundationFactory)
             ->getStatusCode()
             ->shouldReturn(500);
     }
