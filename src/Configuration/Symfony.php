@@ -54,6 +54,7 @@ final class Symfony implements PropertiesInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return $this->cas->offsetExists($offset);
@@ -64,6 +65,7 @@ final class Symfony implements PropertiesInterface
      *
      * @return array<string, mixed>|mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->cas->offsetGet($offset);
