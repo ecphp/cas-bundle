@@ -24,7 +24,7 @@
     "require-dev": {
         "ecphp/php-conventions": "^1",
         "friends-of-phpspec/phpspec-code-coverage": "^6",
-        "infection/infection": "^0.25",
+        "infection/infection": "^0.26",
         "infection/phpspec-adapter": "^0.2",
         "loophp/unaltered-psr-http-message-bridge-bundle": "^2.0",
         "nyholm/psr7": "^1.2",
