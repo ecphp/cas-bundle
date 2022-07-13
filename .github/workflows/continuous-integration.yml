@@ -14,7 +14,7 @@ jobs:
             fail-fast: false
             matrix:
                 operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-                php-versions: ['7.4']
+                php-versions: ['7.4', '8.1']
 
         steps:
             - name: Set git to use LF
@@ -38,7 +38,7 @@ jobs:
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
             - name: Cache dependencies
-              uses: actions/cache@v3
+              uses: actions/cache@v3.0.5
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -60,16 +60,4 @@ jobs:
               run: |
                   wget https://scrutinizer-ci.com/ocular.phar
                   php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
-              continue-on-error: true
-
-            - name: Infection score report
-              run: |
-                  vendor/bin/infection run -j 2
-              continue-on-error: true
-
-            - name: PHP Insights report
-              run: |
-                  rm -rf composer.lock vendor
-                  composer require nunomaduro/phpinsights --dev
-                  vendor/bin/phpinsights analyse src/ -n
               continue-on-error: true
