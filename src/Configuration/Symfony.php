@@ -13,9 +13,10 @@ namespace EcPhp\CasBundle\Configuration;
 
 use EcPhp\CasLib\Configuration\Properties as PsrCasConfiguration;
 use EcPhp\CasLib\Configuration\PropertiesInterface;
+use ReturnTypeWillChange;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
 
+use Symfony\Component\Routing\RouterInterface;
 use const FILTER_VALIDATE_URL;
 
 /**
@@ -54,7 +55,7 @@ final class Symfony implements PropertiesInterface
      *
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return $this->cas->offsetExists($offset);
@@ -65,7 +66,7 @@ final class Symfony implements PropertiesInterface
      *
      * @return array<string, mixed>|mixed
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->cas->offsetGet($offset);
