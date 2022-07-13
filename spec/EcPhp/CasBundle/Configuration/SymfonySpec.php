@@ -18,30 +18,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 class SymfonySpec extends ObjectBehavior
 {
-    public function it_implements_array_access()
-    {
-        $this
-            ->offsetExists('protocol')
-            ->shouldReturn(true);
-        $this
-            ->offsetGet('base_url')
-            ->shouldReturn('http://local/cas');
-
-        $this
-            ->offsetUnset('protocol');
-
-        $this
-            ->offsetExists('protocol')
-            ->shouldReturn(false);
-
-        $this
-            ->offsetSet('base_url', 'base_url');
-
-        $this
-            ->offsetGet('base_url')
-            ->shouldReturn('base_url');
-    }
-
     public function it_is_initializable()
     {
         $this->shouldHaveType(Symfony::class);
