@@ -15,8 +15,8 @@ use EcPhp\CasLib\Configuration\Properties as PsrCasConfiguration;
 use EcPhp\CasLib\Configuration\PropertiesInterface;
 use ReturnTypeWillChange;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
 use Symfony\Component\Routing\RouterInterface;
+
 use const FILTER_VALIDATE_URL;
 
 /**
