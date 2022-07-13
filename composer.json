@@ -23,15 +23,16 @@
     },
     "require-dev": {
         "ecphp/php-conventions": "^1",
-        "friends-of-phpspec/phpspec-code-coverage": "^6.0.0",
-        "infection/infection": "^0.24",
-        "infection/phpspec-adapter": "^0.1.2",
+        "friends-of-phpspec/phpspec-code-coverage": "^6",
+        "infection/infection": "^0.25",
+        "infection/phpspec-adapter": "^0.2",
         "loophp/unaltered-psr-http-message-bridge-bundle": "^2.0",
         "nyholm/psr7": "^1.2",
-        "phpspec/phpspec": "7.2.0",
-        "symfony/cache": "^5.2",
-        "symfony/dependency-injection": "^5.2",
-        "symfony/http-client": "^5.2",
+        "phpspec/phpspec": "^7",
+        "phpstan/phpstan-symfony": "^1.1",
+        "symfony/cache": "^5.4 || ^6",
+        "symfony/dependency-injection": "^5.4 || ^6",
+        "symfony/http-client": "^5.4 || ^6",
         "symfony/monolog-bundle": "^3.5",
         "symfony/routing": "^5.2",
         "symfony/security-bundle": "^5.2"
@@ -64,6 +65,9 @@
         }
     },
     "scripts": {
-        "grumphp": "./vendor/bin/grumphp run"
+        "changelog-unreleased": "auto-changelog -c .auto-changelog -u",
+        "changelog-version": "auto-changelog -c .auto-changelog -v",
+        "grumphp": "./vendor/bin/grumphp run",
+        "phpspec": "./vendor/bin/phpspec run"
     }
 }

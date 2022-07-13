@@ -1,5 +1,6 @@
-/composer.lock
-/vendor
-/.php_cs.cache
+/.direnv/
 /.idea/
 /build/
+/vendor/
+/.php_cs.cache
+/composer.lock
