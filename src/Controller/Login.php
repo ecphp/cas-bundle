@@ -12,25 +12,29 @@ declare(strict_types=1);
 namespace EcPhp\CasBundle\Controller;
 
 use EcPhp\CasLib\CasInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 
 final class Login
 {
+    /**
+     * @return RedirectResponse|ResponseInterface
+     */
     public function __invoke(
         Request $request,
         CasInterface $cas,
         Security $security
-    ): RedirectResponse {
+    ) {
         $parameters = $request->query->all() + [
             'renew' => null !== $security->getUser(),
         ];
 
-        if (null !== $response = $cas->login($parameters)) {
-            return new RedirectResponse($response->getHeaderLine('location'));
-        }
+        $response = $cas->login($parameters);
 
-        return new RedirectResponse('/');
+        return null === $response
+            ? new RedirectResponse('/')
+            : $response;
     }
 }

@@ -19,6 +19,7 @@ use Nyholm\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\InMemoryUser;
 use Symfony\Component\Security\Core\User\User;
 
 class CasUserProviderSpec extends ObjectBehavior
@@ -79,7 +80,7 @@ class CasUserProviderSpec extends ObjectBehavior
             ->refreshUser($user)
             ->shouldReturn($user);
 
-        $user = new User('username', 'password');
+        $user = new InMemoryUser('username', 'password');
 
         $this
             ->shouldThrow(UnsupportedUserException::class)

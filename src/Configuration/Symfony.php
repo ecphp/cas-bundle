@@ -14,35 +14,28 @@ namespace EcPhp\CasBundle\Configuration;
 use EcPhp\CasLib\Configuration\Properties as PsrCasConfiguration;
 use EcPhp\CasLib\Configuration\PropertiesInterface;
 use ReturnTypeWillChange;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 use const FILTER_VALIDATE_URL;
 
-/**
- * Class Symfony.
- */
 final class Symfony implements PropertiesInterface
 {
-    /**
-     * @var \EcPhp\CasLib\Configuration\Properties
-     */
-    private $cas;
+    private PropertiesInterface $cas;
 
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
-    private $router;
+    private RouterInterface $router;
 
-    /**
-     * Symfony constructor.
-     *
-     * @param array<string, mixed> $properties
-     */
-    public function __construct(array $properties, RouterInterface $router)
-    {
+    public function __construct(
+        ParameterBagInterface $parameterBag,
+        RouterInterface $router
+    ) {
         $this->router = $router;
-        $this->cas = new PsrCasConfiguration($this->routeToUrl($properties));
+        $this->cas = new PsrCasConfiguration(
+            $this->routeToUrl(
+                $parameterBag->get('cas')
+            )
+        );
     }
 
     public function all(): array
@@ -52,11 +45,9 @@ final class Symfony implements PropertiesInterface
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     #[ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->cas->offsetExists($offset);
     }

@@ -71,7 +71,7 @@ final class CasUser implements CasUserInterface
         return null;
     }
 
-    public function getUserIdentifier()
+    public function getUserIdentifier(): string
     {
         return $this->get('user');
     }
@@ -81,7 +81,7 @@ final class CasUser implements CasUserInterface
         return $this->get('user');
     }
 
-    public function isEqualTo(UserInterface $user)
+    public function isEqualTo(UserInterface $user): bool
     {
         return $user->getUserIdentifier() === $this->getUserIdentifier();
     }
