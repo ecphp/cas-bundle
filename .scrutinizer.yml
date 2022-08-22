@@ -1,13 +1,20 @@
 build:
+    image: default-bionic
     nodes:
-        analysis:
+        php81:
             environment:
                 php:
-                    version: 7.4
+                    version: 8.1
+            dependencies:
+                before:
+                    - pecl install pcov
             tests:
                 override:
                     - php-scrutinizer-run
-
+        coverage:
+            dependencies:
+                before:
+                    - pecl install pcov
 filter:
     paths:
         - 'src/*'
