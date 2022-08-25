@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.3.3](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.3.3)
+## [2.4.0](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.4.0)
 
 ### Merged
 
@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - **Breaking change:** refactor: Use new authenticator system. [`9256f95`](https://github.com/ecphp/cas-bundle/commit/9256f95259cfe22431024cd2916f3540738eba76)
+- docs: Update changelog. [`d0018f9`](https://github.com/ecphp/cas-bundle/commit/d0018f90750dda7fe9c9d3376ae8c69e29f904bb)
+- chore: Update grumphp configuration. [`fc478a1`](https://github.com/ecphp/cas-bundle/commit/fc478a19178c10f3d75fa1e5b22d4f507cd53070)
+- chore: Update composer.json. [`b527382`](https://github.com/ecphp/cas-bundle/commit/b5273822d3cbe5c81e56173cab280f416ee4d9ac)
+- fix: Add psalm baseline. [`53ac69a`](https://github.com/ecphp/cas-bundle/commit/53ac69a9a49efe8ea5fe769045f621993759dcea)
+- chore: Update grumphp configuration. [`978297d`](https://github.com/ecphp/cas-bundle/commit/978297dc4bb3ea1824625004c3afb570ac79c1a6)
+- docs: Add changelog. [`a2fc955`](https://github.com/ecphp/cas-bundle/commit/a2fc95563128b90e4bf17c26d5eca6ad96c7137f)
 - ci: Add release workflow. [`aabe67a`](https://github.com/ecphp/cas-bundle/commit/aabe67ad63fa76dff73dc73fb903aaf91e7bca6d)
 - chore: Update static files. [`833dc1e`](https://github.com/ecphp/cas-bundle/commit/833dc1e6a5c1d2fdf323495627d942c49056f4ad)
 - refactor: Add old authenticator service back. [`e50d1fc`](https://github.com/ecphp/cas-bundle/commit/e50d1fce7097bba3452fb2464c8993b3585e218f)
