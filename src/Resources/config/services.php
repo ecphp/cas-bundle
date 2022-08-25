@@ -34,26 +34,20 @@ return static function (ContainerConfigurator $container): void {
         ->autoconfigure(true)
         ->autowire(true);
 
-    $services
-        ->set('cas', Cas::class);
+    $services->set('cas', Cas::class);
+    $services->alias(CasInterface::class, 'cas');
 
-    $services
-        ->alias(CasInterface::class, 'cas');
+    $services->set('cas.introspector', Introspector::class);
+    $services->alias(IntrospectorInterface::class, 'cas.introspector');
 
-    $services
-        ->set('cas.configuration', Symfony::class);
+    $services->set('cas.configuration', Symfony::class);
+    $services->alias(PropertiesInterface::class, 'cas.configuration');
 
-    $services
-        ->set('cas.introspector', Introspector::class);
+    $services->set('cas.userprovider', CasUserProvider::class);
+    $services->alias(CasUserProvider::class, 'cas.userprovider');
 
-    $services
-        ->set('cas.userprovider', CasUserProvider::class);
-
-    $services
-        ->alias(IntrospectorInterface::class, 'cas.introspector');
-
-    $services
-        ->set('cas.authenticator', CasAuthenticator::class);
+    $services->set('cas.authenticator', CasAuthenticator::class);
+    $services->alias(CasAuthenticator::class, 'cas.authenticator');
 
     $services
         ->set(Homepage::class)
@@ -70,9 +64,6 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(ProxyCallback::class)
         ->tag('controller.service_arguments');
-
-    $services
-        ->alias(PropertiesInterface::class, 'cas.configuration');
 
     /**
      * All of this needs to be removed for the next major

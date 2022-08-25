@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 use function get_class;
 
-class CasUserProvider implements CasUserProviderInterface
+final class CasUserProvider implements CasUserProviderInterface
 {
     private IntrospectorInterface $introspector;
 
