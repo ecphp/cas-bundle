@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.0](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.4.0)
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.5.0)
+
+### Merged
+
+- refactor: Remove deprecated stuff from Symfony 5. [`#71`](https://github.com/ecphp/cas-bundle/pull/71)
+
+## [2.4.0](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.4.0) - 2022-08-25
 
 ### Merged
 
@@ -14,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - **Breaking change:** refactor: Use new authenticator system. [`9256f95`](https://github.com/ecphp/cas-bundle/commit/9256f95259cfe22431024cd2916f3540738eba76)
-- docs: Update changelog. [`d0018f9`](https://github.com/ecphp/cas-bundle/commit/d0018f90750dda7fe9c9d3376ae8c69e29f904bb)
+- docs: Update changelog. [`01ec7b1`](https://github.com/ecphp/cas-bundle/commit/01ec7b157e18c7c5807295ce9e02bca60e0d6f19)
 - chore: Update grumphp configuration. [`fc478a1`](https://github.com/ecphp/cas-bundle/commit/fc478a19178c10f3d75fa1e5b22d4f507cd53070)
 - chore: Update composer.json. [`b527382`](https://github.com/ecphp/cas-bundle/commit/b5273822d3cbe5c81e56173cab280f416ee4d9ac)
 - fix: Add psalm baseline. [`53ac69a`](https://github.com/ecphp/cas-bundle/commit/53ac69a9a49efe8ea5fe769045f621993759dcea)
