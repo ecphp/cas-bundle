@@ -36,24 +36,6 @@ Edit the security settings of your application, usually in `config/packages/secu
 .. code-block:: yaml
 
     security:
-        firewalls:
-            main:
-                anonymous: ~
-                guard:
-                    provider: cas
-                    authenticators:
-                        - EcPhp\CasBundle\Security\CasGuardAuthenticator
-
-        access_control:
-            - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
-            - { path: ^/admin, role: ROLE_CAS_AUTHENTICATED }
-
-If you're using Symfony >= 5.3, it is already possible to use the new security
-system (`more information`_). This is the default in Symfony 6.1.
-
-.. code-block:: yaml
-
-    security:
         enable_authenticator_manager: true
         firewalls:
             main:
@@ -134,6 +116,5 @@ The quickest solution for a working CAS server on any platform is this `Docker p
 .. _Docker project: https://github.com/crpeck/cas-overlay-docker
 .. _Apereo: https://www.apereo.org/
 .. _https://casserver.herokuapp.com/cas/: https://casserver.herokuapp.com/cas/
-.. _more information: https://symfony.com/blog/new-in-symfony-5-1-updated-security-system
 .. _loophp/unaltered-psr-http-message-bridge-bundle: https://github.com/loophp/unaltered-psr-http-message-bridge-bundle
 .. _API Platform: https://api-platform.com/
