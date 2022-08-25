@@ -42,14 +42,14 @@ Edit the security settings of your application, usually in `config/packages/secu
                 guard:
                     provider: cas
                     authenticators:
-                        - cas.guardauthenticator
+                        - EcPhp\CasBundle\Security\CasGuardAuthenticator
 
         access_control:
             - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
             - { path: ^/admin, role: ROLE_CAS_AUTHENTICATED }
 
-If you're using Symfony >= 5.4, it is already possible to use the new security
-system (`more information`_). This is the default in Symfony >= 6.
+If you're using Symfony >= 5.3, it is already possible to use the new security
+system (`more information`_). This is the default in Symfony 6.1.
 
 .. code-block:: yaml
 
@@ -57,7 +57,7 @@ system (`more information`_). This is the default in Symfony >= 6.
         enable_authenticator_manager: true
         firewalls:
             main:
-                custom_authenticator: cas.authenticator
+                custom_authenticator: EcPhp\CasBundle\Security\CasAuthenticator
 
         access_control:
             - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
