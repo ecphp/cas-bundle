@@ -1,3 +1,4 @@
+/.envrc export-ignore
 /.github export-ignore
 /docker export-ignore
 /docs export-ignore
