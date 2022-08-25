@@ -19,7 +19,7 @@
         "psr/http-client": "^1.0",
         "psr/http-message": "^1.0",
         "symfony/framework-bundle": "^5.4",
-        "symfony/psr-http-message-bridge": "^1 || ^2"
+        "loophp/psr-http-message-bridge-bundle": "^1.0"
     },
     "require-dev": {
         "ecphp/php-conventions": "^1",
