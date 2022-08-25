@@ -5,7 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.0](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.4.0)
+## [2.4.1](https://github.com/ecphp/cas-bundle/compare/2.5.1...2.4.1)
+
+### Commits
+
+- fix: Add missing dependency. [`2d010dc`](https://github.com/ecphp/cas-bundle/commit/2d010dca15314f41c03d26ec0487ed0478f5579f)
+
+## [2.5.1](https://github.com/ecphp/cas-bundle/compare/2.5.0...2.5.1) - 2022-08-25
+
+### Commits
+
+- docs: Update changelog. [`3cd5f67`](https://github.com/ecphp/cas-bundle/commit/3cd5f673ebf1631c6178c0c7f069769739d8a576)
+- fix: Add missing dependency. [`faca74c`](https://github.com/ecphp/cas-bundle/commit/faca74c08aa2eabdc5aa37868f721b8a0ab4d6da)
+
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.5.0) - 2022-08-25
+
+### Merged
+
+- refactor: Remove deprecated stuff from Symfony 5. [`#71`](https://github.com/ecphp/cas-bundle/pull/71)
+
+### Commits
+
+- docs: Update changelog. [`90756cb`](https://github.com/ecphp/cas-bundle/commit/90756cbce051f0a7b5aa7b42b65487b8a02792f1)
+
+## [2.4.0](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.4.0) - 2022-08-25
 
 ### Merged
 
@@ -14,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - **Breaking change:** refactor: Use new authenticator system. [`9256f95`](https://github.com/ecphp/cas-bundle/commit/9256f95259cfe22431024cd2916f3540738eba76)
-- docs: Update changelog. [`d0018f9`](https://github.com/ecphp/cas-bundle/commit/d0018f90750dda7fe9c9d3376ae8c69e29f904bb)
+- docs: Update changelog. [`01ec7b1`](https://github.com/ecphp/cas-bundle/commit/01ec7b157e18c7c5807295ce9e02bca60e0d6f19)
 - chore: Update grumphp configuration. [`fc478a1`](https://github.com/ecphp/cas-bundle/commit/fc478a19178c10f3d75fa1e5b22d4f507cd53070)
 - chore: Update composer.json. [`b527382`](https://github.com/ecphp/cas-bundle/commit/b5273822d3cbe5c81e56173cab280f416ee4d9ac)
 - fix: Add psalm baseline. [`53ac69a`](https://github.com/ecphp/cas-bundle/commit/53ac69a9a49efe8ea5fe769045f621993759dcea)
