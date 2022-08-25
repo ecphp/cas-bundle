@@ -1,17 +1,19 @@
 {
-    "timeout": 10,
+    "timeout": 30,
     "source": {
         "directories": [
             "src"
         ]
     },
     "logs": {
+        "github": true,
         "text": "build/infection.log",
         "summary": "build/summary.log",
         "debug": "build/debug.log",
         "perMutator": "build/per-mutator.md",
-        "badge": {
-            "branch": "master"
+        "html": "build/report.html",
+        "stryker": {
+            "report": "master"
         }
     },
     "testFramework":"phpspec"

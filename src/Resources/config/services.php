@@ -17,7 +17,6 @@ use EcPhp\CasBundle\Controller\Login;
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasBundle\Controller\ProxyCallback;
 use EcPhp\CasBundle\Security\CasAuthenticator;
-use EcPhp\CasBundle\Security\CasGuardAuthenticator;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasLib\Cas;
 use EcPhp\CasLib\CasInterface;
@@ -49,10 +48,6 @@ return static function (ContainerConfigurator $container): void {
 
     $services->set('cas.authenticator', CasAuthenticator::class);
     $services->alias(CasAuthenticator::class, 'cas.authenticator');
-
-    // The GuardAuthenticator will be removed in version 3.0
-    $services->set('cas.guardauthenticator', CasGuardAuthenticator::class);
-    $services->alias(CasGuardAuthenticator::class, 'cas.guardauthenticator');
 
     $services
         ->set(Homepage::class)
