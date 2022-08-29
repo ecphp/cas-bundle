@@ -10,7 +10,7 @@
 
 # CAS Bundle
 
-A CAS bundle for Symfony 4 & 5.
+A CAS bundle for Symfony.
 
 Read more on the dedicated documentation site:
 https://ecphp-cas-bundle.readthedocs.io/
