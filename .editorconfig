@@ -6,10 +6,21 @@
 
 root = true
 
-[*]
+[*.{php,inc,module}]
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
+max_line_length = 120
+
+[*.{json,json.dist,yml,yaml,yml.dist,yaml.dist}]
+indent_style = space
+indent_size = 4
+max_line_length = 120
+
+[*.{md}]
+indent_style = space
+indent_size = 2
+max_line_length = 80

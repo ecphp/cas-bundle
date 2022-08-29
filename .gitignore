@@ -1,7 +1,9 @@
 /.direnv/
 /.idea/
+/vendor
+composer.lock
+grumphp.yml
+phpspec.yml
 /build/
-/vendor/
-/.php_cs.cache
-/composer.lock
-/phpspec.yml
+.php_cs.cache
+.envrc

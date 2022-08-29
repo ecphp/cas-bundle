@@ -2,11 +2,14 @@
 /docker export-ignore
 /docs export-ignore
 /spec export-ignore
+/tests export-ignore
 /.auto-changelog export-ignore
 /.editorconfig export-ignore
 /.envrc export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
+/.prettierignore export-ignore
+/.prettierrc export-ignore
 /.scrutinizer.yml export-ignore
 /CHANGELOG.md export-ignore
 /docker-compose.yaml export-ignore
