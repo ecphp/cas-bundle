@@ -5,13 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.1](https://github.com/ecphp/cas-bundle/compare/2.5.0...2.5.1)
+## [2.5.2](https://github.com/ecphp/cas-bundle/compare/2.5.1...2.5.2)
 
 ### Commits
 
+- feat: add `__toString()` method to `CasUserInterface` [`5790eb4`](https://github.com/ecphp/cas-bundle/commit/5790eb4b8572f48d919881eefef7249b4e949fb0)
+- nix: remove `-nts` prefix [`bb8be3c`](https://github.com/ecphp/cas-bundle/commit/bb8be3cf580aa055ee778676a06795337ebc96ff)
+- docs: Remove Symfony version. [`80f3220`](https://github.com/ecphp/cas-bundle/commit/80f322022193ad0a0f2e3290b98c94d3814bd86b)
+- chore: Prettify codebase. [`dce1424`](https://github.com/ecphp/cas-bundle/commit/dce142460a418940e05a8a75e63721ee84a6e11d)
+- chore: Normalize `composer.json`. [`0544e74`](https://github.com/ecphp/cas-bundle/commit/0544e7462e5ef9da6f68e948fc5e2d6329c60015)
+
+## [2.5.1](https://github.com/ecphp/cas-bundle/compare/2.5.0...2.5.1) - 2022-08-25
+
+### Commits
+
+- docs: Update changelog. [`3cd5f67`](https://github.com/ecphp/cas-bundle/commit/3cd5f673ebf1631c6178c0c7f069769739d8a576)
 - fix: Add missing dependency. [`faca74c`](https://github.com/ecphp/cas-bundle/commit/faca74c08aa2eabdc5aa37868f721b8a0ab4d6da)
 
-## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.5.0) - 2022-08-25
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.1...2.5.0) - 2022-08-25
 
 ### Merged
 
@@ -20,6 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - docs: Update changelog. [`90756cb`](https://github.com/ecphp/cas-bundle/commit/90756cbce051f0a7b5aa7b42b65487b8a02792f1)
+
+## [2.4.1](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.4.1) - 2022-08-25
+
+### Commits
+
+- docs: Update changelog. [`748d26b`](https://github.com/ecphp/cas-bundle/commit/748d26b737765cd701ef2eb45b7fc437c314ef87)
+- fix: Add missing dependency. [`2d010dc`](https://github.com/ecphp/cas-bundle/commit/2d010dca15314f41c03d26ec0487ed0478f5579f)
 
 ## [2.4.0](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.4.0) - 2022-08-25
 
