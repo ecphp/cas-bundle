@@ -16,6 +16,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 interface CasUserInterface extends EquatableInterface, UserInterface
 {
+    public function __toString(): string;
+
     /**
      * @param mixed $default
      *
