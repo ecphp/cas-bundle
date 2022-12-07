@@ -32,6 +32,11 @@ final class CasUser implements CasUserInterface
         $this->storage = $data;
     }
 
+    public function __toString(): string
+    {
+        return $this->get('user');
+    }
+
     public function eraseCredentials(): void
     {
     }
