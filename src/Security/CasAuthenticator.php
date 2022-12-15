@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security;
 
-use EcPhp\CasBundle\Security\Core\User\CasUser;
+use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
 use EcPhp\CasLib\CasInterface;
 use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
 use EcPhp\CasLib\Utils\Uri;
@@ -33,14 +33,18 @@ final class CasAuthenticator extends AbstractAuthenticator
 {
     private CasInterface $cas;
 
+    private CasUserProviderInterface $casUserProvider;
+
     private HttpMessageFactoryInterface $httpMessageFactory;
 
     public function __construct(
         CasInterface $cas,
-        HttpMessageFactoryInterface $httpMessageFactory
+        HttpMessageFactoryInterface $httpMessageFactory,
+        CasUserProviderInterface $casUserProvider
     ) {
         $this->cas = $cas;
         $this->httpMessageFactory = $httpMessageFactory;
+        $this->casUserProvider = $casUserProvider;
     }
 
     public function authenticate(Request $request): Passport
@@ -71,7 +75,7 @@ final class CasAuthenticator extends AbstractAuthenticator
         return new SelfValidatingPassport(
             new UserBadge(
                 $payload['user'],
-                static fn (string $identifier): UserInterface => new CasUser($payload)
+                fn (string $identifier): UserInterface => $this->casUserProvider->loadUserByResponse($response)
             )
         );
     }

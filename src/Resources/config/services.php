@@ -18,6 +18,7 @@ use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasBundle\Controller\ProxyCallback;
 use EcPhp\CasBundle\Security\CasAuthenticator;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
+use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
 use EcPhp\CasLib\Cas;
 use EcPhp\CasLib\CasInterface;
 use EcPhp\CasLib\Configuration\PropertiesInterface;
@@ -44,7 +45,7 @@ return static function (ContainerConfigurator $container): void {
     $services->alias(PropertiesInterface::class, 'cas.configuration');
 
     $services->set('cas.userprovider', CasUserProvider::class);
-    $services->alias(CasUserProvider::class, 'cas.userprovider');
+    $services->alias(CasUserProviderInterface::class, 'cas.userprovider');
 
     $services->set('cas.authenticator', CasAuthenticator::class);
     $services->alias(CasAuthenticator::class, 'cas.authenticator');
