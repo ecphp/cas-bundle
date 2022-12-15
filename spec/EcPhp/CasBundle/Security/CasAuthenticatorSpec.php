@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace spec\EcPhp\CasBundle\Security;
 
 use EcPhp\CasBundle\Security\CasAuthenticator;
+use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasLib\Cas;
 use EcPhp\CasLib\CasInterface;
 use EcPhp\CasLib\Introspection\Introspector;
@@ -60,9 +61,10 @@ class CasAuthenticatorSpec extends ObjectBehavior
         );
 
         $unalteredPsrHttpMessageFactory = new UnalteredPsrHttpFactory($psrHttpMessageFactory, $psr17Factory);
+        $userProvider = new CasUserProvider(new Introspector());
 
         $this
-            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory);
+            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory, $userProvider);
 
         $this
             ->supports(Request::create('http://app'))
@@ -196,8 +198,10 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
         $unalteredPsrHttpMessageFactory = new UnalteredPsrHttpFactory($psrHttpMessageFactory, $psr17Factory);
 
+        $userProvider = new CasUserProvider(new Introspector());
+
         $this
-            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory);
+            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory, $userProvider);
     }
 
     private function getCas(): CasInterface
