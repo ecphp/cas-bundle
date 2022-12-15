@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.3](https://github.com/ecphp/cas-bundle/compare/2.5.2...2.5.3)
+## [2.5.4](https://github.com/ecphp/cas-bundle/compare/2.5.3...2.5.4)
+
+### Commits
+
+- fix: restore the use of a `UserProvider` [`b6b5841`](https://github.com/ecphp/cas-bundle/commit/b6b5841ba88331ba9e1c4c0cc7d0968e0c1be1de)
+
+## [2.5.3](https://github.com/ecphp/cas-bundle/compare/2.5.2...2.5.3) - 2022-12-07
 
 ### Merged
 
@@ -13,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`44fb8d2`](https://github.com/ecphp/cas-bundle/commit/44fb8d2b08790b4b1617f3275522bb5fbe3e4729)
 - feat: add `__toString()` method to `CasUserInterface` [`28f74ff`](https://github.com/ecphp/cas-bundle/commit/28f74ff6edf4f32a4d9b69100f41368637372c16)
 - nix: remove `-nts` prefix [`068fb1c`](https://github.com/ecphp/cas-bundle/commit/068fb1cab09ea72c743b36581391b879817ac155)
 
