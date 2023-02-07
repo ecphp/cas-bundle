@@ -33,7 +33,7 @@ final class Logout
             return new RedirectResponse('/');
         }
 
-        $tokenStorage->setToken();
+        $tokenStorage->setToken(null);
 
         return $response;
     }
