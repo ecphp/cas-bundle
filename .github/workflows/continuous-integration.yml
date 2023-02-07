@@ -45,6 +45,8 @@ jobs:
               uses: ramsey/composer-install@v2
 
             - name: Run Grumphp
+              env:
+                  PHP_CS_FIXER_IGNORE_ENV: 1
               run: vendor/bin/grumphp run
 
             - name: Send Scrutinizer data
