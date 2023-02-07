@@ -14,9 +14,15 @@ namespace spec\EcPhp\CasBundle\Security\Core\User;
 use EcPhp\CasBundle\Security\Core\User\CasUser;
 use EcPhp\CasBundle\Security\Core\User\CasUserInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
-use EcPhp\CasLib\Introspection\Introspector;
+use EcPhp\CasLib\Response\CasResponseBuilder;
+use EcPhp\CasLib\Response\Factory\AuthenticationFailureFactory;
+use EcPhp\CasLib\Response\Factory\ProxyFactory;
+use EcPhp\CasLib\Response\Factory\ProxyFailureFactory;
+use EcPhp\CasLib\Response\Factory\ServiceValidateFactory;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use PhpSpec\ObjectBehavior;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\InMemoryUser;
@@ -94,7 +100,22 @@ class CasUserProviderSpec extends ObjectBehavior
 
     public function let()
     {
-        $this
-            ->beConstructedWith(new Introspector());
+        $casResponseBuilder = new CasResponseBuilder(
+            new AuthenticationFailureFactory(),
+            new ProxyFactory(),
+            new ProxyFailureFactory(),
+            new ServiceValidateFactory()
+        );
+
+        $psr17Factory = new Psr17Factory();
+
+        $psrHttpFactory = new PsrHttpFactory(
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory
+        );
+
+        $this->beConstructedWith($casResponseBuilder, $psrHttpFactory);
     }
 }

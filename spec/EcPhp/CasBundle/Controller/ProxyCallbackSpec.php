@@ -11,88 +11,131 @@ declare(strict_types=1);
 
 namespace spec\EcPhp\CasBundle\Controller;
 
+use EcPhp\CasBundle\Cas\SymfonyCasInterface;
 use EcPhp\CasBundle\Controller\ProxyCallback;
-use EcPhp\CasLib\Cas;
-use EcPhp\CasLib\Introspection\Introspector;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Log\NullLogger;
-use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
-use Symfony\Component\Cache\Adapter\ArrayAdapter;
-use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProxyCallbackSpec extends ObjectBehavior
 {
-    public function it_can_be_invoked()
+    public function it_is_initializable()
     {
-        $serverRequest = new ServerRequest('GET', 'http://app');
-        $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
-        $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
-        $cache = new ArrayAdapter();
-        $logger = new NullLogger();
-        $introspector = new Introspector();
+        $this->shouldHaveType(ProxyCallback::class);
+    }
 
-        $psr17Factory = new Psr17Factory();
+    public function it_returns_a_statuscode_200_when_pgtIou_and_pgtId_are_available(
+        SymfonyCasInterface $cas,
+        ResponseInterface $response
+    ) {
+        $request = Request::create('http://local/cas/proxy?pgtIou=pgtIou&pgtId=pgtId');
 
-        $cas = new Cas(
-            $serverRequest,
-            $properties,
-            $client,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $cache,
-            $logger,
-            $introspector
-        );
+        $response
+            ->getStatusCode()
+            ->willReturn(200);
 
-        $httpFoundationFactory = new HttpFoundationFactory();
-
-        $request = Request::create('');
+        $cas
+            ->handleProxyCallback(
+                $request,
+                [
+                    'pgtIou' => 'pgtIou',
+                    'pgtId' => 'pgtId',
+                ]
+            )
+            ->willReturn($response);
 
         $this
-            ->__invoke($request, $cas, $httpFoundationFactory)
+            ->__invoke($request, $cas)
             ->shouldBeAnInstanceOf(ResponseInterface::class);
 
         $this
-            ->__invoke($request, $cas, $httpFoundationFactory)
+            ->__invoke($request, $cas)
             ->getStatusCode()
             ->shouldReturn(200);
+    }
 
-        $serverRequest = new ServerRequest('GET', 'http://local/cas/proxy?pgtIou=pgtIou&pgtId=pgtId');
-        $this
-            ->__invoke($request, $cas, $httpFoundationFactory)
-            ->shouldBeAnInstanceOf(ResponseInterface::class);
-        $this
-            ->__invoke($request, $cas->withServerRequest($serverRequest), $httpFoundationFactory)
+    public function it_returns_a_statuscode_500_when_missing_pgtId(
+        SymfonyCasInterface $cas,
+        ResponseInterface $response
+    ) {
+        $request = Request::create('http://local/cas/proxy?pgtIou=pgtIou');
+
+        $response
             ->getStatusCode()
-            ->shouldReturn(200);
+            ->willReturn(500);
 
-        $serverRequest = new ServerRequest('GET', 'http://local/cas/proxy?pgtIou=pgtIou');
-        $this
-            ->__invoke($request, $cas, $httpFoundationFactory)
-            ->shouldBeAnInstanceOf(ResponseInterface::class);
-        $this
-            ->__invoke($request, $cas->withServerRequest($serverRequest), $httpFoundationFactory)
-            ->getStatusCode()
-            ->shouldReturn(500);
+        $cas
+            ->handleProxyCallback(
+                $request,
+                [
+                    'pgtIou' => 'pgtIou',
+                ]
+            )
+            ->willReturn($response);
 
-        $serverRequest = new ServerRequest('GET', 'http://local/cas/proxy?pgtId=pgtId');
         $this
-            ->__invoke($request, $cas, $httpFoundationFactory)
+            ->__invoke($request, $cas)
             ->shouldBeAnInstanceOf(ResponseInterface::class);
+
         $this
-            ->__invoke($request, $cas->withServerRequest($serverRequest), $httpFoundationFactory)
+            ->__invoke($request, $cas)
             ->getStatusCode()
             ->shouldReturn(500);
     }
 
-    public function it_is_initializable()
-    {
-        $this->shouldHaveType(ProxyCallback::class);
+    public function it_returns_a_statuscode_500_when_missing_pgtId_and_pgtIou(
+        SymfonyCasInterface $cas,
+        ResponseInterface $response
+    ) {
+        $request = Request::create('');
+
+        $response
+            ->getStatusCode()
+            ->willReturn(500);
+
+        $cas
+            ->handleProxyCallback(
+                $request,
+                []
+            )
+            ->willReturn($response);
+
+        $this
+            ->__invoke($request, $cas)
+            ->shouldBeAnInstanceOf(ResponseInterface::class);
+
+        $this
+            ->__invoke($request, $cas)
+            ->getStatusCode()
+            ->shouldReturn(500);
+    }
+
+    public function it_returns_a_statuscode_500_when_missing_pgtIou(
+        SymfonyCasInterface $cas,
+        ResponseInterface $response
+    ) {
+        $request = Request::create('http://local/cas/proxy?pgtId=pgtId');
+
+        $response
+            ->getStatusCode()
+            ->willReturn(500);
+
+        $cas
+            ->handleProxyCallback(
+                $request,
+                [
+                    'pgtId' => 'pgtId',
+                ]
+            )
+            ->willReturn($response);
+
+        $this
+            ->__invoke($request, $cas)
+            ->shouldBeAnInstanceOf(ResponseInterface::class);
+
+        $this
+            ->__invoke($request, $cas)
+            ->getStatusCode()
+            ->shouldReturn(500);
     }
 }

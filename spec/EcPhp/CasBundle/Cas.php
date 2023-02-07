@@ -38,6 +38,12 @@ class Cas extends ObjectBehavior
                 case 'http://local/cas/serviceValidate?ticket=ST-ticket&service=http%3A%2F%2Flocal%2Fcas%2FserviceValidate%3Fservice%3Dservice':
                 case 'http://local/cas/serviceValidate?ticket=PT-ticket&service=http%3A%2F%2Flocal%2Fcas%2FproxyValidate%3Fservice%3Dservice':
                 case 'http://local/cas/serviceValidate?ticket=PT-ticket&service=http%3A%2F%2Ffrom':
+                case 'http://local/cas/serviceValidate?format=XML&service=service&ticket=ticket':
+                    $info = [
+                        'response_headers' => [
+                            'Content-Type: application/xml',
+                        ],
+                    ];
                     $body = <<< 'EOF'
                         <cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
                          <cas:authenticationSuccess>
