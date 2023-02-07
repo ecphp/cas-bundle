@@ -1,15 +1,10 @@
 Requirements
 ============
 
-PHP
----
-
-PHP greater or equal to 7.2.5.
-
 Symfony
 -------
 
-The minimal required version of Symfony is 5.
+The minimal required version of Symfony is 6.1.
 
 Extensions
 ----------
