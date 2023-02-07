@@ -11,13 +11,8 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security;
 
+use EcPhp\CasBundle\Cas\SymfonyCasInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
-use EcPhp\CasLib\CasInterface;
-use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
-use EcPhp\CasLib\Utils\Uri;
-use InvalidArgumentException;
-use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,109 +23,68 @@ use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Throwable;
 
 final class CasAuthenticator extends AbstractAuthenticator
 {
-    private CasInterface $cas;
-
-    private CasUserProviderInterface $casUserProvider;
-
-    private HttpMessageFactoryInterface $httpMessageFactory;
-
-    public function __construct(
-        CasInterface $cas,
-        HttpMessageFactoryInterface $httpMessageFactory,
-        CasUserProviderInterface $casUserProvider
-    ) {
-        $this->cas = $cas;
-        $this->httpMessageFactory = $httpMessageFactory;
-        $this->casUserProvider = $casUserProvider;
+    public function __construct(private readonly SymfonyCasInterface $cas, private readonly CasUserProviderInterface $userProvider)
+    {
     }
 
     public function authenticate(Request $request): Passport
     {
-        $response = $this
-            ->cas
-            ->withServerRequest($this->toPsr($request))
-            ->requestTicketValidation();
-
-        if (null === $response) {
-            throw new AuthenticationException('Unable to authenticate the user with such service ticket.');
-        }
-
         try {
-            $introspect = $this->cas->detect($response);
-        } catch (InvalidArgumentException $exception) {
-            throw new AuthenticationException($exception->getMessage(), 0, $exception);
-        }
-
-        if (false === ($introspect instanceof ServiceValidate)) {
+            $response = $this
+                ->cas
+                ->requestTicketValidation($request);
+        } catch (Throwable $e) {
             throw new AuthenticationException(
-                'Failure in the returned response'
+                sprintf('Unable to authenticate the user with such service ticket, %s', $e->getMessage()),
+                0,
+                $e
             );
         }
 
-        $payload = $introspect->getCredentials();
+        $user = $this->userProvider->loadUserByResponse($response);
 
         return new SelfValidatingPassport(
             new UserBadge(
-                $payload['user'],
-                fn (string $identifier): UserInterface => $this->casUserProvider->loadUserByResponse($response)
+                $user->getUserIdentifier(),
+                static fn (): UserInterface => $user
             )
         );
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        $uri = $this->toPsr($request)->getUri();
-
-        if (false === Uri::hasParams($uri, 'ticket')) {
+        if (false === $request->query->has('ticket')) {
             return null;
         }
 
-        // Remove the ticket parameter.
-        $uri = Uri::removeParams(
-            $uri,
-            'ticket'
-        );
+        $request->query->remove('ticket');
+        $request->query->set('renew', 'true');
 
-        return new RedirectResponse((string) Uri::withParam($uri, 'renew', 'true'));
+        // See: https://stackoverflow.com/questions/63037084/remove-parameters-from-symfony-4-4-httpfoundation-request-and-re-generate-url
+        $request->overrideGlobals();
+
+        return new RedirectResponse($request->getUri());
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
     {
-        return new RedirectResponse(
-            (string) Uri::removeParams(
-                $this->toPsr($request)->getUri(),
-                'ticket',
-                'renew'
-            )
-        );
+        $request->query->remove('ticket');
+        $request->query->remove('renew');
+
+        // See: https://stackoverflow.com/questions/63037084/remove-parameters-from-symfony-4-4-httpfoundation-request-and-re-generate-url
+        $request->overrideGlobals();
+
+        return new RedirectResponse($request->getUri());
     }
 
     public function supports(Request $request): bool
     {
         return $this
             ->cas
-            ->withServerRequest($this->toPsr($request))
-            ->supportAuthentication();
-    }
-
-    /**
-     * Convert a Symfony request into a PSR Request.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *   The Symfony request.
-     *
-     * @return \Psr\Http\Message\ServerRequestInterface
-     *   The PSR request.
-     */
-    private function toPsr(Request $request): ServerRequestInterface
-    {
-        // As we cannot decorate the Symfony Request object, we convert it into
-        // a PSR Request so we can override the PSR HTTP Message factory if
-        // needed.
-        // See the reasons at https://github.com/ecphp/cas-lib/issues/5
-        return $this->httpMessageFactory->createRequest($request);
+            ->supportAuthentication($request);
     }
 }

@@ -11,23 +11,19 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
 
-use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
-use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
-use InvalidArgumentException;
+use EcPhp\CasLib\Contract\Response\CasResponseBuilderInterface;
+use EcPhp\CasLib\Contract\Response\Type\ServiceValidate;
+use Exception;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
-
-use function get_class;
+use Throwable;
 
 final class CasUserProvider implements CasUserProviderInterface
 {
-    private IntrospectorInterface $introspector;
-
-    public function __construct(IntrospectorInterface $introspector)
+    public function __construct(private readonly CasResponseBuilderInterface $casResponseBuilder)
     {
-        $this->introspector = $introspector;
     }
 
     public function loadUserByIdentifier($identifier): UserInterface
@@ -38,19 +34,37 @@ final class CasUserProvider implements CasUserProviderInterface
     public function loadUserByResponse(ResponseInterface $response): CasUserInterface
     {
         try {
-            $introspect = $this->introspector->detect($response);
-        } catch (InvalidArgumentException $exception) {
-            throw new AuthenticationException($exception->getMessage());
+            $casResponse = $this
+                ->casResponseBuilder
+                ->fromResponse($response);
+        } catch (Throwable $e) {
+            throw new UserNotFoundException(
+                sprintf('Unable to get user from response, %s', $e->getMessage()),
+                0,
+                $e
+            );
         }
 
-        if ($introspect instanceof ServiceValidate) {
-            return new CasUser($introspect->getCredentials());
+        if (!$casResponse instanceof ServiceValidate) {
+            throw new UserNotFoundException(
+                'Unable to get user from response'
+            );
         }
 
-        throw new AuthenticationException('Unable to load user from response.');
+        try {
+            $credentials = $casResponse->toArray();
+        } catch (Throwable $e) {
+            throw new Exception(
+                sprintf('Unable to convert the response, %s', $e->getMessage()),
+                0,
+                $e
+            );
+        }
+
+        return new CasUser($credentials['serviceResponse']['authenticationSuccess']);
     }
 
-    public function loadUserByUsername(string $username): UserInterface
+    public function loadUserByUsername(string $username): never
     {
         throw new UnsupportedUserException(sprintf('Username "%s" does not exist.', $username));
     }
@@ -58,7 +72,7 @@ final class CasUserProvider implements CasUserProviderInterface
     public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof CasUserInterface) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
         return $user;

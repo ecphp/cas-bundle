@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace EcPhp\CasBundle\Configuration;
 
 use EcPhp\CasLib\Configuration\Properties as PsrCasConfiguration;
-use EcPhp\CasLib\Configuration\PropertiesInterface;
+use EcPhp\CasLib\Contract\Configuration\PropertiesInterface;
 use ReturnTypeWillChange;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -22,15 +22,12 @@ use const FILTER_VALIDATE_URL;
 
 final class Symfony implements PropertiesInterface
 {
-    private PropertiesInterface $cas;
-
-    private RouterInterface $router;
+    private readonly PropertiesInterface $cas;
 
     public function __construct(
         ParameterBagInterface $parameterBag,
-        RouterInterface $router
+        private readonly RouterInterface $router
     ) {
-        $this->router = $router;
         $this->cas = new PsrCasConfiguration(
             $this->routeToUrl(
                 $parameterBag->get('cas')
@@ -43,39 +40,27 @@ final class Symfony implements PropertiesInterface
         return $this->cas->all();
     }
 
-    /**
-     * @param mixed $offset
-     */
     #[ReturnTypeWillChange]
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->cas->offsetExists($offset);
     }
 
     /**
-     * @param mixed $offset
-     *
      * @return array<string, mixed>|mixed
      */
     #[ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset)
     {
         return $this->cas->offsetGet($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->cas->offsetSet($offset, $value);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         $this->cas->offsetUnset($offset);
     }

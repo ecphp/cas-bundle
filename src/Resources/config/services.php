@@ -11,22 +11,33 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use EcPhp\CasBundle\Cas\SymfonyCas;
+use EcPhp\CasBundle\Cas\SymfonyCasInterface;
+use EcPhp\CasBundle\Cas\SymfonyCasResponseBuilder;
+use EcPhp\CasBundle\Cas\SymfonyCasResponseBuilderInterface;
 use EcPhp\CasBundle\Configuration\Symfony;
 use EcPhp\CasBundle\Controller\Homepage;
 use EcPhp\CasBundle\Controller\Login;
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasBundle\Controller\ProxyCallback;
 use EcPhp\CasBundle\Security\CasAuthenticator;
+use EcPhp\CasBundle\Security\CasEntryPoint;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
 use EcPhp\CasLib\Cas;
-use EcPhp\CasLib\CasInterface;
-use EcPhp\CasLib\Configuration\PropertiesInterface;
-use EcPhp\CasLib\Introspection\Contract\IntrospectorInterface;
-use EcPhp\CasLib\Introspection\Introspector;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
+use EcPhp\CasLib\Contract\CasInterface;
+use EcPhp\CasLib\Contract\Configuration\PropertiesInterface;
+use EcPhp\CasLib\Contract\Response\CasResponseBuilderInterface;
+use EcPhp\CasLib\Contract\Response\Factory\AuthenticationFailureFactory as FactoryAuthenticationFailureFactory;
+use EcPhp\CasLib\Contract\Response\Factory\ProxyFactory as FactoryProxyFactory;
+use EcPhp\CasLib\Contract\Response\Factory\ProxyFailureFactory as FactoryProxyFailureFactory;
+use EcPhp\CasLib\Contract\Response\Factory\ServiceValidateFactory as FactoryServiceValidateFactory;
+use EcPhp\CasLib\Response\CasResponseBuilder;
+use EcPhp\CasLib\Response\Factory\AuthenticationFailureFactory;
+use EcPhp\CasLib\Response\Factory\ProxyFactory;
+use EcPhp\CasLib\Response\Factory\ProxyFailureFactory;
+use EcPhp\CasLib\Response\Factory\ServiceValidateFactory;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container
@@ -35,20 +46,49 @@ return static function (ContainerConfigurator $container): void {
         ->autoconfigure(true)
         ->autowire(true);
 
-    $services->set('cas', Cas::class);
-    $services->alias(CasInterface::class, 'cas');
+    $services->set(Cas::class);
+    $services->alias(CasInterface::class, Cas::class);
 
-    $services->set('cas.introspector', Introspector::class);
-    $services->alias(IntrospectorInterface::class, 'cas.introspector');
+    $services
+        ->set(SymfonyCas::class)
+        ->decorate(CasInterface::class)
+        ->arg('$cas', service('.inner'));
+    $services->alias(SymfonyCasInterface::class, SymfonyCas::class);
 
-    $services->set('cas.configuration', Symfony::class);
-    $services->alias(PropertiesInterface::class, 'cas.configuration');
+    $services
+        ->set(CasResponseBuilder::class);
+    $services->alias(CasResponseBuilderInterface::class, CasResponseBuilder::class);
 
-    $services->set('cas.userprovider', CasUserProvider::class);
-    $services->alias(CasUserProviderInterface::class, 'cas.userprovider');
+    $services
+        ->set(SymfonyCasResponseBuilder::class)
+        ->decorate(CasResponseBuilderInterface::class)
+        ->arg('$casResponseBuilder', service('.inner'));
+    $services->alias(SymfonyCasResponseBuilderInterface::class, SymfonyCasResponseBuilder::class);
 
-    $services->set('cas.authenticator', CasAuthenticator::class);
-    $services->alias(CasAuthenticator::class, 'cas.authenticator');
+    $services->set(Symfony::class);
+    $services->alias(PropertiesInterface::class, Symfony::class);
+
+    $services->set(CasUserProvider::class);
+    $services->alias(CasUserProviderInterface::class, CasUserProvider::class);
+    $services->alias(UserProviderInterface::class, CasUserProvider::class);
+
+    $services->set(CasAuthenticator::class);
+
+    $services
+        ->set(AuthenticationFailureFactory::class);
+    $services->alias(FactoryAuthenticationFailureFactory::class, AuthenticationFailureFactory::class);
+
+    $services
+        ->set(ProxyFactory::class);
+    $services->alias(FactoryProxyFactory::class, ProxyFactory::class);
+
+    $services
+        ->set(ProxyFailureFactory::class);
+    $services->alias(FactoryProxyFailureFactory::class, ProxyFailureFactory::class);
+
+    $services
+        ->set(ServiceValidateFactory::class);
+    $services->alias(FactoryServiceValidateFactory::class, ServiceValidateFactory::class);
 
     $services
         ->set(Homepage::class)
@@ -66,27 +106,6 @@ return static function (ContainerConfigurator $container): void {
         ->set(ProxyCallback::class)
         ->tag('controller.service_arguments');
 
-    /**
-     * All of this needs to be removed for the next major
-     * version of ecphp/cas-lib
-     * A request or server request is not a service, it is
-     * stateful and should not live in the container.
-     */
     $services
-        ->set(RequestInterface::class)
-        ->factory([
-            service('request_stack'),
-            'getCurrentRequest',
-        ])
-        ->private();
-
-    $services
-        ->set(ServerRequestInterface::class)
-        ->factory([
-            service(HttpMessageFactoryInterface::class),
-            'createRequest',
-        ])
-        ->args([
-            service(RequestInterface::class),
-        ]);
+        ->set(CasEntryPoint::class);
 };

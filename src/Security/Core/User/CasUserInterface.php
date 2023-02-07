@@ -23,14 +23,9 @@ interface CasUserInterface extends EquatableInterface, UserInterface
      *
      * @return mixed|null
      */
-    public function get(string $key, $default = null);
+    public function get(string $key, mixed $default = null);
 
-    /**
-     * @param mixed $default
-     *
-     * @return mixed
-     */
-    public function getAttribute(string $key, $default = null);
+    public function getAttribute(string $key, mixed $default = null): mixed;
 
     /**
      * @return array<array|string>

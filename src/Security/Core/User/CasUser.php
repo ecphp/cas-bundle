@@ -11,44 +11,35 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security\Core\User;
 
+use Stringable;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-final class CasUser implements CasUserInterface
+final class CasUser implements CasUserInterface, Stringable
 {
     /**
-     * The user storage.
-     *
-     * @var array<mixed>
+     * @param mixed[] $payload
      */
-    private array $storage;
-
-    /**
-     * CasUser constructor.
-     *
-     * @param array<mixed> $data
-     */
-    public function __construct(array $data)
+    public function __construct(private readonly array $payload)
     {
-        $this->storage = $data;
     }
 
     public function __toString(): string
     {
-        return $this->get('user');
+        return (string) $this->get('user');
     }
 
     public function eraseCredentials(): void
     {
     }
 
-    public function get(string $key, $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
-        return $this->getStorage()[$key] ?? $default;
+        return $this->payload[$key] ?? $default;
     }
 
-    public function getAttribute(string $key, $default = null)
+    public function getAttribute(string $key, mixed $default = null): mixed
     {
-        return $this->getStorage()['attributes'][$key] ?? $default;
+        return $this->payload['attributes'][$key] ?? $default;
     }
 
     public function getAttributes(): array
@@ -89,15 +80,5 @@ final class CasUser implements CasUserInterface
     public function isEqualTo(UserInterface $user): bool
     {
         return $user->getUserIdentifier() === $this->getUserIdentifier();
-    }
-
-    /**
-     * Get the storage.
-     *
-     * @return array<mixed>
-     */
-    private function getStorage(): array
-    {
-        return $this->storage;
     }
 }

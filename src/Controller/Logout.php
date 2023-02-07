@@ -11,28 +11,36 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Controller;
 
-use EcPhp\CasLib\CasInterface;
+use EcPhp\CasBundle\Cas\SymfonyCasInterface;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Throwable;
 
 final class Logout
 {
-    /**
-     * @return RedirectResponse|ResponseInterface
-     */
     public function __invoke(
         Request $request,
-        CasInterface $cas,
+        SymfonyCasInterface $cas,
+        Security $security,
         TokenStorageInterface $tokenStorage
-    ) {
-        $response = $cas->logout($request->query->all());
-
-        if (null === $response) {
+    ): ResponseInterface|RedirectResponse {
+        try {
+            $response = $cas
+                ->logout(
+                    $request,
+                    $request->query->all()
+                );
+        } catch (Throwable) {
+            // TODO: Should we log the error ?
+            // If yes, we need to inject the LoggerInterface and require it
+            // in composer.json. Do we want an extra dependency?
             return new RedirectResponse('/');
         }
 
+        $security->getToken()?->eraseCredentials();
         $tokenStorage->setToken(null);
 
         return $response;
