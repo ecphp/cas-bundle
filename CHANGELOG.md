@@ -5,11 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.1](https://github.com/ecphp/cas-bundle/compare/2.5.1...2.4.1)
+## [2.4.2](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.4.2)
 
 ### Commits
 
+- fix: restore the use of a `UserProvider` [`5531bda`](https://github.com/ecphp/cas-bundle/commit/5531bda793cb4f0891d2c3979883e4a2d3a9253b)
+- feat: add `__toString()` method to `CasUserInterface` [`f7cf369`](https://github.com/ecphp/cas-bundle/commit/f7cf369207e3110e10d28407e70a4581548d7089)
+- nix: remove `-nts` prefix [`674d2af`](https://github.com/ecphp/cas-bundle/commit/674d2af38bc1fba5400d070c234aaf40edfd629a)
+- chore: Normalize `composer.json`. [`b4b7568`](https://github.com/ecphp/cas-bundle/commit/b4b75680d8a4dfd2f7c04599d35d6f677802b8d9)
+- docs: Update changelog. [`748d26b`](https://github.com/ecphp/cas-bundle/commit/748d26b737765cd701ef2eb45b7fc437c314ef87)
 - fix: Add missing dependency. [`2d010dc`](https://github.com/ecphp/cas-bundle/commit/2d010dca15314f41c03d26ec0487ed0478f5579f)
+
+## [2.5.4](https://github.com/ecphp/cas-bundle/compare/2.5.3...2.5.4) - 2022-12-15
+
+### Commits
+
+- docs: Update changelog. [`099b66b`](https://github.com/ecphp/cas-bundle/commit/099b66bb95c241a21404b00a266410072b57e086)
+- fix: restore the use of a `UserProvider` [`b6b5841`](https://github.com/ecphp/cas-bundle/commit/b6b5841ba88331ba9e1c4c0cc7d0968e0c1be1de)
+
+## [2.5.3](https://github.com/ecphp/cas-bundle/compare/2.5.2...2.5.3) - 2022-12-07
+
+### Merged
+
+- chore(deps): Bump cachix/install-nix-action from 17 to 18 [`#72`](https://github.com/ecphp/cas-bundle/pull/72)
+
+### Commits
+
+- docs: Update changelog. [`44fb8d2`](https://github.com/ecphp/cas-bundle/commit/44fb8d2b08790b4b1617f3275522bb5fbe3e4729)
+- feat: add `__toString()` method to `CasUserInterface` [`28f74ff`](https://github.com/ecphp/cas-bundle/commit/28f74ff6edf4f32a4d9b69100f41368637372c16)
+- nix: remove `-nts` prefix [`068fb1c`](https://github.com/ecphp/cas-bundle/commit/068fb1cab09ea72c743b36581391b879817ac155)
+
+## [2.5.2](https://github.com/ecphp/cas-bundle/compare/2.5.1...2.5.2) - 2022-12-07
+
+### Commits
+
+- docs: Update changelog. [`b3294f8`](https://github.com/ecphp/cas-bundle/commit/b3294f80c07f323df9858b424242255d4f7ef326)
+- feat: add `__toString()` method to `CasUserInterface` [`5790eb4`](https://github.com/ecphp/cas-bundle/commit/5790eb4b8572f48d919881eefef7249b4e949fb0)
+- nix: remove `-nts` prefix [`bb8be3c`](https://github.com/ecphp/cas-bundle/commit/bb8be3cf580aa055ee778676a06795337ebc96ff)
+- docs: Remove Symfony version. [`80f3220`](https://github.com/ecphp/cas-bundle/commit/80f322022193ad0a0f2e3290b98c94d3814bd86b)
+- chore: Prettify codebase. [`dce1424`](https://github.com/ecphp/cas-bundle/commit/dce142460a418940e05a8a75e63721ee84a6e11d)
+- chore: Normalize `composer.json`. [`0544e74`](https://github.com/ecphp/cas-bundle/commit/0544e7462e5ef9da6f68e948fc5e2d6329c60015)
 
 ## [2.5.1](https://github.com/ecphp/cas-bundle/compare/2.5.0...2.5.1) - 2022-08-25
 
@@ -18,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: Update changelog. [`3cd5f67`](https://github.com/ecphp/cas-bundle/commit/3cd5f673ebf1631c6178c0c7f069769739d8a576)
 - fix: Add missing dependency. [`faca74c`](https://github.com/ecphp/cas-bundle/commit/faca74c08aa2eabdc5aa37868f721b8a0ab4d6da)
 
-## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.5.0) - 2022-08-25
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.1...2.5.0) - 2022-08-25
 
 ### Merged
 
@@ -27,6 +62,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - docs: Update changelog. [`90756cb`](https://github.com/ecphp/cas-bundle/commit/90756cbce051f0a7b5aa7b42b65487b8a02792f1)
+
+## [2.4.1](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.4.1) - 2022-08-25
+
+### Commits
+
+- docs: Update changelog. [`748d26b`](https://github.com/ecphp/cas-bundle/commit/748d26b737765cd701ef2eb45b7fc437c314ef87)
+- fix: Add missing dependency. [`2d010dc`](https://github.com/ecphp/cas-bundle/commit/2d010dca15314f41c03d26ec0487ed0478f5579f)
 
 ## [2.4.0](https://github.com/ecphp/cas-bundle/compare/2.3.2...2.4.0) - 2022-08-25
 
