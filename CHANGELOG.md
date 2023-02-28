@@ -5,10 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.2](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.4.2)
+## [2.4.3](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.4.3)
 
 ### Commits
 
+- feat: add a CAS Authentication Entry Point [`173dc52`](https://github.com/ecphp/cas-bundle/commit/173dc520cda646394a830d7053d9f407870759f4)
+- docs: Update changelog. [`7a4bfd4`](https://github.com/ecphp/cas-bundle/commit/7a4bfd40df30e9143411c9b09c3b2da55bb95c4d)
 - fix: restore the use of a `UserProvider` [`5531bda`](https://github.com/ecphp/cas-bundle/commit/5531bda793cb4f0891d2c3979883e4a2d3a9253b)
 - feat: add `__toString()` method to `CasUserInterface` [`f7cf369`](https://github.com/ecphp/cas-bundle/commit/f7cf369207e3110e10d28407e70a4581548d7089)
 - nix: remove `-nts` prefix [`674d2af`](https://github.com/ecphp/cas-bundle/commit/674d2af38bc1fba5400d070c234aaf40edfd629a)
@@ -53,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: Update changelog. [`3cd5f67`](https://github.com/ecphp/cas-bundle/commit/3cd5f673ebf1631c6178c0c7f069769739d8a576)
 - fix: Add missing dependency. [`faca74c`](https://github.com/ecphp/cas-bundle/commit/faca74c08aa2eabdc5aa37868f721b8a0ab4d6da)
 
-## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.1...2.5.0) - 2022-08-25
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.2...2.5.0) - 2022-08-25
 
 ### Merged
 
@@ -62,6 +64,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - docs: Update changelog. [`90756cb`](https://github.com/ecphp/cas-bundle/commit/90756cbce051f0a7b5aa7b42b65487b8a02792f1)
+
+## [2.4.2](https://github.com/ecphp/cas-bundle/compare/2.4.1...2.4.2) - 2023-02-08
+
+### Commits
+
+- docs: Update changelog. [`7a4bfd4`](https://github.com/ecphp/cas-bundle/commit/7a4bfd40df30e9143411c9b09c3b2da55bb95c4d)
+- fix: restore the use of a `UserProvider` [`5531bda`](https://github.com/ecphp/cas-bundle/commit/5531bda793cb4f0891d2c3979883e4a2d3a9253b)
+- feat: add `__toString()` method to `CasUserInterface` [`f7cf369`](https://github.com/ecphp/cas-bundle/commit/f7cf369207e3110e10d28407e70a4581548d7089)
+- nix: remove `-nts` prefix [`674d2af`](https://github.com/ecphp/cas-bundle/commit/674d2af38bc1fba5400d070c234aaf40edfd629a)
+- chore: Normalize `composer.json`. [`b4b7568`](https://github.com/ecphp/cas-bundle/commit/b4b75680d8a4dfd2f7c04599d35d6f677802b8d9)
 
 ## [2.4.1](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.4.1) - 2022-08-25
 
