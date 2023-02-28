@@ -5,10 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.4](https://github.com/ecphp/cas-bundle/compare/2.5.3...2.5.4)
+## [2.5.5](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.5.5)
+
+### Merged
+
+- chore(deps): Bump cachix/install-nix-action from 18 to 19 [`#77`](https://github.com/ecphp/cas-bundle/pull/77)
 
 ### Commits
 
+- feat: add a CAS Authentication Entry Point [`1cd8abb`](https://github.com/ecphp/cas-bundle/commit/1cd8abb2d4e8000e87a3c6af04cded22db299b22)
+- chore: minor static files update [`9b7039a`](https://github.com/ecphp/cas-bundle/commit/9b7039a13037311e27b1fd5dc2663882f26e0430)
+- tests: update tests for `ecphp/cas-lib` 2 [`77e96a0`](https://github.com/ecphp/cas-bundle/commit/77e96a0dcc4a4b266d70acf39bb1bc292213bcb3)
+- refactor: update codebase for `ecphp/cas-lib` 2 [`4bbff5f`](https://github.com/ecphp/cas-bundle/commit/4bbff5fba7cc3a3dac9d312f78dd463d2c24dd25)
+- chore: upgrade to `ecphp/cas-lib` [`94758a7`](https://github.com/ecphp/cas-bundle/commit/94758a7551fe562dc0eddcb65804931613b23eb8)
+- ci: add environment variable for PHP CS Fixer [`ede0450`](https://github.com/ecphp/cas-bundle/commit/ede04504a289bab9c6783e1bcc3e1285b4c79b57)
+- docs: update `README` badge [`973f4c9`](https://github.com/ecphp/cas-bundle/commit/973f4c925adf87c46cdb0a37f18053cdabf0876f)
+- chore: update `LICENSE` file [`fe745ca`](https://github.com/ecphp/cas-bundle/commit/fe745ca357db4f383e80a691a52c5d3f8dea4054)
+- chore: add `pcov` extension requirement in `require-dev` [`4eeb51c`](https://github.com/ecphp/cas-bundle/commit/4eeb51ca5ab71785b42778d62e16f47eb8bfd174)
+- tests: fix broken tests [`ceecf54`](https://github.com/ecphp/cas-bundle/commit/ceecf54c4cf0464019f5dc66121980d54b1dcc43)
+
+## [2.5.4](https://github.com/ecphp/cas-bundle/compare/2.5.3...2.5.4) - 2022-12-15
+
+### Commits
+
+- docs: Update changelog. [`099b66b`](https://github.com/ecphp/cas-bundle/commit/099b66bb95c241a21404b00a266410072b57e086)
 - fix: restore the use of a `UserProvider` [`b6b5841`](https://github.com/ecphp/cas-bundle/commit/b6b5841ba88331ba9e1c4c0cc7d0968e0c1be1de)
 
 ## [2.5.3](https://github.com/ecphp/cas-bundle/compare/2.5.2...2.5.3) - 2022-12-07
@@ -41,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: Update changelog. [`3cd5f67`](https://github.com/ecphp/cas-bundle/commit/3cd5f673ebf1631c6178c0c7f069769739d8a576)
 - fix: Add missing dependency. [`faca74c`](https://github.com/ecphp/cas-bundle/commit/faca74c08aa2eabdc5aa37868f721b8a0ab4d6da)
 
-## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.1...2.5.0) - 2022-08-25
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.3...2.5.0) - 2022-08-25
 
 ### Merged
 
@@ -50,6 +70,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - docs: Update changelog. [`90756cb`](https://github.com/ecphp/cas-bundle/commit/90756cbce051f0a7b5aa7b42b65487b8a02792f1)
+
+## [2.4.3](https://github.com/ecphp/cas-bundle/compare/2.4.2...2.4.3) - 2023-02-28
+
+### Commits
+
+- docs: Update changelog. [`caac838`](https://github.com/ecphp/cas-bundle/commit/caac83851d4c18d0528db3f4f08f094d0e57866f)
+- feat: add a CAS Authentication Entry Point [`173dc52`](https://github.com/ecphp/cas-bundle/commit/173dc520cda646394a830d7053d9f407870759f4)
+
+## [2.4.2](https://github.com/ecphp/cas-bundle/compare/2.4.1...2.4.2) - 2023-02-08
+
+### Commits
+
+- docs: Update changelog. [`7a4bfd4`](https://github.com/ecphp/cas-bundle/commit/7a4bfd40df30e9143411c9b09c3b2da55bb95c4d)
+- fix: restore the use of a `UserProvider` [`5531bda`](https://github.com/ecphp/cas-bundle/commit/5531bda793cb4f0891d2c3979883e4a2d3a9253b)
+- feat: add `__toString()` method to `CasUserInterface` [`f7cf369`](https://github.com/ecphp/cas-bundle/commit/f7cf369207e3110e10d28407e70a4581548d7089)
+- nix: remove `-nts` prefix [`674d2af`](https://github.com/ecphp/cas-bundle/commit/674d2af38bc1fba5400d070c234aaf40edfd629a)
+- chore: Normalize `composer.json`. [`b4b7568`](https://github.com/ecphp/cas-bundle/commit/b4b75680d8a4dfd2f7c04599d35d6f677802b8d9)
 
 ## [2.4.1](https://github.com/ecphp/cas-bundle/compare/2.4.0...2.4.1) - 2022-08-25
 
