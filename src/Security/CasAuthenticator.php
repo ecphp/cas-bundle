@@ -17,12 +17,12 @@ use EcPhp\CasLib\Introspection\Contract\ServiceValidate;
 use EcPhp\CasLib\Utils\Uri;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,9 +36,9 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
 {
     public function __construct(
         private CasInterface $cas,
-        private HttpMessageFactoryInterface $httpMessageFactory,
         private CasUserProviderInterface $userProvider,
-        private UrlGeneratorInterface $urlGenerator
+        private HttpFoundationFactoryInterface $httpFoundationFactory,
+        private HttpMessageFactoryInterface $httpMessageFactory,
     ) {
     }
 
@@ -112,13 +112,13 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
             );
         }
 
-        return new RedirectResponse(
-            $this
-                ->urlGenerator
-                ->generate(
-                    'cas_bundle_login',
-                )
-        );
+        // Here we could also forward the request to `cas_bundle_login`.
+        // Maybe this is something we should do at some point.
+        $response = $this->cas->login($request->query->all());
+
+        return null === $response ?
+            new RedirectResponse('/') :
+            $this->httpFoundationFactory->createResponse($response);
     }
 
     public function supports(Request $request): bool
