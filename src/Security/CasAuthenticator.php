@@ -13,11 +13,11 @@ namespace EcPhp\CasBundle\Security;
 
 use EcPhp\CasBundle\Cas\SymfonyCasInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,7 +33,7 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
     public function __construct(
         private readonly SymfonyCasInterface $cas,
         private readonly CasUserProviderInterface $userProvider,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly HttpFoundationFactoryInterface $httpFoundationFactory
     ) {
     }
 
@@ -96,13 +96,19 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
             );
         }
 
-        return new RedirectResponse(
-            $this
-                ->urlGenerator
-                ->generate(
-                    'cas_bundle_login',
-                )
-        );
+        // Here we could also forward the request to `cas_bundle_login`.
+        // Maybe this is something we should do at some point.
+        try {
+            $response = $this->cas->login($request);
+        } catch (Throwable $e) {
+            throw new AuthenticationException(
+                sprintf('Unable to start CAS authentication login procedure. (Reason: %s)', $e->getMessage()),
+                0,
+                $e
+            );
+        }
+
+        return $this->httpFoundationFactory->createResponse($response);
     }
 
     public function supports(Request $request): bool
