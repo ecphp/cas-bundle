@@ -21,7 +21,6 @@ use EcPhp\CasBundle\Controller\Login;
 use EcPhp\CasBundle\Controller\Logout;
 use EcPhp\CasBundle\Controller\ProxyCallback;
 use EcPhp\CasBundle\Security\CasAuthenticator;
-use EcPhp\CasBundle\Security\CasEntryPoint;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
 use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
 use EcPhp\CasLib\Cas;
@@ -105,7 +104,4 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(ProxyCallback::class)
         ->tag('controller.service_arguments');
-
-    $services
-        ->set(CasEntryPoint::class);
 };

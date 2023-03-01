@@ -22,7 +22,6 @@ use EcPhp\CasLib\Response\Factory\ProxyFactory;
 use EcPhp\CasLib\Response\Factory\ProxyFailureFactory;
 use EcPhp\CasLib\Response\Factory\ServiceValidateFactory;
 use loophp\psr17\Psr17;
-use loophp\UnalteredPsrHttpMessageBridgeBundle\Factory\UnalteredPsrHttpFactory;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
@@ -42,29 +41,6 @@ class CasAuthenticatorSpec extends ObjectBehavior
 {
     public function it_can_check_if_authentication_is_supported_when_a_user_is_logged_in()
     {
-        $cas = $this->getCas();
-
-        $psr17Factory = new Psr17Factory();
-
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
-        );
-
-        $casResponseBuilder = new CasResponseBuilder(
-            new AuthenticationFailureFactory(),
-            new ProxyFactory(),
-            new ProxyFailureFactory(),
-            new ServiceValidateFactory()
-        );
-
-        $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
-
-        $this
-            ->beConstructedWith($cas, $casUserProvider);
-
         $this
             ->supports(Request::create('http://app'))
             ->shouldReturn(false);
@@ -101,7 +77,7 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
         $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
 
-        $this->beConstructedWith($cas, $casUserProvider);
+        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
             ->supports($requestOk)
@@ -134,7 +110,7 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
         $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
 
-        $this->beConstructedWith($cas, $casUserProvider);
+        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
             ->supports($requestNotOk)
@@ -181,7 +157,7 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
         $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
 
-        $this->beConstructedWith($cas, $casUserProvider);
+        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
             ->authenticate($request)
@@ -255,7 +231,7 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
         $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
 
-        $this->beConstructedWith($cas, $casUserProvider);
+        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $passport = $this
             ->authenticate($request);
@@ -343,7 +319,7 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
         $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
 
-        $this->beConstructedWith($cas, $casUserProvider);
+        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
             ->shouldThrow(AuthenticationException::class)
@@ -391,12 +367,9 @@ class CasAuthenticatorSpec extends ObjectBehavior
             new ServiceValidateFactory()
         );
 
-        $unalteredPsrHttpMessageFactory = new UnalteredPsrHttpFactory($psrHttpMessageFactory, $psr17Factory);
-
         $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
 
-        $this
-            ->beConstructedWith($cas, $casUserProvider);
+        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
     }
 
     private function getCas(): SymfonyCasInterface

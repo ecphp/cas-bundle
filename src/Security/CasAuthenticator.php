@@ -31,9 +31,9 @@ use Throwable;
 final class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
     public function __construct(
+        private readonly SymfonyCasInterface $cas,
         private readonly CasUserProviderInterface $userProvider,
-        private readonly HttpFoundationFactoryInterface $httpFoundationFactory,
-        private readonly SymfonyCasInterface $cas
+        private readonly HttpFoundationFactoryInterface $httpFoundationFactory
     ) {
     }
 
