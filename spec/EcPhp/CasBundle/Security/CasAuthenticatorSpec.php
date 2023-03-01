@@ -49,24 +49,6 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
     public function it_can_check_if_authentication_is_supported_when_a_user_is_logged_in()
     {
-        $cas = $this->getCas();
-
-        $psr17Factory = new Psr17Factory();
-
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
-        );
-
-        $unalteredPsrHttpMessageFactory = new UnalteredPsrHttpFactory($psrHttpMessageFactory, $psr17Factory);
-
-        $casUserProvider = new CasUserProvider(new Introspector());
-
-        $this
-            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory, $casUserProvider);
-
         $this
             ->supports(Request::create('http://app'))
             ->shouldReturn(false);
@@ -198,11 +180,12 @@ class CasAuthenticatorSpec extends ObjectBehavior
         );
 
         $unalteredPsrHttpMessageFactory = new UnalteredPsrHttpFactory($psrHttpMessageFactory, $psr17Factory);
+        $httpFoundationFactory = new HttpFoundationFactory();
 
         $casUserProvider = new CasUserProvider(new Introspector());
 
         $this
-            ->beConstructedWith($cas, $unalteredPsrHttpMessageFactory, $casUserProvider);
+            ->beConstructedWith($cas, $casUserProvider, $httpFoundationFactory, $unalteredPsrHttpMessageFactory);
     }
 
     private function getCas(): CasInterface
