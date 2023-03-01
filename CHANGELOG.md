@@ -5,10 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.4](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.4.4)
+## [2.4.5](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.4.5)
 
 ### Commits
 
+- fix: update `start` method [`f3ebf70`](https://github.com/ecphp/cas-bundle/commit/f3ebf709c137d77f4087d79d3bae00378eb9d07d)
+- docs: update changelog [`b7c5f89`](https://github.com/ecphp/cas-bundle/commit/b7c5f89c68e37abb0a9a85ffebe83180e27ecf14)
 - fix: use the Authenticator as entry point [`d60de33`](https://github.com/ecphp/cas-bundle/commit/d60de336b33d97991ccda3bfd8ab24995b36abd9)
 - docs: Update changelog. [`caac838`](https://github.com/ecphp/cas-bundle/commit/caac83851d4c18d0528db3f4f08f094d0e57866f)
 - feat: add a CAS Authentication Entry Point [`173dc52`](https://github.com/ecphp/cas-bundle/commit/173dc520cda646394a830d7053d9f407870759f4)
@@ -27,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: Update changelog. [`099b66b`](https://github.com/ecphp/cas-bundle/commit/099b66bb95c241a21404b00a266410072b57e086)
 - fix: restore the use of a `UserProvider` [`b6b5841`](https://github.com/ecphp/cas-bundle/commit/b6b5841ba88331ba9e1c4c0cc7d0968e0c1be1de)
 
-## [2.5.3](https://github.com/ecphp/cas-bundle/compare/2.5.1...2.5.3) - 2022-12-07
+## [2.5.3](https://github.com/ecphp/cas-bundle/compare/2.5.2...2.5.3) - 2022-12-07
 
 ### Merged
 
@@ -38,6 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: Update changelog. [`44fb8d2`](https://github.com/ecphp/cas-bundle/commit/44fb8d2b08790b4b1617f3275522bb5fbe3e4729)
 - feat: add `__toString()` method to `CasUserInterface` [`28f74ff`](https://github.com/ecphp/cas-bundle/commit/28f74ff6edf4f32a4d9b69100f41368637372c16)
 - nix: remove `-nts` prefix [`068fb1c`](https://github.com/ecphp/cas-bundle/commit/068fb1cab09ea72c743b36581391b879817ac155)
+
+## [2.5.2](https://github.com/ecphp/cas-bundle/compare/2.5.1...2.5.2) - 2022-12-07
+
+### Commits
+
+- docs: Update changelog. [`b3294f8`](https://github.com/ecphp/cas-bundle/commit/b3294f80c07f323df9858b424242255d4f7ef326)
+- feat: add `__toString()` method to `CasUserInterface` [`5790eb4`](https://github.com/ecphp/cas-bundle/commit/5790eb4b8572f48d919881eefef7249b4e949fb0)
+- nix: remove `-nts` prefix [`bb8be3c`](https://github.com/ecphp/cas-bundle/commit/bb8be3cf580aa055ee778676a06795337ebc96ff)
 - docs: Remove Symfony version. [`80f3220`](https://github.com/ecphp/cas-bundle/commit/80f322022193ad0a0f2e3290b98c94d3814bd86b)
 - chore: Prettify codebase. [`dce1424`](https://github.com/ecphp/cas-bundle/commit/dce142460a418940e05a8a75e63721ee84a6e11d)
 - chore: Normalize `composer.json`. [`0544e74`](https://github.com/ecphp/cas-bundle/commit/0544e7462e5ef9da6f68e948fc5e2d6329c60015)
@@ -49,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: Update changelog. [`3cd5f67`](https://github.com/ecphp/cas-bundle/commit/3cd5f673ebf1631c6178c0c7f069769739d8a576)
 - fix: Add missing dependency. [`faca74c`](https://github.com/ecphp/cas-bundle/commit/faca74c08aa2eabdc5aa37868f721b8a0ab4d6da)
 
-## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.3...2.5.0) - 2022-08-25
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.4...2.5.0) - 2022-08-25
 
 ### Merged
 
@@ -58,6 +68,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - docs: Update changelog. [`90756cb`](https://github.com/ecphp/cas-bundle/commit/90756cbce051f0a7b5aa7b42b65487b8a02792f1)
+
+## [2.4.4](https://github.com/ecphp/cas-bundle/compare/2.4.3...2.4.4) - 2023-02-28
+
+### Commits
+
+- docs: update changelog [`b7c5f89`](https://github.com/ecphp/cas-bundle/commit/b7c5f89c68e37abb0a9a85ffebe83180e27ecf14)
+- fix: use the Authenticator as entry point [`d60de33`](https://github.com/ecphp/cas-bundle/commit/d60de336b33d97991ccda3bfd8ab24995b36abd9)
 
 ## [2.4.3](https://github.com/ecphp/cas-bundle/compare/2.4.2...2.4.3) - 2023-02-28
 
