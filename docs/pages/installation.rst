@@ -31,25 +31,50 @@ Step 2
 
 This is the crucial part of your application's security.
 
-Edit the security settings of your application, usually in `config/packages/security.yaml`.
+Edit the security settings of your application, usually in `config/packages/security.yaml`,
+as such:
 
 .. code-block:: yaml
 
     security:
         enable_authenticator_manager: true
-        firewalls:
-            main:
-                custom_authenticator: EcPhp\CasBundle\Security\CasAuthenticator
 
+        firewalls:
+            dev:
+                pattern: ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+            # this firewall is going to require to login for the /secured path
+            secured:
+                provider: cas
+                pattern: ^/secured
+                custom_authenticator: EcPhp\CasBundle\Security\CasAuthenticator
+                form_login:
+                    check_path: cas_bundle_login
+                    login_path: cas_bundle_login
+                entry_point: EcPhp\CasBundle\Security\CasAuthenticator
+            main:
+                # lazy: true
+                provider: users_in_memory
+
+                # activate different ways to authenticate
+                # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+                # https://symfony.com/doc/current/security/impersonating_user.html
+                # switch_user: true
+
+        # Easy way to control access for large sections of your site
+        # Note: Only the *first* access control that matches will be used
         access_control:
-            - { path: ^/api, role: ROLE_CAS_AUTHENTICATED }
-            - { path: ^/admin, role: ROLE_CAS_AUTHENTICATED }
+            # in case you want to put the entire application behind a secured firewall, you'll need
+            # to give public assess to the login area of the cas bundle like below
+            - { path: ^/cas, roles: PUBLIC_ACCESS }
+            - { path: ^/secured, roles: ROLE_CAS_AUTHENTICATED }
 
 This configuration example will trigger the authentication on paths starting
-with `/api` or `/admin`, therefore make sure that at least such paths exists.
+with `/secured`, therefore make sure that at least such paths exists.
 
 Feel free to change these configuration to fits your need. Have a look at
-`the Symfony documentation about security and Guard authentication`_.
+`the Symfony documentation about security`_.
 
 Step 3
 ~~~~~~
@@ -97,19 +122,13 @@ of the CAS protocol. See more on the dedicated :ref:`configuration` page for tha
 
 The aforementioned server provided by `Apereo`_ does not support Proxy authentication.
 
-If you need a server with `Proxy authentication`_, edit the ``cas_bundle.yaml`` and replace
-``https://casserver.herokuapp.com/cas/`` with ``https://heroku-cas-server.herokuapp.com/cas/``.
-Make sure to enable the property ``pgtUrl`` which is by default in comment.
-The `source`_ of that server are hosted on Github.
-
 If you prefer using a local CAS server, you can choose to build your own using the tool you prefer.
 The quickest solution for a working CAS server on any platform is this `Docker project`_.
 
 .. _a Symfony Flex recipe: https://github.com/symfony/recipes-contrib/blob/master/ecphp/cas-bundle/2.0/manifest.json
 .. _Composer: https://getcomposer.org
 .. _symfony/http-client: https://packagist.org/packages/symfony/http-client
-.. _https://heroku-cas-server.herokuapp.com/cas/: https://heroku-cas-server.herokuapp.com/cas/
-.. _the Symfony documentation about security and Guard authentication: https://symfony.com/doc/current/security/guard_authentication.html
+.. _the Symfony documentation about security: https://symfony.com/doc/current/security.html
 .. _this page: https://apereo.github.io/cas/6.1.x/index.html#demos
 .. _Proxy authentication: https://apereo.github.io/cas/6.1.x/installation/Configuring-Proxy-Authentication.html#proxy-authentication
 .. _source: https://github.com/drupol/heroku-cas-server
