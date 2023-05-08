@@ -18,19 +18,9 @@ interface CasUserInterface extends EquatableInterface, UserInterface
 {
     public function __toString(): string;
 
-    /**
-     * @param mixed $default
-     *
-     * @return mixed|null
-     */
-    public function get(string $key, mixed $default = null);
+    public function get(string $key, mixed $default = null): mixed;
 
-    public function getAttribute(string $key, mixed $default = null): mixed;
-
-    /**
-     * @return array<array|string>
-     */
-    public function getAttributes(): array;
+    public function getPayload(): array;
 
     public function getPgt(): ?string;
 }

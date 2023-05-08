@@ -29,7 +29,7 @@ final class Logout
     ): ResponseInterface|RedirectResponse {
         try {
             $response = $cas->logout($request);
-        } catch (Throwable) {
+        } catch (Throwable $e) {
             // TODO: Should we log the error ?
             // If yes, we need to inject the LoggerInterface and require it
             // in composer.json. Do we want an extra dependency?

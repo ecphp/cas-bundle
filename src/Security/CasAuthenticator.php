@@ -54,7 +54,7 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
             );
         }
 
-        $user = $this->userProvider->loadUserByResponse($response);
+        $user = $this->userProvider->loadUserByResponse($this->httpFoundationFactory->createResponse($response));
 
         return new SelfValidatingPassport(
             new UserBadge(

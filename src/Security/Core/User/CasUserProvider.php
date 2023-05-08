@@ -14,7 +14,8 @@ namespace EcPhp\CasBundle\Security\Core\User;
 use EcPhp\CasLib\Contract\Response\CasResponseBuilderInterface;
 use EcPhp\CasLib\Contract\Response\Type\ServiceValidate;
 use Exception;
-use Psr\Http\Message\ResponseInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,8 +23,10 @@ use Throwable;
 
 final class CasUserProvider implements CasUserProviderInterface
 {
-    public function __construct(private readonly CasResponseBuilderInterface $casResponseBuilder)
-    {
+    public function __construct(
+        private readonly CasResponseBuilderInterface $casResponseBuilder,
+        private readonly HttpMessageFactoryInterface $httpMessageFactory
+    ) {
     }
 
     public function loadUserByIdentifier($identifier): UserInterface
@@ -31,12 +34,12 @@ final class CasUserProvider implements CasUserProviderInterface
         throw new UnsupportedUserException('Unsupported operation.');
     }
 
-    public function loadUserByResponse(ResponseInterface $response): CasUserInterface
+    public function loadUserByResponse(Response $response): CasUserInterface
     {
         try {
             $casResponse = $this
                 ->casResponseBuilder
-                ->fromResponse($response);
+                ->fromResponse($this->httpMessageFactory->createResponse($response));
         } catch (Throwable $e) {
             throw new UserNotFoundException(
                 sprintf('Unable to get user from response, %s', $e->getMessage()),

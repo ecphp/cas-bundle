@@ -16,11 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class CasUser implements CasUserInterface, Stringable
 {
-    /**
-     * @param mixed[] $payload
-     */
-    public function __construct(private readonly array $payload)
-    {
+    public function __construct(
+        private readonly array $payload
+    ) {
     }
 
     public function __toString(): string
@@ -37,19 +35,14 @@ final class CasUser implements CasUserInterface, Stringable
         return $this->payload[$key] ?? $default;
     }
 
-    public function getAttribute(string $key, mixed $default = null): mixed
-    {
-        return $this->payload['attributes'][$key] ?? $default;
-    }
-
-    public function getAttributes(): array
-    {
-        return $this->get('attributes', []);
-    }
-
     public function getPassword(): ?string
     {
         return null;
+    }
+
+    public function getPayload(): array
+    {
+        return $this->payload;
     }
 
     public function getPgt(): ?string
