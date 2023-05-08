@@ -11,33 +11,20 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Controller;
 
-use EcPhp\CasBundle\Cas\SymfonyCasInterface;
+use EcPhp\CasLib\Contract\CasInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Throwable;
 
-/**
- * @deprecated Use a security entry point, see https://symfony.com/doc/current/security/entry_point.html
- */
 final class Login
 {
     public function __invoke(
-        Request $request,
-        SymfonyCasInterface $cas,
-        Security $security
+        ServerRequestInterface $request,
+        CasInterface $cas
     ): RedirectResponse|ResponseInterface {
-        $parameters = $request->query->all() + [
-            'renew' => null !== $security->getUser(),
-        ];
-
         try {
-            $response = $cas
-                ->login(
-                    $request,
-                    $parameters
-                );
+            $response = $cas->login($request);
         } catch (Throwable) {
             // TODO: Should we log the error ?
             // If yes, we need to inject the LoggerInterface and require it

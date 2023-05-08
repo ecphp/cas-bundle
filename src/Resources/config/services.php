@@ -11,10 +11,6 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use EcPhp\CasBundle\Cas\SymfonyCas;
-use EcPhp\CasBundle\Cas\SymfonyCasInterface;
-use EcPhp\CasBundle\Cas\SymfonyCasResponseBuilder;
-use EcPhp\CasBundle\Cas\SymfonyCasResponseBuilderInterface;
 use EcPhp\CasBundle\Configuration\Symfony;
 use EcPhp\CasBundle\Controller\Homepage;
 use EcPhp\CasBundle\Controller\Login;
@@ -49,20 +45,8 @@ return static function (ContainerConfigurator $container): void {
     $services->alias(CasInterface::class, Cas::class);
 
     $services
-        ->set(SymfonyCas::class)
-        ->decorate(CasInterface::class)
-        ->arg('$cas', service('.inner'));
-    $services->alias(SymfonyCasInterface::class, SymfonyCas::class);
-
-    $services
         ->set(CasResponseBuilder::class);
     $services->alias(CasResponseBuilderInterface::class, CasResponseBuilder::class);
-
-    $services
-        ->set(SymfonyCasResponseBuilder::class)
-        ->decorate(CasResponseBuilderInterface::class)
-        ->arg('$casResponseBuilder', service('.inner'));
-    $services->alias(SymfonyCasResponseBuilderInterface::class, SymfonyCasResponseBuilder::class);
 
     $services->set(Symfony::class);
     $services->alias(PropertiesInterface::class, Symfony::class);

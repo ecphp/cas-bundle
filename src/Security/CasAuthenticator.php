@@ -11,9 +11,11 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Security;
 
-use EcPhp\CasBundle\Cas\SymfonyCasInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
+use EcPhp\CasLib\Contract\CasInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +33,10 @@ use Throwable;
 final class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
     public function __construct(
-        private readonly SymfonyCasInterface $cas,
+        private readonly CasInterface $cas,
         private readonly CasUserProviderInterface $userProvider,
-        private readonly HttpFoundationFactoryInterface $httpFoundationFactory
+        private readonly HttpFoundationFactoryInterface $httpFoundationFactory,
+        private readonly HttpMessageFactoryInterface $httpMessageFactory
     ) {
     }
 
@@ -42,7 +45,7 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
         try {
             $response = $this
                 ->cas
-                ->requestTicketValidation($request);
+                ->requestTicketValidation($this->toPsrRequest($request));
         } catch (Throwable $e) {
             throw new AuthenticationException(
                 sprintf('Unable to authenticate the user with such service ticket, %s', $e->getMessage()),
@@ -99,7 +102,7 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
         // Here we could also forward the request to `cas_bundle_login`.
         // Maybe this is something we should do at some point.
         try {
-            $response = $this->cas->login($request);
+            $response = $this->cas->login($this->toPsrRequest($request));
         } catch (Throwable $e) {
             throw new AuthenticationException(
                 sprintf('Unable to start CAS authentication login procedure. (Reason: %s)', $e->getMessage()),
@@ -115,6 +118,11 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
     {
         return $this
             ->cas
-            ->supportAuthentication($request);
+            ->supportAuthentication($this->toPsrRequest($request));
+    }
+
+    private function toPsrRequest(Request $request): ServerRequestInterface
+    {
+        return $this->httpMessageFactory->createRequest($request);
     }
 }

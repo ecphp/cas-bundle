@@ -11,28 +11,24 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Controller;
 
-use EcPhp\CasBundle\Cas\SymfonyCasInterface;
+use EcPhp\CasLib\Contract\CasInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Throwable;
 
 final class Logout
 {
     public function __invoke(
-        Request $request,
-        SymfonyCasInterface $cas,
+        ServerRequestInterface $request,
+        CasInterface $cas,
         Security $security,
         TokenStorageInterface $tokenStorage
     ): ResponseInterface|RedirectResponse {
         try {
-            $response = $cas
-                ->logout(
-                    $request,
-                    $request->query->all()
-                );
+            $response = $cas->logout($request);
         } catch (Throwable) {
             // TODO: Should we log the error ?
             // If yes, we need to inject the LoggerInterface and require it

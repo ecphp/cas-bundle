@@ -11,24 +11,20 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Controller;
 
-use EcPhp\CasBundle\Cas\SymfonyCasInterface;
+use EcPhp\CasLib\Contract\CasInterface;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 final class ProxyCallback
 {
     public function __invoke(
-        Request $request,
-        SymfonyCasInterface $cas
+        ServerRequestInterface $request,
+        CasInterface $cas
     ): ResponseInterface|Response {
         try {
-            $response = $cas
-                ->handleProxyCallback(
-                    $request,
-                    $request->query->all()
-                );
+            $response = $cas->handleProxyCallback($request);
         } catch (Throwable) {
             return new Response('', 500);
         }
