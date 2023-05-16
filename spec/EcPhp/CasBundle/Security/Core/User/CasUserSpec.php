@@ -27,21 +27,6 @@ class CasUserSpec extends ObjectBehavior
             ->shouldBeEqualTo($this->getUsername());
     }
 
-    public function it_can_get_one_attribute()
-    {
-        $this
-            ->getAttribute('foo')
-            ->shouldReturn('bar');
-
-        $this
-            ->getAttribute('unknownAttribute')
-            ->shouldReturn(null);
-
-        $this
-            ->getAttribute('unknownAttribute', 'foo')
-            ->shouldReturn('foo');
-    }
-
     public function it_can_get_roles()
     {
         $this
@@ -49,11 +34,17 @@ class CasUserSpec extends ObjectBehavior
             ->shouldReturn(['ROLE_CAS_AUTHENTICATED']);
     }
 
-    public function it_can_get_the_attributes()
+    public function it_can_get_the_payload()
     {
         $this
-            ->getAttributes()
-            ->shouldReturn(['foo' => 'bar']);
+            ->getPayload()
+            ->shouldReturn([
+                'user' => 'username',
+                'attributes' => [
+                    'foo' => 'bar',
+                ],
+                'proxyGrantingTicket' => 'proxyGrantingTicket',
+            ]);
     }
 
     public function it_can_get_the_proxy_granting_ticket()

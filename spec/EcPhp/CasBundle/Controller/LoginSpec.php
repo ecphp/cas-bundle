@@ -11,45 +11,54 @@ declare(strict_types=1);
 
 namespace spec\EcPhp\CasBundle\Controller;
 
-use EcPhp\CasBundle\Cas\SymfonyCasInterface;
 use EcPhp\CasBundle\Controller\Login;
+use EcPhp\CasLib\Contract\CasInterface;
+use Exception;
+use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 class LoginSpec extends ObjectBehavior
 {
-    public function it_can_be_invoked(
-        SymfonyCasInterface $cas,
+    public function it_is_initializable()
+    {
+        $this->shouldHaveType(Login::class);
+    }
+
+    public function it_return_a_psr_response_in_case_of_success(
+        CasInterface $cas,
         Security $security,
         ResponseInterface $casResponse,
     ) {
-        $request = Request::create('');
+        $request = new ServerRequest('GET', '/');
 
-        $response = $this->__invoke($request, $cas, $security);
-        $response->shouldBeAnInstanceOf(RedirectResponse::class);
-        $response->headers->get('location')->shouldBe('/');
+        $cas
+            ->login($request)
+            ->willReturn($casResponse);
 
         $casResponse
             ->getHeaderLine('location')
             ->willReturn('https://foo.com');
-
-        $cas
-            ->login(
-                $request,
-                ['renew' => false]
-            )
-            ->willReturn($casResponse);
 
         $response = $this->__invoke($request, $cas, $security);
         $response->shouldBeAnInstanceOf(ResponseInterface::class);
         $response->getHeaderLine('location')->shouldBe('https://foo.com');
     }
 
-    public function it_is_initializable()
-    {
-        $this->shouldHaveType(Login::class);
+    public function it_return_a_symfony_redirection_in_case_of_exception(
+        CasInterface $cas,
+        Security $security,
+    ) {
+        $request = new ServerRequest('GET', '/');
+
+        $cas
+            ->login($request)
+            ->willThrow(new Exception('Unable to login'));
+
+        $response = $this->__invoke($request, $cas, $security);
+        $response->shouldBeAnInstanceOf(RedirectResponse::class);
+        $response->headers->get('location')->shouldBe('/');
     }
 }

@@ -11,11 +11,12 @@ declare(strict_types=1);
 
 namespace spec\EcPhp\CasBundle\Security;
 
-use EcPhp\CasBundle\Cas\SymfonyCas;
-use EcPhp\CasBundle\Cas\SymfonyCasInterface;
 use EcPhp\CasBundle\Security\CasAuthenticator;
+use EcPhp\CasBundle\Security\Core\User\CasUser;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
+use EcPhp\CasBundle\Security\Core\User\CasUserProviderInterface;
 use EcPhp\CasLib\Cas;
+use EcPhp\CasLib\Contract\CasInterface;
 use EcPhp\CasLib\Response\CasResponseBuilder;
 use EcPhp\CasLib\Response\Factory\AuthenticationFailureFactory;
 use EcPhp\CasLib\Response\Factory\ProxyFactory;
@@ -23,11 +24,12 @@ use EcPhp\CasLib\Response\Factory\ProxyFailureFactory;
 use EcPhp\CasLib\Response\Factory\ServiceValidateFactory;
 use loophp\psr17\Psr17;
 use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
+use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,74 +53,68 @@ class CasAuthenticatorSpec extends ObjectBehavior
     }
 
     public function it_can_check_if_authentication_is_supported_when_url_contains_a_ticket(
-        SymfonyCasInterface $cas,
+        CasInterface $cas,
+        CasUserProviderInterface $casUserProvider,
+        HttpMessageFactoryInterface $httpMessageFactory,
+        HttpFoundationFactoryInterface $httpFoundationFactory
     ) {
-        $requestOk = Request::create('http://app/?ticket=ticket');
+        $request = Request::create('http://app/?ticket=ticket');
+        $psrRequest = $this->getHttpMessageFactory()->createRequest($request);
+
+        $httpMessageFactory
+            ->createRequest($request)
+            ->willReturn($psrRequest);
 
         $cas
-            ->supportAuthentication($requestOk)
+            ->supportAuthentication($psrRequest)
             ->willReturn(true);
 
-        $psr17Factory = new Psr17Factory();
-
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
+        $this->beConstructedWith(
+            $cas,
+            $casUserProvider,
+            $httpFoundationFactory,
+            $httpMessageFactory
         );
-
-        $casResponseBuilder = new CasResponseBuilder(
-            new AuthenticationFailureFactory(),
-            new ProxyFactory(),
-            new ProxyFailureFactory(),
-            new ServiceValidateFactory()
-        );
-
-        $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
-
-        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
-            ->supports($requestOk)
+            ->supports($request)
             ->shouldReturn(true);
     }
 
     public function it_can_check_if_authentication_is_supported_when_url_does_not_contains_a_ticket(
-        SymfonyCasInterface $cas,
+        CasInterface $cas,
+        CasUserProviderInterface $casUserProvider,
+        HttpMessageFactoryInterface $httpMessageFactory,
+        HttpFoundationFactoryInterface $httpFoundationFactory
     ) {
-        $requestNotOk = Request::create('http://app');
+        $request = Request::create('http://app');
+        $psrRequest = $this->getHttpMessageFactory()->createRequest($request);
+
+        $httpMessageFactory
+            ->createRequest($request)
+            ->willReturn($psrRequest);
+
         $cas
-            ->supportAuthentication($requestNotOk)
+            ->supportAuthentication($psrRequest)
             ->willReturn(false);
 
-        $psr17Factory = new Psr17Factory();
-
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
+        $this->beConstructedWith(
+            $cas,
+            $casUserProvider,
+            $httpFoundationFactory,
+            $httpMessageFactory
         );
-
-        $casResponseBuilder = new CasResponseBuilder(
-            new AuthenticationFailureFactory(),
-            new ProxyFactory(),
-            new ProxyFailureFactory(),
-            new ServiceValidateFactory()
-        );
-
-        $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
-
-        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
-            ->supports($requestNotOk)
+            ->supports($request)
             ->shouldReturn(false);
     }
 
     public function it_can_check_the_credentials_when_service_and_ticket_parameters_are_available(
-        SymfonyCasInterface $cas,
+        CasInterface $cas,
+        CasUserProviderInterface $casUserProvider,
+        HttpMessageFactoryInterface $httpMessageFactory,
+        HttpFoundationFactoryInterface $httpFoundationFactory
     ) {
         $responseBody = [
             'serviceResponse' => [
@@ -129,35 +125,40 @@ class CasAuthenticatorSpec extends ObjectBehavior
         ];
 
         $request = Request::create('https://foo?service=service&ticket=ticket');
-        $response = new Response(200, ['Content-Type' => 'application/json'], json_encode($responseBody));
+        $response = new JsonResponse($responseBody);
+        $psrResponse = $this->getHttpMessageFactory()->createResponse($response);
+        $psrRequest = $this->getHttpMessageFactory()->createRequest($request);
 
-        $cas
-            ->authenticate($request)
-            ->willReturn($responseBody);
+        $httpMessageFactory
+            ->createRequest($request)
+            ->willReturn($psrRequest);
 
-        $cas
-            ->requestTicketValidation($request)
+        $httpMessageFactory
+            ->createResponse($response)
+            ->willReturn($psrResponse);
+
+        $httpFoundationFactory
+            ->createResponse($psrResponse)
             ->willReturn($response);
 
-        $psr17Factory = new Psr17Factory();
+        $casUserProvider
+            ->loadUserByResponse($response)
+            ->willReturn(new CasUser(['user' => 'user']));
 
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
+        $cas
+            ->requestTicketValidation($psrRequest)
+            ->willReturn($psrResponse);
+
+        $cas
+            ->authenticate($psrRequest)
+            ->willReturn($responseBody);
+
+        $this->beConstructedWith(
+            $cas,
+            $casUserProvider,
+            $httpFoundationFactory,
+            $httpMessageFactory
         );
-
-        $casResponseBuilder = new CasResponseBuilder(
-            new AuthenticationFailureFactory(),
-            new ProxyFactory(),
-            new ProxyFailureFactory(),
-            new ServiceValidateFactory()
-        );
-
-        $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
-
-        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
             ->authenticate($request)
@@ -192,7 +193,10 @@ class CasAuthenticatorSpec extends ObjectBehavior
     // }
 
     public function it_can_get_the_user_from_the_response(
-        SymfonyCasInterface $cas
+        CasInterface $cas,
+        CasUserProviderInterface $casUserProvider,
+        HttpMessageFactoryInterface $httpMessageFactory,
+        HttpFoundationFactoryInterface $httpFoundationFactory
     ) {
         $responseBody = [
             'serviceResponse' => [
@@ -203,38 +207,43 @@ class CasAuthenticatorSpec extends ObjectBehavior
         ];
 
         $request = Request::create('https://foo?service=service&ticket=ticket');
-        $response = new Response(200, ['Content-Type' => 'application/json'], json_encode($responseBody));
+        $response = new JsonResponse($responseBody);
+        $psrResponse = $this->getHttpMessageFactory()->createResponse($response);
+        $psrRequest = $this->getHttpMessageFactory()->createRequest($request);
+
+        $httpMessageFactory
+            ->createRequest($request)
+            ->willReturn($psrRequest);
+
+        $httpMessageFactory
+            ->createResponse($response)
+            ->willReturn($psrResponse);
+
+        $httpFoundationFactory
+            ->createResponse($psrResponse)
+            ->willReturn($response);
+
+        $cas
+            ->requestTicketValidation($psrRequest)
+            ->willReturn($psrResponse);
 
         $cas
             ->authenticate($request)
             ->willReturn($responseBody);
 
-        $cas
-            ->requestTicketValidation($request)
-            ->willReturn($response);
+        $casUserProvider
+            ->loadUserByResponse($response)
+            ->willReturn(new CasUser(['user' => 'user']));
 
-        $psr17Factory = new Psr17Factory();
-
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
+        $this->beConstructedWith(
+            $cas,
+            $casUserProvider,
+            $httpFoundationFactory,
+            $httpMessageFactory
         );
 
-        $casResponseBuilder = new CasResponseBuilder(
-            new AuthenticationFailureFactory(),
-            new ProxyFactory(),
-            new ProxyFailureFactory(),
-            new ServiceValidateFactory()
-        );
+        $passport = $this->authenticate($request);
 
-        $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
-
-        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
-
-        $passport = $this
-            ->authenticate($request);
         $passport
             ->shouldBeAnInstanceOf(Passport::class);
         $passport
@@ -289,37 +298,42 @@ class CasAuthenticatorSpec extends ObjectBehavior
     }
 
     public function it_cannot_check_the_credentials_when_ticket_is_missing(
-        SymfonyCasInterface $cas,
+        CasInterface $cas,
+        CasUserProviderInterface $casUserProvider,
+        HttpMessageFactoryInterface $httpMessageFactory,
+        HttpFoundationFactoryInterface $httpFoundationFactory
     ) {
         $request = Request::create('https://foo?service=service');
+        $response = new JsonResponse();
+        $psrResponse = $this->getHttpMessageFactory()->createResponse($response);
+        $psrRequest = $this->getHttpMessageFactory()->createRequest($request);
+
+        $httpMessageFactory
+            ->createRequest($request)
+            ->willReturn($psrRequest);
+
+        $httpMessageFactory
+            ->createResponse($response)
+            ->willReturn($psrResponse);
+
+        $httpFoundationFactory
+            ->createResponse($psrResponse)
+            ->willReturn($response);
 
         $cas
-            ->authenticate($request)
+            ->authenticate($psrRequest)
             ->willThrow(AuthenticationException::class);
 
         $cas
-            ->requestTicketValidation($request)
+            ->requestTicketValidation($psrRequest)
             ->willThrow(AuthenticationException::class);
 
-        $psr17Factory = new Psr17Factory();
-
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
+        $this->beConstructedWith(
+            $cas,
+            $casUserProvider,
+            $httpFoundationFactory,
+            $httpMessageFactory
         );
-
-        $casResponseBuilder = new CasResponseBuilder(
-            new AuthenticationFailureFactory(),
-            new ProxyFactory(),
-            new ProxyFailureFactory(),
-            new ServiceValidateFactory()
-        );
-
-        $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
-
-        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
 
         $this
             ->shouldThrow(AuthenticationException::class)
@@ -353,12 +367,14 @@ class CasAuthenticatorSpec extends ObjectBehavior
 
         $psr17Factory = new Psr17Factory();
 
-        $psrHttpMessageFactory = new PsrHttpFactory(
+        $httpMessageFactory = new PsrHttpFactory(
             $psr17Factory,
             $psr17Factory,
             $psr17Factory,
             $psr17Factory
         );
+
+        $httpFoundationMessageFactory = new HttpFoundationFactory();
 
         $casResponseBuilder = new CasResponseBuilder(
             new AuthenticationFailureFactory(),
@@ -367,12 +383,17 @@ class CasAuthenticatorSpec extends ObjectBehavior
             new ServiceValidateFactory()
         );
 
-        $casUserProvider = new CasUserProvider($casResponseBuilder, $psrHttpMessageFactory);
+        $casUserProvider = new CasUserProvider($casResponseBuilder, $httpMessageFactory);
 
-        $this->beConstructedWith($cas, $casUserProvider, new HttpFoundationFactory());
+        $this->beConstructedWith(
+            $cas,
+            $casUserProvider,
+            $httpFoundationMessageFactory,
+            $httpMessageFactory
+        );
     }
 
-    private function getCas(): SymfonyCasInterface
+    private function getCas(): CasInterface
     {
         $properties = \spec\EcPhp\CasBundle\Cas::getTestProperties();
         $client = new Psr18Client(\spec\EcPhp\CasBundle\Cas::getHttpClientMock());
@@ -387,22 +408,25 @@ class CasAuthenticatorSpec extends ObjectBehavior
             new ServiceValidateFactory()
         );
 
-        $psrHttpMessageFactory = new PsrHttpFactory(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory
-        );
-
-        return new SymfonyCas(
+        return
             new Cas(
                 $properties,
                 $client,
                 $psr17,
                 $cache,
                 $casResponseBuilder
-            ),
-            $psrHttpMessageFactory
+            );
+    }
+
+    private function getHttpMessageFactory(): HttpMessageFactoryInterface
+    {
+        $psr17Factory = new Psr17Factory();
+
+        return new PsrHttpFactory(
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory,
+            $psr17Factory
         );
     }
 }

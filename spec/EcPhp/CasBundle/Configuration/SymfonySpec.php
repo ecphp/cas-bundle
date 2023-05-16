@@ -26,7 +26,7 @@ class SymfonySpec extends ObjectBehavior
 
     public function it_replace_symfony_routes_into_proper_urls(RouterInterface $router)
     {
-        $testProperties = Cas::getTestProperties()->all();
+        $testProperties = Cas::getTestProperties()->jsonSerialize();
 
         $properties = [
             'cas' => $testProperties,
@@ -74,14 +74,14 @@ class SymfonySpec extends ObjectBehavior
         );
 
         $this
-            ->all()
+            ->jsonSerialize()
             ->shouldReturn($updatedProperties);
     }
 
     public function let(RouterInterface $router)
     {
         $properties = [
-            'cas' => Cas::getTestProperties()->all(),
+            'cas' => Cas::getTestProperties()->jsonSerialize(),
         ];
 
         $parameterBag = new ParameterBag($properties);

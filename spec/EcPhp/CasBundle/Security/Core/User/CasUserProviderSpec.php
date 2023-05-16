@@ -14,15 +14,14 @@ namespace spec\EcPhp\CasBundle\Security\Core\User;
 use EcPhp\CasBundle\Security\Core\User\CasUser;
 use EcPhp\CasBundle\Security\Core\User\CasUserInterface;
 use EcPhp\CasBundle\Security\Core\User\CasUserProvider;
-use EcPhp\CasLib\Response\CasResponseBuilder;
-use EcPhp\CasLib\Response\Factory\AuthenticationFailureFactory;
-use EcPhp\CasLib\Response\Factory\ProxyFactory;
-use EcPhp\CasLib\Response\Factory\ProxyFailureFactory;
-use EcPhp\CasLib\Response\Factory\ServiceValidateFactory;
+use EcPhp\CasLib\Contract\Response\CasResponseBuilderInterface;
+use EcPhp\CasLib\Response\Type\AuthenticationFailure;
+use EcPhp\CasLib\Response\Type\ServiceValidate;
 use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
+use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\InMemoryUser;
@@ -48,8 +47,10 @@ class CasUserProviderSpec extends ObjectBehavior
             ->shouldReturn(false);
     }
 
-    public function it_can_load_a_user_with_a_response()
-    {
+    public function it_can_load_a_user_with_a_response(
+        CasResponseBuilderInterface $casResponseBuilder,
+        HttpMessageFactoryInterface $httpMessageFactory
+    ) {
         $body = <<< 'EOF'
             <cas:serviceResponse xmlns:cas="http://www.yale.edu/tp/cas">
              <cas:authenticationSuccess>
@@ -58,7 +59,21 @@ class CasUserProviderSpec extends ObjectBehavior
             </cas:serviceResponse>
             EOF;
 
-        $response = new Response(200, ['content-type' => 'application/xml'], $body);
+        $response = new HttpFoundationResponse($body, 200, ['content-type' => 'application/xml']);
+        $psrResponse = $this->getHttpMessageFactory()->createResponse($response);
+
+        $httpMessageFactory
+            ->createResponse($response)
+            ->willReturn($psrResponse);
+
+        $casResponseBuilder
+            ->fromResponse($psrResponse)
+            ->willReturn(new ServiceValidate($psrResponse));
+
+        $this->beConstructedWith(
+            $casResponseBuilder,
+            $httpMessageFactory
+        );
 
         $this
             ->loadUserByResponse($response)
@@ -71,7 +86,17 @@ class CasUserProviderSpec extends ObjectBehavior
             </cas:serviceResponse>
             EOF;
 
-        $response = new Response(200, ['content-type' => 'application/xml'], $body);
+        $response = new HttpFoundationResponse($body, 200, ['content-type' => 'application/xml']);
+
+        $psrResponse = $this->getHttpMessageFactory()->createResponse($response);
+
+        $httpMessageFactory
+            ->createResponse($response)
+            ->willReturn($psrResponse);
+
+        $casResponseBuilder
+            ->fromResponse($psrResponse)
+            ->willReturn(new AuthenticationFailure($psrResponse));
 
         $this
             ->shouldThrow(AuthenticationException::class)
@@ -98,24 +123,25 @@ class CasUserProviderSpec extends ObjectBehavior
         $this->shouldHaveType(CasUserProvider::class);
     }
 
-    public function let()
-    {
-        $casResponseBuilder = new CasResponseBuilder(
-            new AuthenticationFailureFactory(),
-            new ProxyFactory(),
-            new ProxyFailureFactory(),
-            new ServiceValidateFactory()
+    public function let(
+        CasResponseBuilderInterface $casResponseBuilder,
+        HttpMessageFactoryInterface $psrHttpFactory
+    ) {
+        $this->beConstructedWith(
+            $casResponseBuilder,
+            $psrHttpFactory
         );
+    }
 
+    private function getHttpMessageFactory(): HttpMessageFactoryInterface
+    {
         $psr17Factory = new Psr17Factory();
 
-        $psrHttpFactory = new PsrHttpFactory(
+        return new PsrHttpFactory(
             $psr17Factory,
             $psr17Factory,
             $psr17Factory,
             $psr17Factory
         );
-
-        $this->beConstructedWith($casResponseBuilder, $psrHttpFactory);
     }
 }
