@@ -10,7 +10,6 @@
 /.gitignore export-ignore
 /.prettierignore export-ignore
 /.prettierrc export-ignore
-/.scrutinizer.yml export-ignore
 /CHANGELOG.md export-ignore
 /docker-compose.yaml export-ignore
 /grumphp.yml.dist export-ignore

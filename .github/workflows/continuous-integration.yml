@@ -48,9 +48,3 @@ jobs:
               env:
                   PHP_CS_FIXER_IGNORE_ENV: 1
               run: vendor/bin/grumphp run
-
-            - name: Send Scrutinizer data
-              run: |
-                  composer require scrutinizer/ocular --dev
-                  vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/coverage/clover.xml
-              continue-on-error: true
