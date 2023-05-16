@@ -1,5 +1,4 @@
 /.github export-ignore
-/docker export-ignore
 /docs export-ignore
 /spec export-ignore
 /tests export-ignore
@@ -11,7 +10,6 @@
 /.prettierignore export-ignore
 /.prettierrc export-ignore
 /CHANGELOG.md export-ignore
-/docker-compose.yaml export-ignore
 /grumphp.yml.dist export-ignore
 /infection.json.dist export-ignore
 /LICENSE export-ignore
