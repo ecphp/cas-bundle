@@ -11,9 +11,8 @@ declare(strict_types=1);
 
 namespace EcPhp\CasBundle\Configuration;
 
-use EcPhp\CasLib\Configuration\Properties as PsrCasConfiguration;
+use EcPhp\CasLib\Configuration\Properties as CasProperties;
 use EcPhp\CasLib\Contract\Configuration\PropertiesInterface;
-use ReturnTypeWillChange;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -22,47 +21,22 @@ use const FILTER_VALIDATE_URL;
 
 final class Symfony implements PropertiesInterface
 {
-    private readonly PropertiesInterface $cas;
+    private PropertiesInterface $properties;
 
     public function __construct(
         ParameterBagInterface $parameterBag,
         private readonly RouterInterface $router
     ) {
-        $this->cas = new PsrCasConfiguration(
+        $this->properties = new CasProperties(
             $this->routeToUrl(
                 $parameterBag->get('cas')
             )
         );
     }
 
-    public function all(): array
+    public function jsonSerialize(): array
     {
-        return $this->cas->all();
-    }
-
-    #[ReturnTypeWillChange]
-    public function offsetExists(mixed $offset): bool
-    {
-        return $this->cas->offsetExists($offset);
-    }
-
-    /**
-     * @return array<string, mixed>|mixed
-     */
-    #[ReturnTypeWillChange]
-    public function offsetGet(mixed $offset)
-    {
-        return $this->cas->offsetGet($offset);
-    }
-
-    public function offsetSet(mixed $offset, mixed $value): void
-    {
-        $this->cas->offsetSet($offset, $value);
-    }
-
-    public function offsetUnset(mixed $offset): void
-    {
-        $this->cas->offsetUnset($offset);
+        return $this->properties->jsonSerialize();
     }
 
     /**
