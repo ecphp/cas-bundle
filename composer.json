@@ -22,6 +22,7 @@
     },
     "require-dev": {
         "ext-pcov": "*",
+        "ext-xsl": "*",
         "ecphp/php-conventions": "^1",
         "friends-of-phpspec/phpspec-code-coverage": "^6",
         "infection/infection": "^0.26",
@@ -34,7 +35,8 @@
         "symfony/dependency-injection": "^6.1",
         "symfony/http-client": "^6.1",
         "symfony/routing": "^6.1",
-        "symfony/security-bundle": "^6.1"
+        "symfony/security-bundle": "^6.1",
+        "veewee/xml": "^2.6"
     },
     "suggest": {
         "loophp/unaltered-psr-http-message-bridge-bundle": "A drop-in replacement for symfony/psr-http-message-bridge, that does not alter query parameters.",
@@ -42,7 +44,8 @@
         "nyholm/psr7-server": "For a PSR-7 implementation of Server Requests.",
         "symfony/cache": "For a cache implementation (PSR-6).",
         "symfony/http-client": "For an HTTP client implementation (PSR-18).",
-        "symfony/monolog-bundle": "For a logger implementation (PSR-3)."
+        "symfony/monolog-bundle": "For a logger implementation (PSR-3).",
+        "veewee/xml": "If you plan to use CAS XML response, you must require this package."
     },
     "autoload": {
         "psr-4": {
