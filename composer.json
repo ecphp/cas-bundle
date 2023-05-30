@@ -28,7 +28,7 @@
         "infection/infection": "^0.27",
         "infection/phpspec-adapter": "^0.2",
         "loophp/unaltered-psr-http-message-bridge-bundle": "^2.0",
-        "nyholm/psr7": "^1.2",
+        "nyholm/psr7": "^1.8",
         "phpspec/phpspec": "^7",
         "phpstan/phpstan-symfony": "^1.1",
         "symfony/cache": "^6.1",
