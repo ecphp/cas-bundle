@@ -9,7 +9,7 @@ Hereunder an example of configuration for CAS Bundle.
 
 .. code:: yaml
 
-   base_url: https://heroku-cas-server.herokuapp.com/cas
+   base_url: https://casserver.herokuapp.com/cas
    protocol:
      login:
        path: /login
