@@ -5,7 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.5](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.5.5)
+## [3.0.0](https://github.com/ecphp/cas-bundle/compare/2.5.5...3.0.0)
+
+### Merged
+
+- Update demo casserver URL [`#88`](https://github.com/ecphp/cas-bundle/pull/88)
+- Fix link in documentation [`#89`](https://github.com/ecphp/cas-bundle/pull/89)
+- chore(deps): Bump cachix/install-nix-action from 22 to 23 [`#91`](https://github.com/ecphp/cas-bundle/pull/91)
+- chore(deps): Bump actions/checkout from 3 to 4 [`#90`](https://github.com/ecphp/cas-bundle/pull/90)
+- chore(deps): Bump cachix/install-nix-action from 20 to 22 [`#87`](https://github.com/ecphp/cas-bundle/pull/87)
+- chore(deps): Bump cachix/install-nix-action from 19 to 20 [`#79`](https://github.com/ecphp/cas-bundle/pull/79)
+
+### Commits
+
+- **Breaking change:** refactor: replace Properties::all() with `Properties::jsonSerialize()`. [`4fbc54b`](https://github.com/ecphp/cas-bundle/commit/4fbc54bd950e0075e57a613ad1a7f293a3be1e1c)
+- ci: bump github actions [`383349c`](https://github.com/ecphp/cas-bundle/commit/383349ca67426a68f68bc3d5a3bd6b109913d95c)
+- fix link to Contributing page [`132d60f`](https://github.com/ecphp/cas-bundle/commit/132d60ff22d5dd2e6beee8bb1eaf30b4d4595b93)
+- chore: bump versions [`4e11280`](https://github.com/ecphp/cas-bundle/commit/4e11280098962ebed8fec1d9d9d844c6621bd3e5)
+- chore: bump versions [`f29ffa8`](https://github.com/ecphp/cas-bundle/commit/f29ffa80eee4553a8e7ea6d6274f32fe44d6afd2)
+- chore: remove obsolete docker files [`ee907ae`](https://github.com/ecphp/cas-bundle/commit/ee907aec56e78092f17c5c5e263fb6322467b3c4)
+- chore: get rid of scrutinizer [`a50176a`](https://github.com/ecphp/cas-bundle/commit/a50176aaf0846842c2de9bffb677bc8094d08e1c)
+- tests: rewrite tests based on upstream `ecphp/cas-lib` developments. [`12fa217`](https://github.com/ecphp/cas-bundle/commit/12fa21760dccf1f7ee7377626ab449ca487a0acc)
+- chore: add a note about CAS XML response [`f72e757`](https://github.com/ecphp/cas-bundle/commit/f72e757244dd2c6369ba793139e06a310b47b6cd)
+- refactor: update User creation internals [`467d44a`](https://github.com/ecphp/cas-bundle/commit/467d44aee87cc487944a161c6df9c371d57aa820)
+- refactor: remove `Symfony*` Cas classes [`13e30e6`](https://github.com/ecphp/cas-bundle/commit/13e30e61ef7f29e0268b3e4722273c9acb208287)
+- docs: update `Installation` documentation [`fa17ff4`](https://github.com/ecphp/cas-bundle/commit/fa17ff498a07e79923a34a52cd165f133f0f2eb6)
+- tests: fix tests [`1dc9838`](https://github.com/ecphp/cas-bundle/commit/1dc9838f3eb6d6d4a2d0ce63efeb0e7706db628f)
+- remove `CasEntryPoint` class [`87109f6`](https://github.com/ecphp/cas-bundle/commit/87109f69144aa07a2be907cc866b5e9f6e38f295)
+- fix: update `start` method [`a6ac146`](https://github.com/ecphp/cas-bundle/commit/a6ac146bbbdf9dc89d5ed1c9a6284655fc3d1a3f)
+- fix: use the Authenticator as entry point [`4b4d065`](https://github.com/ecphp/cas-bundle/commit/4b4d065506673c12324e718ffe114d7059e117ae)
+- docs: Update changelog. [`e6dae46`](https://github.com/ecphp/cas-bundle/commit/e6dae463bac062699b72946fe174e4a726589f15)
+- feat: add a CAS Authentication Entry Point [`1cd8abb`](https://github.com/ecphp/cas-bundle/commit/1cd8abb2d4e8000e87a3c6af04cded22db299b22)
+- tests: update tests for `ecphp/cas-lib` 2 [`77e96a0`](https://github.com/ecphp/cas-bundle/commit/77e96a0dcc4a4b266d70acf39bb1bc292213bcb3)
+- refactor: update codebase for `ecphp/cas-lib` 2 [`4bbff5f`](https://github.com/ecphp/cas-bundle/commit/4bbff5fba7cc3a3dac9d312f78dd463d2c24dd25)
+- chore: upgrade to `ecphp/cas-lib` [`94758a7`](https://github.com/ecphp/cas-bundle/commit/94758a7551fe562dc0eddcb65804931613b23eb8)
+
+## [2.5.5](https://github.com/ecphp/cas-bundle/compare/2.5.4...2.5.5) - 2023-03-01
 
 ### Merged
 
@@ -13,11 +48,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- feat: add a CAS Authentication Entry Point [`1cd8abb`](https://github.com/ecphp/cas-bundle/commit/1cd8abb2d4e8000e87a3c6af04cded22db299b22)
+- docs: Update changelog. [`7422f89`](https://github.com/ecphp/cas-bundle/commit/7422f89fca32dc990a831be41fa9dbb56bbec57c)
+- fix: update `start` method [`e09e56c`](https://github.com/ecphp/cas-bundle/commit/e09e56c724a150e6661ae9de1deddb0dde0f4e82)
+- fix: use the Authenticator as entry point [`50d5eee`](https://github.com/ecphp/cas-bundle/commit/50d5eee76fc5fcf56e9e635c8474279d700e5a9f)
 - chore: minor static files update [`9b7039a`](https://github.com/ecphp/cas-bundle/commit/9b7039a13037311e27b1fd5dc2663882f26e0430)
-- tests: update tests for `ecphp/cas-lib` 2 [`77e96a0`](https://github.com/ecphp/cas-bundle/commit/77e96a0dcc4a4b266d70acf39bb1bc292213bcb3)
-- refactor: update codebase for `ecphp/cas-lib` 2 [`4bbff5f`](https://github.com/ecphp/cas-bundle/commit/4bbff5fba7cc3a3dac9d312f78dd463d2c24dd25)
-- chore: upgrade to `ecphp/cas-lib` [`94758a7`](https://github.com/ecphp/cas-bundle/commit/94758a7551fe562dc0eddcb65804931613b23eb8)
 - ci: add environment variable for PHP CS Fixer [`ede0450`](https://github.com/ecphp/cas-bundle/commit/ede04504a289bab9c6783e1bcc3e1285b4c79b57)
 - docs: update `README` badge [`973f4c9`](https://github.com/ecphp/cas-bundle/commit/973f4c925adf87c46cdb0a37f18053cdabf0876f)
 - chore: update `LICENSE` file [`fe745ca`](https://github.com/ecphp/cas-bundle/commit/fe745ca357db4f383e80a691a52c5d3f8dea4054)
@@ -61,7 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: Update changelog. [`3cd5f67`](https://github.com/ecphp/cas-bundle/commit/3cd5f673ebf1631c6178c0c7f069769739d8a576)
 - fix: Add missing dependency. [`faca74c`](https://github.com/ecphp/cas-bundle/commit/faca74c08aa2eabdc5aa37868f721b8a0ab4d6da)
 
-## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.3...2.5.0) - 2022-08-25
+## [2.5.0](https://github.com/ecphp/cas-bundle/compare/2.4.5...2.5.0) - 2022-08-25
 
 ### Merged
 
@@ -70,6 +104,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - docs: Update changelog. [`90756cb`](https://github.com/ecphp/cas-bundle/commit/90756cbce051f0a7b5aa7b42b65487b8a02792f1)
+
+## [2.4.5](https://github.com/ecphp/cas-bundle/compare/2.4.4...2.4.5) - 2023-03-01
+
+### Commits
+
+- docs: Update changelog. [`1e5b00c`](https://github.com/ecphp/cas-bundle/commit/1e5b00c30a5380f4015012e50db57bd7f8760afe)
+- fix: update `start` method [`f3ebf70`](https://github.com/ecphp/cas-bundle/commit/f3ebf709c137d77f4087d79d3bae00378eb9d07d)
+
+## [2.4.4](https://github.com/ecphp/cas-bundle/compare/2.4.3...2.4.4) - 2023-02-28
+
+### Commits
+
+- docs: update changelog [`b7c5f89`](https://github.com/ecphp/cas-bundle/commit/b7c5f89c68e37abb0a9a85ffebe83180e27ecf14)
+- fix: use the Authenticator as entry point [`d60de33`](https://github.com/ecphp/cas-bundle/commit/d60de336b33d97991ccda3bfd8ab24995b36abd9)
 
 ## [2.4.3](https://github.com/ecphp/cas-bundle/compare/2.4.2...2.4.3) - 2023-02-28
 
