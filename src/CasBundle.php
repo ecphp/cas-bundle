@@ -13,6 +13,4 @@ namespace EcPhp\CasBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class CasBundle extends Bundle
-{
-}
+final class CasBundle extends Bundle {}

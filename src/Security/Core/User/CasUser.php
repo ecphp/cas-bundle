@@ -18,17 +18,14 @@ final class CasUser implements CasUserInterface, Stringable
 {
     public function __construct(
         private readonly array $payload
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {
         return (string) $this->get('user');
     }
 
-    public function eraseCredentials(): void
-    {
-    }
+    public function eraseCredentials(): void {}
 
     public function get(string $key, mixed $default = null): mixed
     {

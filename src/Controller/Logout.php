@@ -26,7 +26,7 @@ final class Logout
         CasInterface $cas,
         Security $security,
         TokenStorageInterface $tokenStorage
-    ): ResponseInterface|RedirectResponse {
+    ): RedirectResponse|ResponseInterface {
         try {
             $response = $cas->logout($request);
         } catch (Throwable $e) {

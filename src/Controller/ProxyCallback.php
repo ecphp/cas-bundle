@@ -22,7 +22,7 @@ final class ProxyCallback
     public function __invoke(
         ServerRequestInterface $request,
         CasInterface $cas
-    ): ResponseInterface|Response {
+    ): Response|ResponseInterface {
         try {
             $response = $cas->handleProxyCallback($request);
         } catch (Throwable) {

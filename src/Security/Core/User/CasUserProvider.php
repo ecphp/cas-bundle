@@ -26,8 +26,7 @@ final class CasUserProvider implements CasUserProviderInterface
     public function __construct(
         private readonly CasResponseBuilderInterface $casResponseBuilder,
         private readonly HttpMessageFactoryInterface $httpMessageFactory
-    ) {
-    }
+    ) {}
 
     public function loadUserByIdentifier($identifier): UserInterface
     {

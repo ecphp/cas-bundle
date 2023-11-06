@@ -37,8 +37,7 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
         private readonly CasUserProviderInterface $userProvider,
         private readonly HttpFoundationFactoryInterface $httpFoundationFactory,
         private readonly HttpMessageFactoryInterface $httpMessageFactory
-    ) {
-    }
+    ) {}
 
     public function authenticate(Request $request): Passport
     {
