@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.0](https://github.com/ecphp/cas-bundle/compare/2.5.5...3.0.0)
+## [3.0.1](https://github.com/ecphp/cas-bundle/compare/3.0.0...3.0.1)
+
+### Commits
+
+- cs: autofix coding standards [`22d2b03`](https://github.com/ecphp/cas-bundle/commit/22d2b03be12d9c5a1bf4910b60cc74d541c9a33b)
+- chore: set `min_covered_msi` to `89` [`babf036`](https://github.com/ecphp/cas-bundle/commit/babf036df0f9c390cbfe2fd7ee73ac27ce061068)
+
+## [3.0.0](https://github.com/ecphp/cas-bundle/compare/2.5.5...3.0.0) - 2023-11-06
 
 ### Merged
 
@@ -19,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - **Breaking change:** refactor: replace Properties::all() with `Properties::jsonSerialize()`. [`4fbc54b`](https://github.com/ecphp/cas-bundle/commit/4fbc54bd950e0075e57a613ad1a7f293a3be1e1c)
+- docs: update changelog [`adc77e6`](https://github.com/ecphp/cas-bundle/commit/adc77e6f42b904a47af3ed87ebe465ad6b51621a)
 - ci: bump github actions [`383349c`](https://github.com/ecphp/cas-bundle/commit/383349ca67426a68f68bc3d5a3bd6b109913d95c)
 - fix link to Contributing page [`132d60f`](https://github.com/ecphp/cas-bundle/commit/132d60ff22d5dd2e6beee8bb1eaf30b4d4595b93)
 - chore: bump versions [`4e11280`](https://github.com/ecphp/cas-bundle/commit/4e11280098962ebed8fec1d9d9d844c6621bd3e5)
