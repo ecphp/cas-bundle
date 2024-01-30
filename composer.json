@@ -36,7 +36,7 @@
         "symfony/http-client": "^6.1",
         "symfony/routing": "^6.1",
         "symfony/security-bundle": "^6.1",
-        "veewee/xml": "^2.6"
+        "veewee/xml": "^3.1"
     },
     "suggest": {
         "loophp/unaltered-psr-http-message-bridge-bundle": "A drop-in replacement for symfony/psr-http-message-bridge, that does not alter query parameters.",
