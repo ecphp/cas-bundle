@@ -1,5 +1,5 @@
 {
-    "name": "studioah/cas-bundle",
+    "name": "ecphp/cas-bundle",
     "description": "A bundle for Symfony, providing authentication against a Central Authentication Service (CAS) server.",
     "license": "BSD-3-Clause",
     "type": "symfony-bundle",
