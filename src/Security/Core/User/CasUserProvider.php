@@ -21,6 +21,8 @@ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Throwable;
 
+use function sprintf;
+
 final class CasUserProvider implements CasUserProviderInterface
 {
     public function __construct(
@@ -28,7 +30,7 @@ final class CasUserProvider implements CasUserProviderInterface
         private readonly HttpMessageFactoryInterface $httpMessageFactory
     ) {}
 
-    public function loadUserByIdentifier($identifier): UserInterface
+    public function loadUserByIdentifier(string $identifier): UserInterface
     {
         throw new UnsupportedUserException('Unsupported operation.');
     }
