@@ -17,7 +17,7 @@
         "ecphp/cas-lib": "^3",
         "loophp/psr-http-message-bridge-bundle": "^1.0",
         "psr/http-client": "^1.0",
-        "psr/http-message": "^1.0",
+        "psr/http-message": "^2.0",
         "symfony/framework-bundle": "^6.1 || ^7.0"
     },
     "require-dev": {
