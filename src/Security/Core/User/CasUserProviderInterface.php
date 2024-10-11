@@ -14,6 +14,9 @@ namespace EcPhp\CasBundle\Security\Core\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ * @template-extends UserProviderInterface<CasUserInterface>
+ */
 interface CasUserProviderInterface extends UserProviderInterface
 {
     public function loadUserByResponse(Response $response): CasUserInterface;
