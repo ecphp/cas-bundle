@@ -5,10 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.1](https://github.com/ecphp/cas-bundle/compare/3.0.0...3.0.1)
+## [3.0.2](https://github.com/ecphp/cas-bundle/compare/3.0.1...3.0.2)
+
+### Merged
+
+- chore: maintenance - compatibility with Symfony 7 - minor fixes [`#100`](https://github.com/ecphp/cas-bundle/pull/100)
+- chore(deps): Bump ramsey/composer-install from 2 to 3 [`#99`](https://github.com/ecphp/cas-bundle/pull/99)
+- Update composer.json for SF7 [`#98`](https://github.com/ecphp/cas-bundle/pull/98)
 
 ### Commits
 
+- fix, chore: maintenance [`5920cff`](https://github.com/ecphp/cas-bundle/commit/5920cff699d54f72425be219d1c71f3abc3cdee8)
+- chore: update license [`dce898f`](https://github.com/ecphp/cas-bundle/commit/dce898faa163ad721a2315146932b7b7143ece4e)
+- chore: update default PHP version for development [`67e3ccb`](https://github.com/ecphp/cas-bundle/commit/67e3ccb13a9be021f2e48350758ba88787912f71)
+- Update composer.json [`1eb68eb`](https://github.com/ecphp/cas-bundle/commit/1eb68eb2fc32adac5090f174b97fe36ccbd91472)
+- Update composer.json [`7e63d26`](https://github.com/ecphp/cas-bundle/commit/7e63d26271f5c80f107d80da0616636117589630)
+- Update composer.json [`d30f253`](https://github.com/ecphp/cas-bundle/commit/d30f253e21a442a04b9af9142ff3bf9ae790797e)
+- Update composer.json [`ad187cc`](https://github.com/ecphp/cas-bundle/commit/ad187cc5fcb42f1b024ef91475ca1ea96db3ae3b)
+- Update composer.json [`8e9f898`](https://github.com/ecphp/cas-bundle/commit/8e9f8981fe115beb47761e2eff762e089179f913)
+- chore: add `.readthedocs.yml` config [`ad7747d`](https://github.com/ecphp/cas-bundle/commit/ad7747d68d0d22ec345b114f38b995d698c29dd9)
+
+## [3.0.1](https://github.com/ecphp/cas-bundle/compare/3.0.0...3.0.1) - 2023-11-06
+
+### Commits
+
+- docs: update changelog [`cab9dae`](https://github.com/ecphp/cas-bundle/commit/cab9daea94802e0a09466cb3b62e0075b5a3559b)
 - cs: autofix coding standards [`22d2b03`](https://github.com/ecphp/cas-bundle/commit/22d2b03be12d9c5a1bf4910b60cc74d541c9a33b)
 - chore: set `min_covered_msi` to `89` [`babf036`](https://github.com/ecphp/cas-bundle/commit/babf036df0f9c390cbfe2fd7ee73ac27ce061068)
 
