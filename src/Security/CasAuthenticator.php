@@ -80,8 +80,13 @@ final class CasAuthenticator extends AbstractAuthenticator implements Authentica
         return new RedirectResponse($request->getUri());
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        // let the request through if it is an ajax request
+        if (true === $request->isXmlHttpRequest()) {
+            return null;
+        }
+
         $request->query->remove('ticket');
         $request->query->remove('renew');
 
