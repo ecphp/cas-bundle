@@ -25,8 +25,6 @@ final class CasUser implements CasUserInterface, Stringable
         return (string) $this->get('user');
     }
 
-    public function eraseCredentials(): void {}
-
     public function get(string $key, mixed $default = null): mixed
     {
         return $this->payload[$key] ?? $default;
