@@ -17,7 +17,6 @@ use Exception;
 use Nyholm\Psr7\ServerRequest;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -30,19 +29,17 @@ class LogoutSpec extends ObjectBehavior
 
     public function it_redirects_to_index(
         CasInterface $cas,
-        Security $security,
         TokenStorageInterface $tokenStorage
     ) {
         $request = new ServerRequest('GET', '/');
 
-        $response = $this->__invoke($request, $cas, $security, $tokenStorage);
+        $response = $this->__invoke($request, $cas, $tokenStorage);
         $response->shouldBeAnInstanceOf(RedirectResponse::class);
         $response->headers->get('location')->shouldReturn('/');
     }
 
     public function it_return_a_psr_response_in_case_of_success(
         CasInterface $cas,
-        Security $security,
         TokenStorageInterface $tokenStorage,
         ResponseInterface $casResponse,
     ) {
@@ -56,7 +53,7 @@ class LogoutSpec extends ObjectBehavior
             ->getHeaderLine('location')
             ->willReturn('http://local/cas/logout');
 
-        $response = $this->__invoke($request, $cas, $security, $tokenStorage);
+        $response = $this->__invoke($request, $cas, $tokenStorage);
         $response->shouldBeAnInstanceOf(ResponseInterface::class);
         $response->getHeaderLine('location')->shouldBe('http://local/cas/logout');
         $tokenStorage
@@ -66,7 +63,6 @@ class LogoutSpec extends ObjectBehavior
 
     public function it_return_a_symfony_redirection_in_case_of_exception(
         CasInterface $cas,
-        Security $security,
         TokenStorageInterface $tokenStorage
     ) {
         $request = new ServerRequest('GET', '/');
@@ -75,7 +71,7 @@ class LogoutSpec extends ObjectBehavior
             ->logout($request)
             ->willThrow(new Exception('Unable to login'));
 
-        $response = $this->__invoke($request, $cas, $security, $tokenStorage);
+        $response = $this->__invoke($request, $cas, $tokenStorage);
         $response->shouldBeAnInstanceOf(RedirectResponse::class);
         $response->headers->get('location')->shouldBe('/');
     }
