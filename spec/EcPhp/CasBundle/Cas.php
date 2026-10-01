@@ -233,8 +233,7 @@ class Cas extends ObjectBehavior
                 ],
                 'proxy' => [
                     'path' => '/proxy',
-                    'default_parameters' => [
-                    ],
+                    'default_parameters' => [],
                 ],
             ],
         ]);
