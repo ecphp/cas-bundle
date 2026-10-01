@@ -25,6 +25,13 @@ final class CasUser implements CasUserInterface, Stringable
         return (string) $this->get('user');
     }
 
+    /**
+     * `eraseCredentials()` is still required by `UserInterface` on Symfony
+     * 6.4 and 7 (deprecated since 7.3, removed in 8.0). Keeping this empty
+     * method is harmless on Symfony 8, where it's no longer part of the
+     * interface. It can be removed once support for Symfony 6.4 and 7 is
+     * dropped.
+     */
     public function eraseCredentials(): void {}
 
     public function get(string $key, mixed $default = null): mixed
