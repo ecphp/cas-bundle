@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.19.1@e2ca44251c1f1aa2e35452d426895746b47de64e">
+  <file src="src/CasBundle.php">
+    <UnusedClass>
+      <code><![CDATA[CasBundle]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Configuration/Symfony.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function jsonSerialize(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/DependencyInjection/CasExtension.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function load(array $configs, ContainerBuilder $container): void]]></code>
+    </MissingOverrideAttribute>
+    <UnusedClass>
+      <code><![CDATA[CasExtension]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/DependencyInjection/Configuration.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getConfigTreeBuilder(): TreeBuilder]]></code>
+    </MissingOverrideAttribute>
+    <UnusedMethodCall>
+      <code><![CDATA[end]]></code>
+    </UnusedMethodCall>
+  </file>
+  <file src="src/Security/CasAuthenticator.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function authenticate(Request $request): Passport]]></code>
+      <code><![CDATA[public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response]]></code>
+      <code><![CDATA[public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response]]></code>
+      <code><![CDATA[public function start(Request $request, ?AuthenticationException $authException = null): Response]]></code>
+      <code><![CDATA[public function supports(Request $request): bool]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Security/Core/User/CasUser.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __toString(): string]]></code>
+      <code><![CDATA[public function get(string $key, mixed $default = null): mixed]]></code>
+      <code><![CDATA[public function getPayload(): array]]></code>
+      <code><![CDATA[public function getPgt(): ?string]]></code>
+      <code><![CDATA[public function getRoles(): array]]></code>
+      <code><![CDATA[public function getUserIdentifier(): string]]></code>
+      <code><![CDATA[public function isEqualTo(UserInterface $user): bool]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[eraseCredentials]]></code>
+      <code><![CDATA[getPassword]]></code>
+      <code><![CDATA[getSalt]]></code>
+      <code><![CDATA[getUsername]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Security/Core/User/CasUserInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getPayload]]></code>
+      <code><![CDATA[getPgt]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Security/Core/User/CasUserProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function loadUserByIdentifier(string $identifier): UserInterface]]></code>
+      <code><![CDATA[public function loadUserByResponse(Response $response): CasUserInterface]]></code>
+      <code><![CDATA[public function refreshUser(UserInterface $user): UserInterface]]></code>
+      <code><![CDATA[public function supportsClass(string $class): bool]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[loadUserByUsername]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+</files>
